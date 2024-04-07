@@ -1,0 +1,16 @@
+:root {
+  --br0: 1px;
+  --br1: 2px;
+  --br2: 3px;
+  --br3: 4px;
+  --br4: 5px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing:  subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-overflow:           clip !important;
+}
