@@ -1,0 +1,10 @@
+*.tsbuildinfo
+*.js
+*.ts.map
+*.js.map
+*.d.ts
+node_modules
+.idea
+*.key
+dist/
+.env
