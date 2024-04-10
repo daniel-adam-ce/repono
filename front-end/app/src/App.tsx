@@ -1,17 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Text } from './components';
+import { AppProvider } from './providers/app';
+import { AppRoutes } from './routes';
+
 
 function App() {
   return (
-      <div
-        className=""
-      >
-        <p className='text'>test</p>
-        <Text>test</Text>
-      </div>
-  );
+    <AppProvider>
+      <AppRoutes/>
+    </AppProvider>
+  )
 }
 
 export default App;

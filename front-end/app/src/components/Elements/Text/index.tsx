@@ -1,4 +1,4 @@
-import { CX, Styles }                      from "./styles";
+import Styles from "./index.module.scss";
 import * as Types from "./types";
 
 export const Text = (props: any) => {
@@ -7,7 +7,7 @@ export const Text = (props: any) => {
     )
 }
 
-export default Text;
+// export default ;
 
-export { CX, Styles, Types}
+export default { Text, Styles, Types }
 
