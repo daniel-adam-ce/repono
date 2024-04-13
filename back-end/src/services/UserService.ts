@@ -1,4 +1,4 @@
-import User from "../models/User";
+import { User, UserModel } from "../models/User";
 import sql from "../db";
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
@@ -7,7 +7,7 @@ import { StatusCodes } from "http-status-codes";
 class UsersService {
     async getAllUsers(): Promise<User[]> {
         try {
-            return await sql`SELECT * FROM users;`;
+            return await UserModel.findAll();
         } catch (error) {
             console.log(error);
             throw new ApiError("Could not fetch users.");
@@ -15,15 +15,15 @@ class UsersService {
     }
 
     async getUser(id: string): Promise<User> {
-        let user: Array<User>;
+        let user: User;
         try {
-            user = await sql`SELECT * FROM users WHERE id = ${id} LIMIT 1`;
+            user = await UserModel.findById(id);
         } catch (error) {
             console.log(error);
             throw new ApiError("Error fetching user.")
         }
-        if (user.length === 0) throw new ApiError("User not found.", StatusCodes.NOT_FOUND);
-        return user[0];
+        if (!user) throw new ApiError("User not found.", StatusCodes.NOT_FOUND);
+        return user;
     }
 }
 
