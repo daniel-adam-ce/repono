@@ -5,12 +5,12 @@ import { useRoutes } from 'react-router-dom';
 
 import { protectedRoutes } from './protected';
 import { publicRoutes } from './public';
+import { Landing } from '../features/landing';
 
 export const AppRoutes = () => {
 //   const auth = useAuth();
 
-//   const commonRoutes = [{ path: '/', element: <Landing /> }];
-    const commonRoutes = [{path: "/", element: <div>test</div>}];
+    const commonRoutes = [{path: "/", element: <Landing/>}];
 
 //   const routes = auth.user ? protectedRoutes : publicRoutes;
 
