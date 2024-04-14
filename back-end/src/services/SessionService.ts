@@ -1,28 +1,56 @@
-
-import sql from "../db";
 import { ApiError } from "../error";
+import {Credentials} from "google-auth-library";
+import { SessionModel, User, UserModel } from "../models";
 import { StatusCodes } from "http-status-codes";
-import {OAuth2Client} from "google-auth-library";
-import UserService from "./UserService";
-import { UserModel } from "../models";
 
 class SessionService {
-    async createSession(clientId: string) {
-        try {
-            const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-            
-            const ticket = await client.verifyIdToken({idToken: clientId, audience: process.env.GOOGLE_CLIENT_ID})
-            const payload = ticket.getPayload();
-            if (payload.email_verified) {
-                const userInDb = await UserModel.findByEmail(payload.email);
-                if (!userInDb) {
 
-                }
-            }
+    getGoogleOAuthURL() {
+        let authUrl: string;
+        try {
+            authUrl = SessionModel.generateAuthUrl();
         } catch (error) {
             console.log(error);
-            throw new ApiError("Could not fetch users.");
+            throw new ApiError("Could not create OAuth link.");
         }
+        return authUrl;
+    }
+
+    async GoogleOAuthCallback(code: string) {
+        let token: Credentials;
+        try {
+            const googleToken = await SessionModel.getGoogleToken(code);
+            const payload = await SessionModel.validateGoogleToken(googleToken.tokens);
+
+            let user = await UserModel.findByEmail(payload.email);
+
+            if (!user) {
+                console.log("No user found, creating...");
+                user = await UserModel.createUser(payload.email);
+            }
+            
+            token = googleToken.tokens;
+        } catch (error) {
+            throw new ApiError("Could not handle OAuth callback.");
+        }
+
+        return token
+    }
+
+    async validateSession(token: Credentials) {
+        let user: User;
+        try {
+            // TODO: refresh user session if expired
+            const payload = await SessionModel.validateGoogleToken(token);
+
+            user = await UserModel.findByEmail(payload.email);
+
+        } catch (error) {
+            throw new ApiError("Could not validate session.");
+        }
+
+        if (!user) throw new ApiError("User not found.", StatusCodes.UNAUTHORIZED);
+        return user;
     }
 }
 

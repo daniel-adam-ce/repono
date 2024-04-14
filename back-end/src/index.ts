@@ -11,6 +11,7 @@ const startApp = async () => {
     await loaders(app);
 
     const port = process.env.SERVER_PORT;
+
     app.listen( port, () => {
         console.log(`Server started on port ${port}.`);
     })

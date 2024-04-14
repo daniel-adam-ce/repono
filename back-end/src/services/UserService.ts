@@ -1,5 +1,4 @@
 import { User, UserModel } from "../models/User";
-import sql from "../db";
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
 

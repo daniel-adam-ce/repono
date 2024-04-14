@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import UsersService from "../../services/UserService";
+import SessionService from "../../services/SessionService";
 
 const getUsers = async (_req: Request, res: Response, next: NextFunction) => {
     try {

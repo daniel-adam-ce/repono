@@ -1,30 +1,41 @@
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
-
 export const Login = () => {
+
+    const fetchData = async () => {
+        try {
+            
+            window.location = 'http://localhost:5000/api/v1/session/oauth' as string & Location;
+        } catch (error) {
+            
+        }
+    }
+
     return (
-        <div>
+        <div
+            style={{
+                display: "flex",
+                gap: "1rem"
+            }}
+        >
             <div>test</div>
             
-
-            <div
+            <button
                 onClick={() => {
-                    console.log('logout')
-                    googleLogout()
+                    fetchData();
                 }}
                 style={{
                     cursor: "pointer"
                 }}
-            >logout</div>
-            <GoogleLogin
-                onSuccess={(res) => {
-                    console.log(res)
+            >login</button>
+
+            <button
+                onClick={() => {
                 }}
-                onError={() => {
-                    console.log("error")
+                style={{
+                    cursor: "pointer"
                 }}
-            />
+            >logout</button>
         </div>
     );
 };
 
-export default Login;
+export default Login

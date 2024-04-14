@@ -1,4 +1,3 @@
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Suspense } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 // import { ErrorBoundary } from 'react-error-boundary';
@@ -59,7 +58,6 @@ type AppProviderProps = {
 };
 
 export const AppProvider = ({children}: AppProviderProps) => {
-    console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID )
     return (
         <Suspense
             fallback={
@@ -68,15 +66,11 @@ export const AppProvider = ({children}: AppProviderProps) => {
                 </div>
             }
         >
-            <GoogleOAuthProvider
-                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID ?? ""}
-            >
-                <Router>
-                    {
-                        children
-                    }
-                </Router>
-            </GoogleOAuthProvider>
+            <Router>
+                {
+                    children
+                }
+            </Router>
         </Suspense>
     )
 }
