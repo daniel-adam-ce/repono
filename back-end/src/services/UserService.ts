@@ -8,7 +8,6 @@ class UsersService {
         try {
             return await UserModel.findAll();
         } catch (error) {
-            console.log(error);
             throw new ApiError("Could not fetch users.");
         }
     }
@@ -18,7 +17,6 @@ class UsersService {
         try {
             user = await UserModel.findById(id);
         } catch (error) {
-            console.log(error);
             throw new ApiError("Error fetching user.")
         }
         if (!user) throw new ApiError("User not found.", StatusCodes.NOT_FOUND);

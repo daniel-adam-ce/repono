@@ -24,7 +24,6 @@ class UserModelClass {
 
     async createUser(email: string): Promise<User | undefined> {
         return sql<User[]>`INSERT INTO users (id, email) VALUES (DEFAULT, ${email})`.then((res) => {
-            console.log(res);
             return res[0]
         })
     }

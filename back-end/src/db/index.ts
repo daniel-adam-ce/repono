@@ -10,13 +10,11 @@ const user = process.env.PG_USER;
 const password = process.env.PG_PASSWORD;
 const url = `postgres://${user}:${password}@${host}:${port}/${database}`;
 
-const sql = postgres(url, {
-    // ssl: true,
-    // host: "localhost",
-    // port: Number(process.env.PG_PORT),
-    // database: process.env.PG_DATABASE,
-    // username: process.env.PG_USER,
-    // password: process.env.PG_PASSWORD
-})
+const sql = postgres(url)
+
+process.on('exit', () => {
+    console.log("ending");
+    sql.end({timeout: 5})
+});
 
 export default sql;

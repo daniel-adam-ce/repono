@@ -46,7 +46,7 @@ class SessionService {
             user = await UserModel.findByEmail(payload.email);
 
         } catch (error) {
-            throw new ApiError("Could not validate session.");
+            throw new ApiError("Could not validate session.", StatusCodes.UNAUTHORIZED);
         }
 
         if (!user) throw new ApiError("User not found.", StatusCodes.UNAUTHORIZED);

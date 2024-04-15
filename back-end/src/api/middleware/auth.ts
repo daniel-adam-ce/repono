@@ -1,7 +1,4 @@
-import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
-import { StatusCodes } from "http-status-codes";
-import { UserModel } from "../../models";
-import { OAuth2Client } from "google-auth-library";
+import { NextFunction, Request, Response } from "express";
 import SessionService from "../../services/SessionService";
 
 export const validateToken = () => {
@@ -13,10 +10,9 @@ export const validateToken = () => {
 
             res.locals.user = user;
 
-            return next()
+            return next();
         } catch (error) {
-            console.log("Auth failed: ", error)
-            return res.status(StatusCodes.UNAUTHORIZED).send()
+            next(error);
         }
     }
 }

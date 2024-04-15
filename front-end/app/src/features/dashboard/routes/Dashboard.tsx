@@ -10,7 +10,7 @@ export const Dashboard = () => {
   const testCookie = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/v1/users/1",
+        "http://localhost:5000/api/v1/users/10",
         {
           credentials: "include"
         }

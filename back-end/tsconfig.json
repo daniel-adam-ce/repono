@@ -54,7 +54,7 @@
       "strictBindCallApply": true,
       "strictNullChecks": false,
       "traceResolution": false,
-      "outDir": "./dist"
+      "outDir": "./dist",
   },
   "ts-node": {
       "swc": true,

@@ -1,20 +1,18 @@
 
 import dotenv from "dotenv";
-import express from "express"
-import loaders from "./loaders";
+import { createApp } from "./utils";
+import sql from "./db";
 
 dotenv.config({path: "./src/.env"});
 
-const startApp = async () => {
-    const app = express();
+const app = createApp();
 
-    await loaders(app);
+const port = process.env.SERVER_PORT;
 
-    const port = process.env.SERVER_PORT;
+const server = app.listen( port, () => {
+    console.log(`Server started on port ${port}.`);
+})
 
-    app.listen( port, () => {
-        console.log(`Server started on port ${port}.`);
-    })
-}
-
-startApp();
+server.on("close", () => {
+    sql.end();
+})
