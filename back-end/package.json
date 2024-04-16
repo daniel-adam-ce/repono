@@ -8,7 +8,11 @@
         "compile": "tsc --watch",
         "clean": "tsc --build --clean",
         "start-deprecated": "nodemon.cmd ./dist/src/index.js",
-        "start": "tsc-watch --onSuccess \"node ./dist/src/index.js\""
+        "start": "tsc-watch --onSuccess \"node ./dist/src/index.js\"",
+        "migrate-dev-up": "db-migrate up --config ./src/db/config/database.json -e dev -m ./src/db/migrations/",
+        "migrate-dev-down": "db-migrate down --config ./src/db/config/database.json -e dev -m ./src/db/migrations/",
+        "migrate-test-up": "db-migrate up --config ./src/db/config/database.json -e test -m ./src/db/migrations/",
+        "migrate-test-down": "db-migrate down --config ./src/db/config/database.json -e test -m ./src/db/migrations/"
     },
     "author": "",
     "license": "ISC",
