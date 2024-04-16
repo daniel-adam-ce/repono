@@ -1,5 +1,4 @@
-import sql from "../../db";
-import { User } from "../../models";
+import { User, db } from "../../db";
 import UserService from "../../services/UserService";
 
 
@@ -28,5 +27,5 @@ describe("get user by id", () => {
 })
 
 afterAll(() => {
-    sql.end({timeout:5 });
+    db.destroy();
 })

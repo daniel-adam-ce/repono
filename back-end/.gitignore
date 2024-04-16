@@ -9,3 +9,5 @@ node_modules
 dist/
 .env
 keys.json
+src/db/config
+!src/db/migrations/*.js

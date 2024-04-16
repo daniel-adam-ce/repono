@@ -1,13 +1,16 @@
-import { User, UserModel } from "../models/User";
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
+import { User } from "../db";
+import { UserRepository } from "../models";
 
 
 class UsersService {
     async getAllUsers(): Promise<User[]> {
         try {
-            return await UserModel.findAll();
+            console.log('adsfas');
+            return await UserRepository.findAll();
         } catch (error) {
+            console.log(error);
             throw new ApiError("Could not fetch users.");
         }
     }
@@ -15,7 +18,7 @@ class UsersService {
     async getUser(id: string): Promise<User> {
         let user: User;
         try {
-            user = await UserModel.findById(id);
+            user = await UserRepository.findById(parseInt(id));
         } catch (error) {
             throw new ApiError("Error fetching user.")
         }

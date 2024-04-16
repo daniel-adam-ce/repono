@@ -2,7 +2,7 @@ import { Credentials, OAuth2Client } from "google-auth-library";
 import { GetTokenResponse } from "google-auth-library/build/src/auth/oauth2client";
 
 
-class SessionModelClass {
+class SessionModel {
     private redirectURI: string;
     private googleClient: OAuth2Client;
 
@@ -49,4 +49,4 @@ class SessionModelClass {
     }
 }
 
-export const SessionModel = new SessionModelClass();
+export const SessionRepository = new SessionModel();

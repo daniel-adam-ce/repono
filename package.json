@@ -1,8 +1,13 @@
 {
+  "scripts": {
+    "start-web": "npm run --prefix ./front-end/app start",
+    "start-server": "npm run --prefix ./back-end start"
+  },
   "devDependencies": {
     "typescript": "^5.4.4"
   },
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "tsc-watch": "^6.2.0"
   }
 }

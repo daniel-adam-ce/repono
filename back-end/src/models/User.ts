@@ -1,32 +1,41 @@
-import sql from "../db";
+import { NewUser, Tables, User, UserUpdate, db } from "../db";
 
-export interface User {
-    readonly id: number,
-    readonly email: string,
+class UserModel {
+
+    async findById(id: number): Promise<User> {
+        return await db.selectFrom(Tables.users)
+          .where('id', '=', id)
+          .selectAll()
+          .executeTakeFirst()
+    }
+
+    async findByEmail(email: string): Promise<User> {
+        return await db.selectFrom(Tables.users)
+            .where("email", "=", email)
+            .selectAll()
+            .executeTakeFirst()
+    }
+
+    async findAll(): Promise<Array<User>> {
+        return await db.selectFrom(Tables.users).selectAll().execute();
+    }
+
+    async updatePerson(id: number, updateWith: UserUpdate) {
+        await db.updateTable(Tables.users).set(updateWith).where('id', '=', id).execute()
+    }
+    
+    async createUser(person: NewUser) {
+        return await db.insertInto(Tables.users)
+            .values(person)
+            .returningAll()
+            .executeTakeFirstOrThrow()
+    }
+    
+    async deletePerson(id: number) {
+        return await db.deleteFrom(Tables.users).where('id', '=', id)
+            .returningAll()
+            .executeTakeFirst()
+    }
 }
 
-class UserModelClass {
-    async findById(id: number | string): Promise<User | undefined> {
-        return sql<User[]>`SELECT * FROM users WHERE id = ${id} LIMIT 1`.then((res) => {
-            return res[0]
-        });
-    }
-
-    async findByEmail(email: string): Promise<User | undefined> {
-        return sql<User[]>`SELECT * FROM users WHERE email = ${email} LIMIT 1`.then((res) => {
-            return res[0]
-        });
-    }
-
-    async findAll(): Promise<User[]> {
-        return sql<User[]>`SELECT * FROM users`;
-    }
-
-    async createUser(email: string): Promise<User | undefined> {
-        return sql<User[]>`INSERT INTO users (id, email) VALUES (DEFAULT, ${email})`.then((res) => {
-            return res[0]
-        })
-    }
-}
-
-export const UserModel = new UserModelClass()
+export const UserRepository = new UserModel();
