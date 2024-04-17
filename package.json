@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start-web": "npm run --prefix ./front-end/app start",
-    "start-server": "npm run --prefix ./back-end start"
+    "start-api": "npm run --prefix ./back-end start"
   },
   "devDependencies": {
     "typescript": "^5.4.4"
