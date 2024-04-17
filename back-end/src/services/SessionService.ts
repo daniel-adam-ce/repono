@@ -27,12 +27,12 @@ class SessionService {
 
             if (!user) {
                 console.log("No user found, creating...");
-                user = await UserRepository.createUser(payload.email);
+                user = await UserRepository.createUser({email: payload.email});
             }
             
             token = googleToken.tokens;
         } catch (error) {
-            throw new ApiError("Could not handle OAuth callback.");
+            throw new ApiError("Could not handle OAuth callback.", {error});
         }
 
         return token
@@ -47,10 +47,10 @@ class SessionService {
             user = await UserRepository.findByEmail(payload.email);
 
         } catch (error) {
-            throw new ApiError("Could not validate session.", StatusCodes.UNAUTHORIZED);
+            throw new ApiError("Could not validate session.", {error, httpStatusCode: StatusCodes.UNAUTHORIZED});
         }
 
-        if (!user) throw new ApiError("User not found.", StatusCodes.UNAUTHORIZED);
+        if (!user) throw new ApiError("User not found.", {httpStatusCode: StatusCodes.UNAUTHORIZED});
         return user;
     }
 }

@@ -28,7 +28,7 @@ import { Database } from './database';
 dotenv.config({path: "./src/.env"});
 
 
-const host = "localhost";
+const host = process.env.PG_HOST;
 const port: number = Number(process.env.PG_PORT);
 const database = process.env.PG_DATABASE;
 const user = process.env.PG_USER;

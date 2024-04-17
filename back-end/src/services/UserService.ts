@@ -7,11 +7,9 @@ import { UserRepository } from "../models";
 class UsersService {
     async getAllUsers(): Promise<User[]> {
         try {
-            console.log('adsfas');
             return await UserRepository.findAll();
         } catch (error) {
-            console.log(error);
-            throw new ApiError("Could not fetch users.");
+            throw new ApiError("Could not fetch users.", {error});
         }
     }
 
@@ -20,9 +18,9 @@ class UsersService {
         try {
             user = await UserRepository.findById(parseInt(id));
         } catch (error) {
-            throw new ApiError("Error fetching user.")
+            throw new ApiError("Error fetching user.", {error})
         }
-        if (!user) throw new ApiError("User not found.", StatusCodes.NOT_FOUND);
+        if (!user) throw new ApiError("User not found.", {httpStatusCode: StatusCodes.NOT_FOUND});
         return user;
     }
 }

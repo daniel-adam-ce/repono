@@ -1,11 +1,11 @@
 import { UserTable } from "./user";
   
 export enum Tables {
-    users = "users",
+    app_users = "app_user",
 }
 
 export interface Database {
-    users: UserTable
+    app_user: UserTable
 }
 
 export * from "./user";
