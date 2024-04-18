@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,55 +8,40 @@ import { useNavigate } from 'react-router-dom';
 export const Dashboard = () => {
   const navigate = useNavigate();
 
-  const testCookie = async () => {
-    try {
-      const res = await fetch(
-        "http://localhost:5000/api/v1/users/10",
-        {
-          credentials: "include"
+  const { data, refetch } = useQuery({
+    queryKey: ['users'],
+    queryFn: async () => {
+        const response = await fetch(
+            "http://localhost:5000/api/v1/users", 
+            {
+                credentials: "include"
+            }
+        )
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
         }
-      )
-      console.log(await res.json());
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const validateSession = async () => {
-    try {
-      const res = await fetch(
-        "http://localhost:5000/api/v1/session",
-        {
-          credentials: "include"
-        }
-      )
-      console.log(await res.json());
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-
-  }, [])
+        return response.json()
+    },
+    enabled: false
+  })
 
   return (
     <div>
-        dashboard
-        <button
-          onClick={() => {
-            testCookie()
-          }}
-        >test</button>
-        <button
-          onClick={() => {
-            validateSession()
-          }}
-        >test2</button>
+      dashboard
+      <button
+        onClick={() => {
+          refetch()
+        }}
+      >test</button>
+      {
+        JSON.stringify(data)
+      }
+      {/* <button
+        onClick={() => {
+          validateSession()
+        }}
+      >test2</button> */}
     </div>
-    // <Layout title="Register your account">
-    //   <RegisterForm onSuccess={() => navigate('/app')} />
-    // </Layout>
   );
 };
 

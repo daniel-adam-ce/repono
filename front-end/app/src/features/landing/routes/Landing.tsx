@@ -1,22 +1,33 @@
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useEndpoints } from '../../../@hooks';
+import { Endpoints } from '../../../@utils/api/endpoints';
 
 // import { Layout } from '../components/Layout';
 // import { RegisterForm } from '../components/RegisterForm';
 
 export const Landing = () => {
   const navigate = useNavigate();
-  const endpoints = useEndpoints();
+  const { data: data, refetch: refetch } = useQuery({
+    queryKey: ['users'],
+    queryFn: async () => {
+      const res = await Endpoints.users.view();
+      return res;
+    },
+    enabled: false,
+    refetchOnMount: false
+  })
 
-  const test = async () => {
-      try {
-        console.log('test')
-        const res = await endpoints.users.view();
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
-  }
+  const { data: data2, refetch: refetch2 } = useQuery({
+    queryKey: ['session'],
+    queryFn: async () => {
+      const res = await Endpoints.session.getSession();
+      return res;
+    },
+    enabled: false,
+    refetchOnMount: false
+  })
+
+  
 
   return (
     <div>
@@ -30,10 +41,22 @@ export const Landing = () => {
       <button
         onClick={ () => {
 
-          test();
+          refetch();
         }
         }
       >test</button>
+
+      {JSON.stringify(data)}
+
+      <button
+        onClick={ () => {
+
+          refetch2();
+        }
+        }
+      >test</button>
+
+      {JSON.stringify(data2)}
     </div>
     // <Layout title="Register your account">
     //   <RegisterForm onSuccess={() => navigate('/app')} />
