@@ -1,16 +1,22 @@
-import { Context, ReactNode, createContext, useCallback, useEffect, useState } from "react"
+import { Context, ReactNode, createContext } from "react"
 import { useQuery } from "@tanstack/react-query";
+import { Endpoints } from "../@utils/api/endpoints";
+import Cookies from "js-cookie";
 
 export type AuthContextType = {
-    authenticated: boolean | null,
-    authenticating: boolean | null,
-    user: any
+    authenticated: boolean,
+    authenticating: boolean,
+    user: any,
+    houses: Array<any>,
+    logout: Function ,
 };
 
 export const AuthContext: Context<AuthContextType> = createContext<AuthContextType>({
-    authenticated: null,
-    authenticating: null,
-    user: null
+    authenticated: false,
+    authenticating: false,
+    user: {},
+    houses: [],
+    logout: () => {},
 })
 
 interface AuthProviderProps {
@@ -18,56 +24,27 @@ interface AuthProviderProps {
 }
 
 
-
 export const AuthProvider = (props: AuthProviderProps) => {
-    const [authenticated, setAuthenticated] = useState<boolean | null>(null);
-    const [authenticating, setAuthenticating] = useState<boolean | null>(null);
-    // const [user, setUser] = useState<any>(null);
-    const user = useQuery({
+    const query = useQuery({
         queryKey: ['session'],
-        queryFn: async () => {
-            const response = await fetch(
-                "http://localhost:5000/api/v1/users", 
-                {
-                    credentials: "include"
-                }
-            )
-            if (!response.ok) {
-              throw new Error('Network response was not ok')
-            }
-            return response.json()
-        },
+        queryFn: Endpoints.session.getSession,
+        refetchOnMount: true
     })
 
-    // const validateSession = useCallback(
-    //     async () => {
-    //         try {
-    //             setAuthenticating(true);
-    //             const res = await endpoints.session.getSession();
-    //             console.log(res);
-    //             setUser(res);
-    //             setAuthenticated(true);
-    //         } catch (error) {
-    //             setAuthenticated(false);
-    //             console.log(error);
-    //         } finally {
-    //             setAuthenticating(false);
-    //         }
-    //     }
-    // , [])
-
-    // useEffect(() => {
-    //     validateSession();
-    // }, [validateSession])
-
-    console.log(user);
+    const logout = () => {
+        Cookies.remove("token");
+        query.refetch();
+        window.location.href = "/login"
+    }
 
     return (
         <AuthContext.Provider
             value={{
-                authenticated,
-                authenticating,
-                user,
+                authenticated: query.status === "success",
+                authenticating: query.status === "pending",
+                user: query.data,
+                houses: [],
+                logout: logout
             }}
             children={props.children}
         />

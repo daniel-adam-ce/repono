@@ -1,0 +1,13 @@
+p.text {
+    font-size: 1rem;
+    color: blue;
+}
+
+div.outer-shell-protected {
+    display: flex;
+    flex-direction: column;
+    div.inner-shell-protected {
+        display: grid;
+        grid-template-columns: 50px auto;
+    }
+}

@@ -1,27 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Endpoints } from '../../../@utils';
+import { AuthContext, AuthContextType } from '../../../providers';
 
 // import { Layout } from '../components/Layout';
 // import { RegisterForm } from '../components/RegisterForm';
 
 export const Dashboard = () => {
   const navigate = useNavigate();
+  const auth = useContext<AuthContextType>(AuthContext);
 
   const { data, refetch } = useQuery({
     queryKey: ['users'],
-    queryFn: async () => {
-        const response = await fetch(
-            "http://localhost:5000/api/v1/users", 
-            {
-                credentials: "include"
-            }
-        )
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
-        }
-        return response.json()
-    },
+    queryFn: Endpoints.users.view,
     enabled: false
   })
 
@@ -36,11 +28,15 @@ export const Dashboard = () => {
       {
         JSON.stringify(data)
       }
-      {/* <button
+      <button
         onClick={() => {
-          validateSession()
+          // document.cookie
+          auth.logout();
         }}
-      >test2</button> */}
+      >logout</button>
+      {
+        JSON.stringify(document.cookie)
+      }
     </div>
   );
 };

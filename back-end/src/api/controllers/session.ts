@@ -18,7 +18,7 @@ const establishSession = async (req: Request, res: Response, next: NextFunction)
     try {
         const token: Credentials = await SessionService.GoogleOAuthCallback(req.query?.code as string);
         const domain = process.env.DOMAIN;
-        res.header("Location", `${process.env.APP_URL}/app/dashboard`);
+        res.header("Location", `${process.env.APP_URL}`);
         res.cookie(
             "token",
             token, 

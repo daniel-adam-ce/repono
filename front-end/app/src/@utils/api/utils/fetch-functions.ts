@@ -1,16 +1,16 @@
 import { useEffect, useMemo } from "react";
 
 export function generateAPIBaseURL(endpoint: string): string {
-	// const url = process.env?.["REACT_APP_ENVIRONMENT"]?.toLowerCase() === "development" ? "http://localhost:5000" : "https://" + process.env["REACT_APP_API_URL"];
+    // const url = process.env?.["REACT_APP_ENVIRONMENT"]?.toLowerCase() === "development" ? "http://localhost:5000" : "https://" + process.env["REACT_APP_API_URL"];
     // console.log(url);
     const url = "http://localhost:5000/api/v1/";
-	return url + (endpoint[0] !== "/" ? "/" : "") + endpoint;
+    return url + (endpoint[0] !== "/" ? "/" : "") + endpoint;
 }
 
 type FetchFunctionParams = {
-    url: string, 
+    url: string,
     options?: {
-        init?: RequestInit, 
+        init?: RequestInit,
         controller?: AbortController
     }
 }
@@ -19,9 +19,9 @@ export type FetchFunction = <D>({ url, options }: FetchFunctionParams) => Promis
 
 
 
-export function fetchFunction (method: string) {
+export function fetchFunction(method: string) {
 
-    async function generatedFetchFunction<D>({url, options}: FetchFunctionParams): Promise<D> {
+    async function generatedFetchFunction<D>({ url, options }: FetchFunctionParams): Promise<D> {
         try {
             // return fetch(
             //     generateAPIBaseURL(url),
@@ -50,7 +50,7 @@ export function fetchFunction (method: string) {
             const data = await res.json();
             if (!res.ok) {
                 const errorMessage = data.message ?? "Error fetching data."
-                console.log(`Error: errorMessage`);
+                console.log(`Error: ${errorMessage}`);
                 throw new Error(errorMessage);
             }
             return data;
@@ -58,7 +58,7 @@ export function fetchFunction (method: string) {
             throw error;
         }
     }
-    return generatedFetchFunction; 
+    return generatedFetchFunction;
 }
 
 class FetchFunctionsAPI {

@@ -2,10 +2,6 @@ import { Suspense, lazy } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { lazyImport } from '../@utils';
 
-// const { DiscussionsRoutes } = lazyImport(
-//   () => import('@/features/discussions'),
-//   'DiscussionsRoutes'
-// );
 const { Dashboard } = lazyImport(() => import('../features/dashboard'), 'Dashboard');
 // const { Profile } = lazyImport(() => import('@/features/users'), 'Profile');
 
@@ -13,25 +9,32 @@ const { Dashboard } = lazyImport(() => import('../features/dashboard'), 'Dashboa
 
 const App = () => {
     return (
-        <Suspense
-            fallback={
-                <div>
-                {/* <Spinner size="xl" /> */}
-                suspense 2
-                </div>
-            }
-        >
-            <Outlet />
-        </Suspense>
+        <div>
+            <div>
+
+            </div>
+            <div>
+                <Suspense
+                    fallback={
+                        <div>
+                            {/* <Spinner size="xl" /> */}
+                            suspense 2
+                        </div>
+                    }
+                >
+                    <Outlet />
+                </Suspense>
+            </div>
+        </div>
     );
 };
 
 export const protectedRoutes = [
-  {
-    path: '/app',
-    element: <App />,
-    children: [
-        { path: '/app/dashboard', element: <Dashboard/> },
-    ],
-  },
+    {
+        path: '/',
+        element: <App />,
+        children: [
+            { path: '/', element: <Dashboard /> },
+        ],
+    },
 ];
