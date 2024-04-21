@@ -93,17 +93,7 @@ export const HouseProvider = (props: HouseProviderProps) => {
     const [houseId, dispatch] = useReducer(reducer, parseInt(localStorage.getItem("house") ?? ""));
     const {house} = useHouse({ houseId });
     const {houses} = useHouses();
-
-    // const test = ($houseId?: number) => {
-    //     console.log($houseId);
-    //     setHouseId($houseId);
-    //     if ($houseId === undefined) {
-    //         localStorage.removeItem("house");
-    //     } else {
-    //         localStorage.setItem("house", $houseId.toString());
-    //     }
-    // }
-
+    
     return (
         <HouseContext.Provider
             value={{

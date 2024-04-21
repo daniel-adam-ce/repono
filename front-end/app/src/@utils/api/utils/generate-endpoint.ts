@@ -6,10 +6,10 @@ export interface InitWithParams<P> extends RequestInit {
 
 export type BodylessEndpoint<D, P = {}> = (init?: InitWithParams<P>) => Promise<FetchResponse<D>>
 // : Promise<FetchResponse<D>> 
-export type BodyEndpoint<T, D> = (body: T, init?: RequestInit) => Promise<D | unknown> 
+export type BodyEndpoint<D, B> = (body: B, init?: RequestInit) => Promise<FetchResponse<D>>
 
 export function bodylessEndpoint<D, P = {}>(url: string) {
-    return async (init?: InitWithParams<P>): Promise<FetchResponse<D>> => 
+    return async (init?: InitWithParams<P>): Promise<FetchResponse<D>> =>
         FetchFunctions.get<D>(
             {
                 url: `${url}${init?.pathParams ? `/${init?.pathParams}` : ""}`,
@@ -20,23 +20,18 @@ export function bodylessEndpoint<D, P = {}>(url: string) {
         )
 }
 
-// export function useBodyEndpoint<T, D>(url: string): BodyEndpoint<T, D>  {
-//     return async (body: T, init?: RequestInit): Promise<D | unknown> => {
-//         try {
-//             return FetchFunctions.post(
-//                 url,
-//                 {
-//                     init: {
-//                         ...init,
-//                         body: JSON.stringify(body)
-//                     }
-//                 }
-                
-//             ).then((response: any) => {
-//                 return response.json() as Promise<D>;
-//             });
-//         } catch (error) {
-//             return error
-//         }
-//     };
-// }
+export function bodyEndpoint<D, B>(url: string,): BodyEndpoint<D, B> {
+    return async (body: B, init?: RequestInit): Promise<FetchResponse<D>> => {
+        return FetchFunctions.post(
+            {
+                url,
+                options: {
+                    init: {
+                        ...init,
+                        body: JSON.stringify(body)
+                    }
+                }
+            }
+        )
+    };
+}
