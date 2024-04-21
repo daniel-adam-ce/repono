@@ -3,9 +3,11 @@ import { Dashboard } from './Dashboard';
 
 
 export const DashboardRoutes = () => {
-  return (
+    return (
         <Routes>
-            <Route path="dashboard" element={<Dashboard/>} />
+            <Route path="/test" element={<div>test123</div>} />
+            <Route path="" element={<Dashboard />} />
+            <Route path=":id" element={<Dashboard />} />
         </Routes>
     );
 };

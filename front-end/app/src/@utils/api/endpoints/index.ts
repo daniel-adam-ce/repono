@@ -1,5 +1,6 @@
 import { session } from "./session";
 import { users } from "./users";
+import { house } from "./house";
 
 export class EndpointsClass {
     baseUrl: string;

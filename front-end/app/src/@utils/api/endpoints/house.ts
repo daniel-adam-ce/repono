@@ -2,7 +2,7 @@ import { EndpointsClass } from ".";
 import { BodylessEndpoint, bodylessEndpoint } from "../utils";
 
 
-class UserEndpoints {
+class HouseEndpoints {
     readonly baseUrl: string
     fetchAll: BodylessEndpoint<Array<any>>
     fetch: BodylessEndpoint<any, number>
@@ -15,4 +15,4 @@ class UserEndpoints {
     }
 }
 
-export const users = new UserEndpoints("/users");
+export const house = new HouseEndpoints("/users");

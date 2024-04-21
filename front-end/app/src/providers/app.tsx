@@ -2,9 +2,11 @@ import { Suspense } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from './theme';
+import { HouseProvider } from './house';
 
 type AppProviderProps = {
-  children: React.ReactNode;
+    children: React.ReactNode;
 };
 
 const queryClient = new QueryClient({
@@ -19,7 +21,7 @@ const queryClient = new QueryClient({
     }
 });
 
-export const AppProvider = ({children}: AppProviderProps) => {
+export const AppProvider = ({ children }: AppProviderProps) => {
 
     return (
         <Suspense
@@ -33,15 +35,19 @@ export const AppProvider = ({children}: AppProviderProps) => {
                 client={queryClient}
             >
                 <AuthProvider>
-                    <Router>
-                        {
-                            children
-                        }
-                    </Router>
+                    <ThemeProvider>
+                        <HouseProvider>
+                            <Router>
+                                {
+                                    children
+                                }
+                            </Router>
+                        </HouseProvider>
+                    </ThemeProvider>
                 </AuthProvider>
             </QueryClientProvider>
         </Suspense>
     )
 }
 
-export {}
+export { }

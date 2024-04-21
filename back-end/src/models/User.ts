@@ -4,7 +4,7 @@ class UserModel {
 
     async findById(id: number): Promise<User> {
         return await db.selectFrom(Tables.app_users)
-          .where('id', '=', id)
+          .where('user_id', '=', id)
           .selectAll()
           .executeTakeFirst()
     }
@@ -20,8 +20,8 @@ class UserModel {
         return await db.selectFrom(Tables.app_users).selectAll().execute();
     }
 
-    async updatePerson(id: number, updateWith: UserUpdate) {
-        await db.updateTable(Tables.app_users).set(updateWith).where('id', '=', id).execute()
+    async updateUser(id: number, updateWith: UserUpdate) {
+        await db.updateTable(Tables.app_users).set(updateWith).where('user_id', '=', id).execute()
     }
     
     async createUser(person: NewUser) {
@@ -31,8 +31,8 @@ class UserModel {
             .executeTakeFirstOrThrow()
     }
     
-    async deletePerson(id: number) {
-        return await db.deleteFrom(Tables.app_users).where('id', '=', id)
+    async deleteUser(id: number) {
+        return await db.deleteFrom(Tables.app_users).where('user_id', '=', id)
             .returningAll()
             .executeTakeFirst()
     }

@@ -16,6 +16,7 @@ class UsersService {
     async getUser(id: string): Promise<User> {
         let user: User;
         try {
+            if (!id) throw new Error("ID is required.");
             user = await UserRepository.findById(parseInt(id));
         } catch (error) {
             throw new ApiError("Error fetching user.", {error})

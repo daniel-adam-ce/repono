@@ -23,26 +23,42 @@ interface AuthProviderProps {
     children: ReactNode
 }
 
-
-export const AuthProvider = (props: AuthProviderProps) => {
+const useAuth = () => {
     const query = useQuery({
         queryKey: ['session'],
-        queryFn: Endpoints.session.getSession,
-        refetchOnMount: true
+        queryFn: async () => {
+            const res = await Endpoints.session.getSession();
+            if (!res.ok) {
+                throw new Error("error");
+            }
+            return res.json()
+        },
+        // refetchOnMount: true,
+        retry: false,
+        
     })
+
+    return query;
+}
+
+export const AuthProvider = (props: AuthProviderProps) => {
+    const auth = useAuth();
 
     const logout = () => {
         Cookies.remove("token");
-        query.refetch();
-        window.location.href = "/login"
+        window.location.href = "/login";
+    }
+
+    if (auth.error) {
+        Cookies.remove("token");
     }
 
     return (
         <AuthContext.Provider
             value={{
-                authenticated: query.status === "success",
-                authenticating: query.status === "pending",
-                user: query.data,
+                authenticated: auth.status === "success",
+                authenticating: auth.status === "pending",
+                user: auth.data,
                 houses: [],
                 logout: logout
             }}

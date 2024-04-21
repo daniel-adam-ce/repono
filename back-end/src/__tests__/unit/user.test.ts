@@ -3,9 +3,9 @@ import UserService from "../../services/UserService";
 
 
 const mockUsers = [
-    {id: 1, email: "test@gmail.com"},
-    {id: 2, email: "test2@gmail.com"},
-    {id: 5, email: "danieladamce@gmail.com"},
+    {user_id: 1, email: "test@gmail.com"},
+    {user_id: 2, email: "test2@gmail.com"},
+    {user_id: 5, email: "danieladamce@gmail.com"},
 ]
 
 describe("get users", () => {

@@ -1,13 +1,18 @@
-import { FetchFunctions } from "./fetch-functions";
+import { FetchFunctions, FetchResponse } from "./fetch-functions";
 
-export type BodylessEndpoint<D> = (init?: RequestInit) => Promise<D>
+export interface InitWithParams<P> extends RequestInit {
+    pathParams?: P
+}
+
+export type BodylessEndpoint<D, P = {}> = (init?: InitWithParams<P>) => Promise<FetchResponse<D>>
+// : Promise<FetchResponse<D>> 
 export type BodyEndpoint<T, D> = (body: T, init?: RequestInit) => Promise<D | unknown> 
 
-export function bodylessEndpoint<D>(url: string): BodylessEndpoint<D> {
-    return async (init?: RequestInit): Promise<D> => 
+export function bodylessEndpoint<D, P = {}>(url: string) {
+    return async (init?: InitWithParams<P>): Promise<FetchResponse<D>> => 
         FetchFunctions.get<D>(
             {
-                url,
+                url: `${url}${init?.pathParams ? `/${init?.pathParams}` : ""}`,
                 options: {
                     init
                 }

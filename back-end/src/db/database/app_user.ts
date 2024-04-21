@@ -7,7 +7,7 @@ import {
 } from 'kysely'
   
 export interface UserTable {
-  id: Generated<number>
+  user_id: Generated<number>
   email: string
 }
 export type User = Selectable<UserTable>
