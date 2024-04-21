@@ -1,8 +1,8 @@
 import { ApiError } from "../error";
 import {Credentials} from "google-auth-library";
-import { SessionRepository, UserRepository } from "../models";
+import { SessionRepository, AppUserRepository } from "../models";
 import { StatusCodes } from "http-status-codes";
-import { User } from "../db";
+import { AppUser } from "../db";
 
 class SessionService {
 
@@ -23,11 +23,11 @@ class SessionService {
             const googleToken = await SessionRepository.getGoogleToken(code);
             const payload = await SessionRepository.validateGoogleToken(googleToken.tokens);
 
-            let user = await UserRepository.findByEmail(payload.email);
+            let user = await AppUserRepository.findByEmail(payload.email);
 
             if (!user) {
                 console.log("No user found, creating...");
-                user = await UserRepository.createUser({email: payload.email});
+                user = await AppUserRepository.createAppUser({email: payload.email});
             }
             
             token = googleToken.tokens;
@@ -39,12 +39,12 @@ class SessionService {
     }
 
     async validateSession(token: Credentials) {
-        let user: User;
+        let user: AppUser;
         try {
             // TODO: refresh user session if expired
             const payload = await SessionRepository.validateGoogleToken(token);
 
-            user = await UserRepository.findByEmail(payload.email);
+            user = await AppUserRepository.findByEmail(payload.email);
 
         } catch (error) {
             throw new ApiError("Could not validate session.", {error, httpStatusCode: StatusCodes.UNAUTHORIZED});

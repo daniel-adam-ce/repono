@@ -1,41 +1,41 @@
-import { NewUser, Tables, User, UserUpdate, db } from "../db";
+import { AppUser, AppUserUpdate, NewAppUser, Tables, db } from "../db";
 
-class UserModel {
+class AppUserModel {
 
-    async findById(id: number): Promise<User> {
+    async findById(id: number): Promise<AppUser> {
         return await db.selectFrom(Tables.app_users)
           .where('user_id', '=', id)
           .selectAll()
           .executeTakeFirst()
     }
 
-    async findByEmail(email: string): Promise<User> {
+    async findByEmail(email: string): Promise<AppUser> {
         return await db.selectFrom(Tables.app_users)
             .where("email", "=", email)
             .selectAll()
             .executeTakeFirst()
     }
 
-    async findAll(): Promise<Array<User>> {
+    async findAll(): Promise<Array<AppUser>> {
         return await db.selectFrom(Tables.app_users).selectAll().execute();
     }
 
-    async updateUser(id: number, updateWith: UserUpdate) {
+    async updateAppUser(id: number, updateWith: AppUserUpdate) {
         await db.updateTable(Tables.app_users).set(updateWith).where('user_id', '=', id).execute()
     }
     
-    async createUser(person: NewUser) {
+    async createAppUser(person: NewAppUser) {
         return await db.insertInto(Tables.app_users)
             .values(person)
             .returningAll()
             .executeTakeFirstOrThrow()
     }
     
-    async deleteUser(id: number) {
+    async deleteAppUser(id: number) {
         return await db.deleteFrom(Tables.app_users).where('user_id', '=', id)
             .returningAll()
             .executeTakeFirst()
     }
 }
 
-export const UserRepository = new UserModel();
+export const AppUserRepository = new AppUserModel();

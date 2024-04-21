@@ -1,11 +1,10 @@
-import { UserTable } from "./app_user";
-  
+import { DB } from "kysely-codegen";
+
 export enum Tables {
     app_users = "app_user",
+    house = "house"
 }
 
-export interface Database {
-    app_user: UserTable
-}
-
-export * from "./app_user";
+export { type DB as Database }
+export * from "./user";
+export * from "./house";

@@ -1,23 +1,23 @@
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
-import { User } from "../db";
-import { UserRepository } from "../models";
+import { AppUser } from "../db";
+import { AppUserRepository } from "../models";
 
 
 class UsersService {
-    async getAllUsers(): Promise<User[]> {
+    async getAllUsers(): Promise<AppUser[]> {
         try {
-            return await UserRepository.findAll();
+            return await AppUserRepository.findAll();
         } catch (error) {
             throw new ApiError("Could not fetch users.", {error});
         }
     }
 
-    async getUser(id: string): Promise<User> {
-        let user: User;
+    async getUser(id: string): Promise<AppUser> {
+        let user: AppUser;
         try {
             if (!id) throw new Error("ID is required.");
-            user = await UserRepository.findById(parseInt(id));
+            user = await AppUserRepository.findById(parseInt(id));
         } catch (error) {
             throw new ApiError("Error fetching user.", {error})
         }
