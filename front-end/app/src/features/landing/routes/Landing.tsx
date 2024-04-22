@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Endpoints } from '../../../@utils/api/endpoints';
+
 export const Landing = () => {
   const navigate = useNavigate();
 
@@ -13,9 +13,6 @@ export const Landing = () => {
         }}
       >login</button>
     </div>
-    // <Layout title="Register your account">
-    //   <RegisterForm onSuccess={() => navigate('/app')} />
-    // </Layout>
   );
 };
 

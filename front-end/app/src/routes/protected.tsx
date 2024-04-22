@@ -1,7 +1,7 @@
 import { Suspense, } from 'react';
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import { lazyImport } from '../@utils';
-import { Dashboard } from '../features';
+import { Dashboard, HouseRoutes } from '../features';
 
 // const { Dashboard } = lazyImport(() => import('../features/dashboard'), 'Dashboard');
 const { DashboardRoutes } = lazyImport(() => import('../features/dashboard'), "DashboardRoutes");
@@ -39,6 +39,7 @@ export const protectedRoutes: RouteObject[] = [
             { path: "*", element: <Navigate to="."/>},
             { path: "", element: <Dashboard/> },
             { path: "test/*", element: <DashboardRoutes /> },
+            { path: "house/*", element: <HouseRoutes/> },
             // { path: '/app', element: <DashboardRoutes/> },
         ],
     },

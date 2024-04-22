@@ -49,6 +49,7 @@ export const Dashboard = () => {
                                 style={{
                                     cursor: "pointer"
                                 }}
+                                key={$house.house_id}
                             >
                                 {JSON.stringify($house)}
                             </div>

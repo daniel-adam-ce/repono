@@ -22,7 +22,6 @@ export function bodylessEndpoint<D, P = {}>(url: string) {
 
 export function bodyEndpoint<D, B>(url: string,): BodyEndpoint<D, B> {
     return async (body: B, init?: RequestInit): Promise<FetchResponse<D>> => {
-        console.log(body);
         return FetchFunctions.post(
             {
                 url,
