@@ -1,17 +1,20 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import { Landing } from '../../landing';
+import { useRoomRoutes } from '../../room';
 import { Dashboard } from '../../dashboard';
 
-export const HouseRoutes = () => {
+export const useHouseRoutes = () => {
+    const roomRoutes = useRoomRoutes()
     return (
-        <Routes>
+        <Route path="/house">
             <Route path="" element={<Landing />} />
-            <Route path="/:id">
-                <Route index element={<Dashboard/>}/>
-                <Route path="/:id/rooms" element={<Landing/>}/>
+            <Route path=":id" element={<Dashboard />} >
             </Route>
-        </Routes>
+            {
+                roomRoutes
+            }
+        </Route>
     );
 };
 

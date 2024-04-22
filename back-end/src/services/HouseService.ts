@@ -8,7 +8,6 @@ import { HouseUserRepository } from "../models/HouseUser";
 class HouseService {
     async getAllHouses(): Promise<House[]> {
         try {
-            console.log('test2')
             return await HouseRepository.findAll();
         } catch (error) {
             throw new ApiError("Could not fetch houses.", {error});

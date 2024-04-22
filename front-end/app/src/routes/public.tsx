@@ -1,12 +1,9 @@
 import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
-import { lazyImport } from '../@utils';
-import { Landing } from '../features/landing';
-import Login from '../features/auth/routes/Login';
+import { Navigate, Outlet, Route } from 'react-router-dom';
+import { useAuthRoutes } from '../features/auth';
 
-const { AuthRoutes } = lazyImport(() => import('../features/auth'), "AuthRoutes");
 
-const App = () => {
+export const PublicApp = () => {
     return (
         <div>
             <div>
@@ -28,15 +25,14 @@ const App = () => {
     );
 };
 
-export const publicRoutes = [
-    {
-        path: '/',
-        element: <App />,
-        children: [
-            // { path: "*", element: <div>not found</div> },
-            { path: '', element: <Landing /> },
-            { path: '/login', element: <Login /> },
-            // { path: "", element: <AuthRoutes/> }
-        ],
-    },
-];
+
+export const usePublicRoutes = () => {
+    const authRoutes = useAuthRoutes();
+
+    return (
+        <Route element={<PublicApp />}>
+            { authRoutes }
+            <Route path="*" element={<Navigate to={"/"}/>}/>
+        </Route>
+    )
+}

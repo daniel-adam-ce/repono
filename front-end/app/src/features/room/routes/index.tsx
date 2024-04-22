@@ -1,17 +1,32 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import { Landing } from '../../landing';
 import { Dashboard } from '../../dashboard';
+import { useItemRoutesSingleHouse, useItemRoutesGeneric } from '../../item';
 
-export const HouseRoutes = () => {
+export const useRoomRoutes = () => {
+    const itemRoutesSingleHouse = useItemRoutesSingleHouse()
+    const itemRoutesGeneric = useItemRoutesGeneric();
     return (
-        <Routes>
-            <Route path="" element={<Landing />} />
-            <Route path="/:id">
-                <Route index element={<Dashboard/>}/>
-                <Route path="/:id/rooms" element={<Landing/>}/>
+        <>
+            <Route path="/house/:id/rooms">
+                <Route path="" element={<Landing />} />
+                <Route path=":id" element={<Dashboard />} />
+                { itemRoutesSingleHouse }
             </Route>
-        </Routes>
+            <Route path="/house/rooms">
+                <Route path="" element={<Landing />} />
+                <Route path=":id" element={<Dashboard />} />
+                { itemRoutesGeneric }
+            </Route>
+            {/* <Route path="/house/rooms">
+                <Route path="" element={<Landing />} />
+                <Route path=":id" element={<Dashboard />} />
+                {
+                    itemRoutes
+                }
+            </Route> */}
+        </>
     );
 };
 

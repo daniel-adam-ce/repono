@@ -1,18 +1,38 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import { Landing } from '../../landing';
 import { Dashboard } from '../../dashboard';
 
-export const HouseRoutes = () => {
+export const useItemRoutesSingleHouse = () => {
     return (
-        <Routes>
-            <Route path="" element={<Landing />} />
-            <Route path="/:id">
-                <Route index element={<Dashboard/>}/>
-                <Route path="/:id/rooms" element={<Landing/>}/>
+        <>
+            <Route path="/house/:id/rooms/:id/items">
+                <Route path="" element={<Landing />} />
+                <Route path=":id" element={<Dashboard />} />
             </Route>
-        </Routes>
+            <Route path="/house/:id/rooms/items">
+                <Route path="" element={<Landing />} />
+                <Route path=":id" element={<Dashboard />} />
+            </Route>
+
+        </>
     );
 };
+
+export const useItemRoutesGeneric = () => {
+    return (
+        <>
+            <Route path="/house/rooms/items">
+                <Route path="" element={<Landing />} />
+                <Route path=":id" element={<Dashboard />} />
+            </Route>
+
+            <Route path="/house/rooms/:id/items">
+                <Route path="" element={<Landing />} />
+                <Route path=":id" element={<Dashboard />} />
+            </Route>
+        </>
+    )
+}
 
 // export default AuthRoutes;

@@ -1,15 +1,24 @@
-import { useRoutes } from 'react-router-dom';
-import { protectedRoutes } from './protected';
-import { publicRoutes } from './public';
+import { Route, Routes } from 'react-router-dom';
+import { useProtectedRoutes } from './protected';
+import { usePublicRoutes,  } from './public';
 import { useContext } from 'react';
 import { AuthContext, AuthContextType } from '../providers';
 
 export const AppRoutes = () => {
     const auth = useContext<AuthContextType>(AuthContext);
+    const protectedRoutes = useProtectedRoutes();
+    const publicRoutes = usePublicRoutes();
+    // const element = useRoutes([...routes,]);
 
-
-    const routes = !auth.user ? publicRoutes : protectedRoutes;
-    const element = useRoutes([...routes,]);
-
-    return <>{auth.authenticating ? <div>loading...</div> : element}</>;
+    return (
+        <Routes>
+            {
+                auth.authenticating
+                    ? <Route path={"*"} element={<div>authenticating</div>} />
+                    : auth.authenticated
+                        ? protectedRoutes
+                        : publicRoutes
+            }
+        </Routes>
+    );
 };

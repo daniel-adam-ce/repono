@@ -1,16 +1,14 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { lazy } from 'react';
+import { Route } from 'react-router-dom';
 
-import { Login } from './Login';
-import { Landing } from '../../landing';
+const Login = lazy(() => import('./Login'));
+const Landing = lazy(() => import('../../landing/routes/Landing'));
 
-export const AuthRoutes = () => {
+export const useAuthRoutes = () => {
   return (
-    <Routes>
-      {/* <Route path="*" element={<Navigate to={"/login"}/>}/> */}
+    <>
       <Route path="" element={<Landing />} />
       <Route path="/login" element={<Login />} />
-    </Routes>
+    </>
   );
 };
-
-// export default AuthRoutes;

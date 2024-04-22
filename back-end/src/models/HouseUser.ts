@@ -1,5 +1,5 @@
 import { Model } from ".";
-import { House, HouseUpdate, HouseUser, HouseUserUpdate, NewHouse, NewHouseUser, Tables, db } from "../db";
+import { HouseUser, HouseUserUpdate, NewHouseUser, Tables, db } from "../db";
 
 class HouseUserModel implements Model<HouseUser, NewHouseUser, HouseUserUpdate> {
     public readonly table: Tables.house_user;

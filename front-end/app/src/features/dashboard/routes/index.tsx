@@ -1,15 +1,16 @@
-import { Route, Routes } from 'react-router-dom';
-import { Dashboard } from './Dashboard';
+import { lazy } from 'react';
+import { Route } from 'react-router-dom';
 
+const Dashboard = lazy(() => import('./Dashboard'));
 
-export const DashboardRoutes = () => {
+export const useDashboardRoutes = () => {
     return (
-        <Routes>
-            <Route path="/test" element={<div>test123</div>} />
-            <Route path="" element={<Dashboard />} />
-            <Route path=":id" element={<Dashboard />} />
-        </Routes>
+        <>
+            <Route path="/" element={<Dashboard />} />
+        </>
     );
 };
 
-export { Dashboard };
+export {
+    Dashboard
+}
