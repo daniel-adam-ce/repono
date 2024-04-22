@@ -6,7 +6,7 @@ class HouseEndpoints {
     readonly baseUrl: string
     fetchAll: BodylessEndpoint<Array<any>>
     fetch: BodylessEndpoint<any, number>
-    create: BodyEndpoint<any, any>
+    create: BodyEndpoint<any, {house: any}>
 
     constructor(url: string) {
         // super(url);

@@ -4,7 +4,7 @@ import { createHouse, getHouse, getHouses } from "../../controllers/house";
 
 const route = Router();
 
-const users = (router: Router) => {
+const houses = (router: Router) => {
     router.use("/houses", route);
 
     route.get("/", getHouses);
@@ -12,4 +12,4 @@ const users = (router: Router) => {
     route.post("/", validateToken(), createHouse);
 }
 
-export default users;
+export default houses;

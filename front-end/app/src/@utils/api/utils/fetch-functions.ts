@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useEffect, useMemo } from "react";
 
 export function generateAPIBaseURL(endpoint: string): string {
@@ -38,18 +39,15 @@ export function fetchFunction(method: string) {
                     credentials: options?.init?.credentials ?? "include",
                     method: method,
                     ...(options?.init ?? {}),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     signal: options?.init?.signal ?? options?.controller?.signal,
                 }
             )
-            // const data = await res.json();
-            // console.log(data);
-            // if (!res.ok) {
-            //     const errorMessage = data.message ?? "Error fetching data."
-            //     console.log(`Error: ${errorMessage}`);
-            //     throw new Error(errorMessage);
-            // }
             return res.then(($res) => {
                 if ($res.status === 401 && !$res.url.includes("/session")) {
+                    Cookies.remove("token");
                     window.location.href = "/login";
                 }
                 return $res;

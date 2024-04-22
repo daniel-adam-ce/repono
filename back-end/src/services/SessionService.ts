@@ -27,7 +27,7 @@ class SessionService {
 
             if (!user) {
                 console.log("No user found, creating...");
-                user = await AppUserRepository.createAppUser({email: payload.email});
+                user = await AppUserRepository.createOne({email: payload.email});
             }
             
             token = googleToken.tokens;

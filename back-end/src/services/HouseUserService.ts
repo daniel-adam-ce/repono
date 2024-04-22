@@ -1,7 +1,8 @@
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
-import { House, NewHouse } from "../db";
+import { House, HouseUser, NewHouse } from "../db";
 import { HouseRepository } from "../models";
+import { HouseUserRepository } from "../models/HouseUser";
 
 
 class HouseService {
@@ -28,14 +29,12 @@ class HouseService {
 
     async createHouse(house: any): Promise<House> {
         let newHouse: House;
-        let newHouseUser: House;
+        let newHouseUser: HouseUser;
         try {
-            console.log(house);
             if (!house.house_name) throw new Error("House name is required.");
-            [house] = await Promise.all([
-                HouseRepository.createOne(house),
-                
-            ]);
+            newHouse = await HouseRepository.createOne(house);
+            newHouseUser = await HouseUserRepository.createOne({user_id: newHouse.house_owner, house_id: newHouse.house_id});
+
         } catch (error) {
             throw new ApiError("Error creating house.", {error})
         }

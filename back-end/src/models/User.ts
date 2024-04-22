@@ -1,38 +1,44 @@
+import { Model } from ".";
 import { AppUser, AppUserUpdate, NewAppUser, Tables, db } from "../db";
 
-class AppUserModel {
+class AppUserModel implements Model<AppUser, NewAppUser, AppUserUpdate> {
+    table: Tables.app_users
+    
+    constructor() {
+        this.table = Tables.app_users;
+    }
 
     async findById(id: number): Promise<AppUser> {
-        return await db.selectFrom(Tables.app_users)
+        return await db.selectFrom(this.table)
           .where('user_id', '=', id)
           .selectAll()
           .executeTakeFirst()
     }
 
     async findByEmail(email: string): Promise<AppUser> {
-        return await db.selectFrom(Tables.app_users)
+        return await db.selectFrom(this.table)
             .where("email", "=", email)
             .selectAll()
             .executeTakeFirst()
     }
 
     async findAll(): Promise<Array<AppUser>> {
-        return await db.selectFrom(Tables.app_users).selectAll().execute();
+        return await db.selectFrom(this.table).selectAll().execute();
     }
 
-    async updateAppUser(id: number, updateWith: AppUserUpdate) {
-        await db.updateTable(Tables.app_users).set(updateWith).where('user_id', '=', id).execute()
+    async updateOne(id: number, updateWith: AppUserUpdate) {
+        return await db.updateTable(this.table).set(updateWith).where('user_id', '=', id).returningAll().executeTakeFirst();
     }
     
-    async createAppUser(person: NewAppUser) {
-        return await db.insertInto(Tables.app_users)
+    async createOne(person: NewAppUser) {
+        return await db.insertInto(this.table)
             .values(person)
             .returningAll()
             .executeTakeFirstOrThrow()
     }
     
-    async deleteAppUser(id: number) {
-        return await db.deleteFrom(Tables.app_users).where('user_id', '=', id)
+    async deleteOne(id: number) {
+        return await db.deleteFrom(this.table).where('user_id', '=', id)
             .returningAll()
             .executeTakeFirst()
     }

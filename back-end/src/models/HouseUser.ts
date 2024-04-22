@@ -1,11 +1,11 @@
 import { Model } from ".";
-import { House, HouseUpdate, NewHouse, Tables, db } from "../db";
+import { House, HouseUpdate, HouseUser, HouseUserUpdate, NewHouse, NewHouseUser, Tables, db } from "../db";
 
-class HouseModel implements Model<House, NewHouse, HouseUpdate> {
-    public readonly table: Tables.house;
+class HouseUserModel implements Model<HouseUser, NewHouseUser, HouseUserUpdate> {
+    public readonly table: Tables.house_user;
 
     constructor() {
-        this.table = Tables.house;
+        this.table = Tables.house_user;
     }
 
     async findById(id: number) {
@@ -15,22 +15,15 @@ class HouseModel implements Model<House, NewHouse, HouseUpdate> {
           .executeTakeFirst()
     }
 
-    async findByOwner(id: number): Promise<House> {
-        return await db.selectFrom(this.table)
-            .where("house_owner", "=", id)
-            .selectAll()
-            .executeTakeFirst()
-    }
-
     async findAll() {
         return await db.selectFrom(this.table).selectAll().execute();
     }
 
-    async updateOne(id: number, updateWith: HouseUpdate){
+    async updateOne(id: number, updateWith: HouseUserUpdate){
         return await db.updateTable(this.table).set(updateWith).where('house_id', '=', id).returningAll().executeTakeFirst()
     }
     
-    async createOne(house: NewHouse) {
+    async createOne(house: NewHouseUser) {
         return await db.insertInto(this.table)
             .values(house)
             .returningAll()
@@ -44,4 +37,4 @@ class HouseModel implements Model<House, NewHouse, HouseUpdate> {
     }
 }
 
-export const HouseRepository = new HouseModel();
+export const HouseUserRepository = new HouseUserModel();

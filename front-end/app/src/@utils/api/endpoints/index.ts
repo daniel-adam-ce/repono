@@ -12,5 +12,6 @@ export class EndpointsClass {
 
 export const Endpoints = {
     users,
-    session
+    session,
+    house,
 }

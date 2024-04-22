@@ -29,10 +29,10 @@ const useHouse = ({ houseId }: { houseId?: number }) => {
     const { data, error, ...queryResponse } = useQuery({
         queryKey: ['getHouse', houseId],
         queryFn: async () => {
-            const res = await Endpoints.users.fetch({ pathParams: houseId });
+            const res = await Endpoints.house.fetch({ pathParams: houseId });
              if (!res.ok) {
-                console.log(res);
-                if (res.status === 401) auth.logout();
+                // console.log(res);
+                // if (res.status === 401) auth.logout();
                 // console.log(`Error: ${errorMessage}`);
                 throw new Error((await res.json() as ErrorResponseJSON).message);
             }
@@ -55,10 +55,10 @@ const useHouses = () => {
     const { data, error, ...queryResponse } = useQuery({
         queryKey: ['getHouses'],
         queryFn: async () => {
-            const res = await Endpoints.users.fetchAll();
+            const res = await Endpoints.house.fetchAll();
              if (!res.ok) {
-                console.log(res);
-                if (res.status === 401) auth.logout();
+                // console.log(res);
+                // if (res.status === 401) auth.logout();
                 // console.log(`Error: ${errorMessage}`);
                 throw new Error((await res.json() as any).message);
             }
