@@ -1,0 +1,26 @@
+input.input {
+    border-radius: var(--border-radius);
+    // border: 1px solid transparent;
+    border: none;
+    padding: var(--padding);
+    outline: 1px solid transparent;
+    transition: background-color var(--transition-timing), outline-color var(--transition-timing);
+    min-width: 200px;
+    max-width: 300px;
+}
+
+input.input.light {
+    background-color: var(--c5);
+    // background-color: #f0f0f0;
+    color: var(--black);
+}
+
+input.input.light:focus {
+    // border: 1px solid var(--c4);
+    outline: 1px solid var(--c4);
+    background-color: var(--white);
+}
+
+input.input.light:hover {
+    background-color: var(--gray);
+}

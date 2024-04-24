@@ -1,16 +1,32 @@
 :root {
-  --br0: 1px;
-  --br1: 2px;
-  --br2: 3px;
-  --br3: 4px;
-  --br4: 5px;
+    --br0: 1px;
+    --br1: 2px;
+    --br2: 3px;
+    --br3: 4px;
+    --br4: 5px;
+
+    --c1: #0d1b2a;
+    --c2: #1b263b;
+    --c3: #415a77;
+    --c4: #778da9;
+    --c5: #e0e1dd;
+
+    --white: #ffffff;
+    --black: #1a1a1a;
+    --gray: #f0f0f0;
+
+    --border-radius: 4px;
+    --padding: 0.5rem;
+
+    --transition-timing: 0.15s ease
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-font-smoothing:  subpixel-antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-overflow:           clip !important;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-overflow: clip !important;
+    font-family: "Roboto", sans-serif;
 }

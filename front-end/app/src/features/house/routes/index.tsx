@@ -1,8 +1,8 @@
 import { Route } from 'react-router-dom';
 
-import { Landing } from '../../landing';
 import { useRoomRoutes } from '../../room';
 import { Dashboard } from '../../dashboard';
+import { Landing } from '../../landing';
 
 export const useHouseRoutes = () => {
     const roomRoutes = useRoomRoutes()
