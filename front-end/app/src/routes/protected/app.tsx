@@ -3,6 +3,7 @@ import { Suspense, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Styles from "./index.module.scss";
 import { classCombine } from "@/@utils";
+import { LuBoxes } from "react-icons/lu";
 
 export const ProtectedApp = () => {
     const auth = useContext(AuthContext);
@@ -13,7 +14,15 @@ export const ProtectedApp = () => {
             <div
                 className={Styles.header}
             >
-                header
+                <div>
+                    selector
+                </div>
+                <div
+                    className={Styles["title-wrapper"]}
+                >
+                    <LuBoxes size={24}/>
+                    Repono
+                </div>
                 <button
                     onClick={() => {
                         auth.logout();

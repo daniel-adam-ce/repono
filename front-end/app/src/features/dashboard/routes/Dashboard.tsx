@@ -28,7 +28,13 @@ export const Dashboard = () => {
 
     return (
         <div>
-            <div>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                }}
+            >
                 houses:
                 {
                     house.houses.map(($house) => {
@@ -38,10 +44,21 @@ export const Dashboard = () => {
                                     house.test({type: "set", id: $house.house_id})
                                 }}
                                 style={{
-                                    cursor: "pointer"
+                                    cursor: "pointer",
+                                    backgroundColor: 'skyblue',
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
                                 }}
                                 key={$house.house_id}
                             >
+                                <div
+                                    style={{
+                                        fontSize: "5rem"
+                                    }}
+                                >
+                                    test
+                                </div>
                                 {JSON.stringify($house)}
                             </div>
                         )
