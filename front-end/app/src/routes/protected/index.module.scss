@@ -1,0 +1,25 @@
+
+div.protected-shell {
+    display: grid;
+    grid-template-rows: 50px auto;
+    height: 100vh;
+}
+
+div.header {
+    background-color: grey;
+}
+
+div.content-wrapper {
+    display: grid;
+    grid-template-columns: 50px auto;
+}
+
+div.nav {
+    width: 50px;
+    height: 100%;
+    background-color: blue;
+}
+
+div.content {
+    background-color: red;
+}

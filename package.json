@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start-web": "npm run --prefix ./front-end/app start",
+    "start-web": "npm run --prefix ./front-end/app dev",
     "start-api": "npm run --prefix ./back-end start"
   },
   "devDependencies": {
