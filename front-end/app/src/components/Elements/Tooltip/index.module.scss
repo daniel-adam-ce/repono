@@ -1,0 +1,73 @@
+div.tool-tip-wrapper {
+    position: relative;
+    cursor: pointer;
+
+    --tool-tip-bg: var(--c21);
+    --tool-tip-color: var(--gray);
+
+    div.tool-tip {
+        display: none;
+        // display: flex;
+        position: absolute;
+        left: calc(100% - 8px);
+        top: calc(50% - 15px);
+        z-index: 1000;
+        align-items: center;
+        width: max-content;
+        font-size: 0.75rem;
+        pointer-events: none;
+        opacity: 0;
+
+        div.tool-tip-arrow {
+            width: 10px;
+            height: 4px;
+            border-style: solid;
+            border-width: 6px;
+        }
+
+        div.tool-tip-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6px 20px;
+            border-radius: 4px;
+            color: var(--tool-tip-color);
+            // width: 100%;
+        }
+
+        div.tool-tip-text.light {
+            background: var(--tool-tip-bg);
+        }
+
+        div.tool-tip-arrow.light {
+            border-color: transparent var(--tool-tip-bg) transparent transparent;
+        }
+
+        // div.tool-tip-text.dark {
+        //     background: var(--dark-bg-footer);
+        // }
+        // div.tool-tip-arrow.dark {
+        //     border-color: transparent var(--dark-bg-footer) transparent transparent;
+        // }
+    }
+}
+
+$md: 800px;
+$md2: 801px;
+
+@keyframes slide {
+    100% { 
+        left: calc(100% - 4px);    
+        opacity: 1;
+    }
+}
+
+@media (min-width: $md2) {
+    div.tool-tip-wrapper:hover {
+        div.tool-tip {
+            display: flex;
+            animation: slide 0.15s forwards;
+            // animation-delay: 2s;
+        }
+    }
+}

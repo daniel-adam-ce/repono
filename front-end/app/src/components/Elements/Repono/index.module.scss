@@ -1,0 +1,15 @@
+div.title-wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 0.25rem;
+    margin-left: -32px;
+}
+
+div.title {
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+svg.logo {
+    color: var(--primary-blue);
+}

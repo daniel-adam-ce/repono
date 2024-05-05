@@ -4,7 +4,7 @@ input.input {
     border: none;
     padding: var(--padding);
     outline: 1px solid transparent;
-    transition: background-color var(--transition-timing), outline-color var(--transition-timing);
+    transition: background-color var(--transition-timing-short), outline-color var(--transition-timing-short);
     min-width: 200px;
     max-width: 300px;
 }

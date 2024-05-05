@@ -28,7 +28,7 @@ export const Dashboard = () => {
 
     return (
         <div>
-            <div
+            {/* <div
                 style={{
                     display: "flex",
                     flexDirection: "column",
@@ -64,8 +64,22 @@ export const Dashboard = () => {
                         )
                     })
                 }
+            </div> */}
+            <div
+                style={{
+                    width: "150px",
+                    height: "150px",
+                    backgroundColor: "#FFFFFF",
+                    borderRadius: "4px",
+                    boxShadow: "0px 2px 1px -5px rgba(0,0,0,.2), 0px 1px 1px 0px rgba(0,0,0,.14), 0px 1px 3px 0px rgba(0,0,0,.12)"
+                    
+                    
+                    // backgroundColor: "#000000"
+                }}
+            >
+
             </div>
-            <div>
+            {/* <div>
                 house: 
                 {
                     JSON.stringify(house.house)
@@ -87,7 +101,7 @@ export const Dashboard = () => {
                 >
                     create
                 </button>
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -19,8 +19,12 @@
     --light-blue: #e2ecff;
     --light-blue-2: #fafcff;
     --light-blue-3: #bcd5ff;
+    --light-blue-4: #9ba6ba;
     --primary-blue: #527bff;
 
+
+
+    --c21: #3c3c3f;
 
     --nav-border: var(--light-blue-3);
 
@@ -31,7 +35,9 @@
     --border-radius: 4px;
     --padding: 0.5rem;
 
-    --transition-timing: 0.15s ease
+    --transition-timing-short: 0.15s ease;
+    --transition-timing-med: 0.3s ease;
+    --transition-timing-long: 0.5s ease;
 }
 
 * {
