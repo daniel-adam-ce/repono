@@ -35,7 +35,7 @@ div.content {
 ul.nav-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: center;
     // padding: 1rem;
     padding: 1rem 0rem;
@@ -50,9 +50,15 @@ li.nav-button-container {
 a.nav-button {
     display: block;
     color: var(--light-blue-4);
+    border-radius: var(--border-radius);
     padding: 0.25rem;
     transition: color var(--transition-timing-short);
     text-decoration: none;
+}
+
+.nav-button.active {
+    color: var(--primary-blue);
+    background-color: var(--light-blue-3);
 }
 
 li.nav-button-container.active {

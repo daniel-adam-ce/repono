@@ -1,6 +1,6 @@
 import { AuthContext } from "@/providers";
 import React, { ReactElement, Suspense, cloneElement, useContext, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import Styles from "./index.module.scss";
 import { classCombine } from "@/@utils";
 import { ReponoLogoTitle, ToolTip } from "@/components";
@@ -12,29 +12,29 @@ import { TbHome2, TbHomeStar } from "react-icons/tb";
 interface NavButtonProps {
     icon: React.ReactNode;
     text: string;
-    route?: string;
+    to: string;
 }
 
-const NavButton = ({ icon, text }: NavButtonProps) => {
-    const [temp, setTemp] = useState<boolean>(false);
+const NavButton = ({ icon, text, to }: NavButtonProps) => {
     return (
         <li
-            className={classCombine(Styles["nav-button-container"], temp ? Styles["active"] : "")}
-            onClick={() => {
-                setTemp(!temp);
-            }}
+            className={classCombine(Styles["nav-button-container"])}
         >
             <ToolTip
                 text={text}
             >
 
-                <a
-                    className={classCombine(Styles["nav-button"], temp ? Styles["active"] : "")}
+                <NavLink
+                    to={to}
+                    className={({ isActive }) => {
+                        return classCombine(Styles["nav-button"], isActive ? Styles["active"] : "")
+                    }}
+                    
                 >
                     {
                         cloneElement(icon as ReactElement, { size: 24 })
                     }
-                </a>
+                </NavLink>
             </ToolTip>
         </li>
     )
@@ -58,23 +58,28 @@ const Navbar = (props: { children: React.ReactNode }) => {
 }
 
 const NavbarHouse = () => {
+    const { houseId } = useParams();
     return (
         <Navbar>
             <NavButton
                 icon={<RiDashboard3Line />}
                 text={"Dashboard"}
+                to={`${houseId}/dashboard`}
             />
             <NavButton
                 icon={<LuDoorOpen />}
                 text={"Rooms"}
+                to={`${houseId}/rooms`}
             />
-            <NavButton
+            {/* <NavButton
                 icon={<LuBox />}
                 text={"Items"}
-            />
+                to={"/house/items"}
+            /> */}
             <NavButton
                 icon={<TbHomeStar />}
                 text={"House Settings"}
+                to={`${houseId}/settings`}
             />
         </Navbar>
     )
@@ -86,10 +91,12 @@ const NavbarGlobal = () => {
             <NavButton
                 icon={<TbHome2 />}
                 text={"Houses"}
+                to={"/"}
             />
             <NavButton
                 icon={<LuBox />}
                 text={"Items"}
+                to={"/items"}
             />
         </Navbar>
     )

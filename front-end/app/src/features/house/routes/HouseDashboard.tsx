@@ -1,27 +1,13 @@
-
-// const useHouseMutation = () => {
-//     const queryClient = useQueryClient();
-//     const query = useMutation({
-//         mutationFn: async (newHouse: any) => {
-//             const res = await Endpoints.house.create({house: newHouse});
-
-//             if (!res.ok) {
-//                 throw new Error((await res.json() as any).message);
-//             }
-
-//             queryClient.invalidateQueries({queryKey: ["getHouses"]})
-//             return res.json();
-//         }
-//     })
-
-//     return query;
-// }
+import { HouseContext } from "@/providers/house";
+import { useContext } from "react";
 
 export const Dashboard = () => {
-
+    const houseContext = useContext(HouseContext);
     return (
         <div>
-            test
+            {
+                JSON.stringify(houseContext.house)
+            }
         </div>
     );
 };

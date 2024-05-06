@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Styles from "./index.module.scss";
 import * as Types from "./types";
 import { LuBoxes } from "react-icons/lu";
@@ -24,9 +25,16 @@ export const ReponoTitle = () => {
 }
 
 export const ReponoLogoTitle = () => {
+    const navigate = useNavigate();
     return (
         <div
             className={Styles["title-wrapper"]}
+            onClick={() => {
+                navigate("/")
+            }}
+            style={{
+                cursor: "pointer",
+            }}
         >
             <ReponoLogo/>
             <ReponoTitle/>

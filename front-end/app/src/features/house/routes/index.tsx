@@ -1,4 +1,4 @@
-import { Navigate, Route } from 'react-router-dom';
+import { Navigate, Route, useParams } from 'react-router-dom';
 import { useRoomRoutes } from '../../room';
 import { HouseProvider } from '@/providers/house';
 import { lazy } from 'react';
@@ -14,13 +14,21 @@ const HouseRoutesApp = () => {
 
 const HouseDashboard = lazy(() => import('./HouseDashboard'));
 
+const NavigateFromHouseId = () => {
+    const { houseId } = useParams();
+    return (
+        <Navigate to={`/house/${houseId}/dashboard`}/>
+    )
+}
+
 export const useHouseRoutes = () => {
     const roomRoutes = useRoomRoutes()
     return (
         <Route path="/house" element={<HouseRoutesApp />}>
             <Route path="" element={<Navigate to={"/"}/>} />
-            <Route path=":houseId" element={<HouseDashboard />} >
-            </Route>
+            <Route path=":houseId" element={<NavigateFromHouseId/>} />
+            <Route path=":houseId/dashboard" element={<HouseDashboard />}/>
+            <Route path=":houseId/settings" element={<HouseDashboard />}/>
             {
                 roomRoutes
             }

@@ -39,7 +39,7 @@ export const Dashboard = () => {
                         return (
                             <div
                                 onClick={() => {
-                                    navigate(`/house/${house.house_id}`)
+                                    navigate(`/house/${house.house_id}/dashboard`)
                                 }}
                                 style={{
                                     width: "150px",
