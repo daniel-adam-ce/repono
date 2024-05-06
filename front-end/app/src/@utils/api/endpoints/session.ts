@@ -4,7 +4,7 @@ import { BodylessEndpoint, bodylessEndpoint } from "../utils";
 
 class SessionEndpoints {
     baseUrl: string
-    getSession: BodylessEndpoint<string>
+    getSession: BodylessEndpoint<any>
 
     constructor(url: string) {
         // super(url);

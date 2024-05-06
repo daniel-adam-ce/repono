@@ -36,13 +36,13 @@ export const AppProvider = ({ children }: AppProviderProps) => {
             >
                 <AuthProvider>
                     <ThemeProvider>
-                        <HouseProvider>
+                        {/* <HouseProvider> */}
                             <Router>
                                 {
                                     children
                                 }
                             </Router>
-                        </HouseProvider>
+                        {/* </HouseProvider> */}
                     </ThemeProvider>
                 </AuthProvider>
             </QueryClientProvider>

@@ -6,13 +6,13 @@ import { Dashboard } from '../../dashboard';
 export const useItemRoutesSingleHouse = () => {
     return (
         <>
-            <Route path="/house/:id/rooms/:id/items">
+            <Route path="/house/:houseId/rooms/:roomId/items">
                 <Route path="" element={<Landing />} />
-                <Route path=":id" element={<Dashboard />} />
+                <Route path=":itemId" element={<Dashboard />} />
             </Route>
-            <Route path="/house/:id/rooms/items">
+            <Route path="/house/:houseId/rooms/items">
                 <Route path="" element={<Landing />} />
-                <Route path=":id" element={<Dashboard />} />
+                <Route path=":itemId" element={<Dashboard />} />
             </Route>
 
         </>
@@ -24,12 +24,12 @@ export const useItemRoutesGeneric = () => {
         <>
             <Route path="/house/rooms/items">
                 <Route path="" element={<Landing />} />
-                <Route path=":id" element={<Dashboard />} />
+                <Route path=":itemId" element={<Dashboard />} />
             </Route>
 
             <Route path="/house/rooms/:id/items">
                 <Route path="" element={<Landing />} />
-                <Route path=":id" element={<Dashboard />} />
+                <Route path=":roomId" element={<Dashboard />} />
             </Route>
         </>
     )

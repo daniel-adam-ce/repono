@@ -9,14 +9,14 @@ export const useRoomRoutes = () => {
     const itemRoutesGeneric = useItemRoutesGeneric();
     return (
         <>
-            <Route path="/house/:id/rooms">
+            <Route path="/house/:houseId/rooms">
                 <Route path="" element={<Landing />} />
-                <Route path=":id" element={<Dashboard />} />
+                <Route path=":roomId" element={<Dashboard />} />
                 { itemRoutesSingleHouse }
             </Route>
             <Route path="/house/rooms">
                 <Route path="" element={<Landing />} />
-                <Route path=":id" element={<Dashboard />} />
+                <Route path=":roomId" element={<Dashboard />} />
                 { itemRoutesGeneric }
             </Route>
             {/* <Route path="/house/rooms">

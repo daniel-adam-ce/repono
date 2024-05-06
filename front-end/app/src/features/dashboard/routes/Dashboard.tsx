@@ -2,6 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useContext, useState } from 'react';
 import { Endpoints } from '../../../@utils';
 import { HouseContext, HouseContextType } from '../../../providers/house';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AuthContext } from '@/providers';
 
 const useHouseMutation = () => {
     const queryClient = useQueryClient();
@@ -22,86 +24,44 @@ const useHouseMutation = () => {
 }
 
 export const Dashboard = () => {
-    const house = useContext<HouseContextType>(HouseContext);
-    const createHouse = useHouseMutation();
-    const [newHouse, setNewHouse] = useState<{house_name: string}>({house_name: ""});
+    const auth = useContext(AuthContext);
+    const navigate = useNavigate();
 
     return (
         <div>
-            {/* <div
+            <div
                 style={{
-                    display: "flex",
-                    flexDirection: "column",
+                    display: "grid",
+                    gap: "1rem",
+                    gridTemplateColumns: "repeat(auto-fill, 150px)",
                     alignItems: "center",
                 }}
             >
-                houses:
                 {
-                    house.houses.map(($house) => {
+                    auth.houses.map((house) => {
                         return (
                             <div
                                 onClick={() => {
-                                    house.test({type: "set", id: $house.house_id})
+                                    navigate(`/house/${house.house_id}`)
                                 }}
                                 style={{
-                                    cursor: "pointer",
-                                    backgroundColor: 'skyblue',
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
+                                    width: "150px",
+                                    height: "150px",
+                                    backgroundColor: "#FFFFFF",
+                                    borderRadius: "4px",
+                                    boxShadow: "0px 2px 1px -5px rgba(0,0,0,.2), 0px 1px 1px 0px rgba(0,0,0,.14), 0px 1px 3px 0px rgba(0,0,0,.12)",
+                                    cursor: "pointer"
                                 }}
-                                key={$house.house_id}
+                                key={house.house_id}
                             >
-                                <div
-                                    style={{
-                                        fontSize: "5rem"
-                                    }}
-                                >
-                                    test
-                                </div>
-                                {JSON.stringify($house)}
+                                {
+                                    `${house.house_id}-${house.house_name}`
+                                }
                             </div>
                         )
                     })
                 }
-            </div> */}
-            <div
-                style={{
-                    width: "150px",
-                    height: "150px",
-                    backgroundColor: "#FFFFFF",
-                    borderRadius: "4px",
-                    boxShadow: "0px 2px 1px -5px rgba(0,0,0,.2), 0px 1px 1px 0px rgba(0,0,0,.14), 0px 1px 3px 0px rgba(0,0,0,.12)"
-                    
-                    
-                    // backgroundColor: "#000000"
-                }}
-            >
-
             </div>
-            {/* <div>
-                house: 
-                {
-                    JSON.stringify(house.house)
-                }
-            </div>
-            <br/>
-            <div>
-                <input
-                    placeholder='house name'
-                    value={newHouse.house_name}
-                    onChange={(e) => {
-                        setNewHouse({...newHouse, house_name: e.currentTarget.value})
-                    }}
-                />
-                <button
-                    onClick={() => {
-                        createHouse.mutate(newHouse);
-                    }}
-                >
-                    create
-                </button>
-            </div> */}
         </div>
     );
 };

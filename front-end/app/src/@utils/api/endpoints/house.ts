@@ -5,7 +5,7 @@ import { BodyEndpoint, BodylessEndpoint, bodyEndpoint, bodylessEndpoint } from "
 class HouseEndpoints {
     readonly baseUrl: string
     fetchAll: BodylessEndpoint<Array<any>>
-    fetch: BodylessEndpoint<any, number>
+    fetch: BodylessEndpoint<any, string>
     create: BodyEndpoint<any, {house: any}>
 
     constructor(url: string) {

@@ -13,3 +13,5 @@ export const useProtectedRoutes = () => {
         </Route>
     )
 }
+
+export * from "./app";

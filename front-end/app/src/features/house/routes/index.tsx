@@ -1,15 +1,27 @@
-import { Route } from 'react-router-dom';
-
+import { Navigate, Outlet, Route } from 'react-router-dom';
 import { useRoomRoutes } from '../../room';
-import { Dashboard } from '../../dashboard';
-import { Landing } from '../../landing';
+import { HouseProvider } from '@/providers/house';
+import { lazy } from 'react';
+import { HouseApp } from '@/routes/protected';
+
+const HouseRoutesApp = () => {
+    return (
+        <HouseProvider>
+            <HouseApp/>
+        </HouseProvider>
+    )
+}
+
+
+const HouseDashboard = lazy(() => import('./HouseDashboard'));
+
 
 export const useHouseRoutes = () => {
     const roomRoutes = useRoomRoutes()
     return (
-        <Route path="/house">
-            <Route path="" element={<Landing />} />
-            <Route path=":id" element={<Dashboard />} >
+        <Route path="/house" element={<HouseRoutesApp />}>
+            <Route path="" element={<Navigate to={"/"}/>} />
+            <Route path=":houseId" element={<HouseDashboard />} >
             </Route>
             {
                 roomRoutes
