@@ -6,9 +6,8 @@ import { classCombine } from "@/@utils";
 import { ReponoLogoTitle, ToolTip } from "@/components";
 import { LuBox, LuDoorOpen } from "react-icons/lu";
 import { RiDashboard3Line } from "react-icons/ri";
-import { LiaHomeSolid } from "react-icons/lia";
 import { HouseContext } from "@/providers/house";
-import { TbHome, TbHome2, TbHomeStar } from "react-icons/tb";
+import { TbHome2, TbHomeStar } from "react-icons/tb";
 
 interface NavButtonProps {
     icon: React.ReactNode;
@@ -101,7 +100,6 @@ const Header = () => {
     const auth = useContext(AuthContext);
     const house = useContext(HouseContext);
     const navigate = useNavigate();
-    console.log(house)
     return (
         <header
             className={Styles["nav-header"]}

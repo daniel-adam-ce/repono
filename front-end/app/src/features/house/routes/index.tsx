@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route } from 'react-router-dom';
+import { Navigate, Route } from 'react-router-dom';
 import { useRoomRoutes } from '../../room';
 import { HouseProvider } from '@/providers/house';
 import { lazy } from 'react';
@@ -12,9 +12,7 @@ const HouseRoutesApp = () => {
     )
 }
 
-
 const HouseDashboard = lazy(() => import('./HouseDashboard'));
-
 
 export const useHouseRoutes = () => {
     const roomRoutes = useRoomRoutes()
@@ -29,5 +27,3 @@ export const useHouseRoutes = () => {
         </Route>
     );
 };
-
-// export default AuthRoutes;

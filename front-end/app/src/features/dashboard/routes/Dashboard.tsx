@@ -1,27 +1,24 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useContext, useState } from 'react';
-import { Endpoints } from '../../../@utils';
-import { HouseContext, HouseContextType } from '../../../providers/house';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useContext, } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '@/providers';
 
-const useHouseMutation = () => {
-    const queryClient = useQueryClient();
-    const query = useMutation({
-        mutationFn: async (newHouse: any) => {
-            const res = await Endpoints.house.create({house: newHouse});
+// const useHouseMutation = () => {
+//     const queryClient = useQueryClient();
+//     const query = useMutation({
+//         mutationFn: async (newHouse: any) => {
+//             const res = await Endpoints.house.create({house: newHouse});
 
-            if (!res.ok) {
-                throw new Error((await res.json() as any).message);
-            }
+//             if (!res.ok) {
+//                 throw new Error((await res.json() as any).message);
+//             }
 
-            queryClient.invalidateQueries({queryKey: ["getHouses"]})
-            return res.json();
-        }
-    })
+//             queryClient.invalidateQueries({queryKey: ["getHouses"]})
+//             return res.json();
+//         }
+//     })
 
-    return query;
-}
+//     return query;
+// }
 
 export const Dashboard = () => {
     const auth = useContext(AuthContext);

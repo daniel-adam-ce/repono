@@ -1,9 +1,8 @@
 import { GlobalApp } from '@/routes/protected';
-import { Suspense, lazy } from 'react';
-import { Outlet, Route } from 'react-router-dom';
+import { lazy } from 'react';
+import { Route } from 'react-router-dom';
 
 const Dashboard = lazy(() => import('./Dashboard'));
-
 
 export const useDashboardRoutes = () => {
     return (
