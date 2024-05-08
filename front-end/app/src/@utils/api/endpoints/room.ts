@@ -1,11 +1,11 @@
 import { BodyEndpoint, BodylessEndpoint, bodyEndpoint, bodylessEndpoint } from "../utils";
 
 
-class HouseEndpoints {
+class RoomEndpoints {
     readonly baseUrl: string
     fetchAll: BodylessEndpoint<Array<any>>
     fetch: BodylessEndpoint<any, string>
-    create: BodyEndpoint<any, {house: any}>
+    create: BodyEndpoint<any, {room: any}>
 
     constructor(url: string) {
         // super(url);
@@ -16,4 +16,4 @@ class HouseEndpoints {
     }
 }
 
-export const house = new HouseEndpoints("/houses");
+export const room = new RoomEndpoints("/rooms");

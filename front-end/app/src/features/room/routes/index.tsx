@@ -1,31 +1,20 @@
 import { Route } from 'react-router-dom';
+import { useItemRoutesSingleHouse } from '../../item';
+import { lazy } from 'react';
 
-import { Landing } from '../../landing';
-import { Dashboard } from '../../dashboard';
-import { useItemRoutesSingleHouse, useItemRoutesGeneric } from '../../item';
+const Rooms = lazy(() => import('./Rooms'));
+const CreateRoom = lazy(() => import('./CreateRoom'));
 
 export const useRoomRoutes = () => {
     const itemRoutesSingleHouse = useItemRoutesSingleHouse()
-    const itemRoutesGeneric = useItemRoutesGeneric();
     return (
         <>
             <Route path="/house/:houseId/rooms">
-                <Route path="" element={<Landing />} />
-                <Route path=":roomId" element={<Dashboard />} />
+                <Route path="" element={<Rooms />} />
+                <Route path=":roomId" element={<Rooms />} />
+                <Route path="/house/:houseId/rooms/create" element={<CreateRoom />} />
                 { itemRoutesSingleHouse }
             </Route>
-            {/* <Route path="/house/rooms">
-                <Route path="" element={<Landing />} />
-                <Route path=":roomId" element={<Dashboard />} />
-                { itemRoutesGeneric }
-            </Route> */}
-            {/* <Route path="/house/rooms">
-                <Route path="" element={<Landing />} />
-                <Route path=":id" element={<Dashboard />} />
-                {
-                    itemRoutes
-                }
-            </Route> */}
         </>
     );
 };

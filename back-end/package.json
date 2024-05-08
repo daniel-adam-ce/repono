@@ -12,7 +12,7 @@
         "migrate-dev-up": "db-migrate up --config ./src/db/config/database.json -e dev -m ./src/db/migrations/",
         "migrate-dev-down": "db-migrate down --config ./src/db/config/database.json -e dev -m ./src/db/migrations/",
         "migrate-test-up": "db-migrate up --config ./src/db/config/database.json -e test -m ./src/db/migrations/",
-        "migrate-up": "db-migrate up --config ./src/db/config/database.json -e test -m ./src/db/migrations/",
+        "migrate-up": "db-migrate up --config ./src/db/config/database.json -e %npm_config_db_env% -m ./src/db/migrations/",
         "migrate-down": "db-migrate down --config ./src/db/config/database.json -e %npm_config_db_env% -m ./src/db/migrations/",
         "migrate-create": "db-migrate create %npm_config_migration_name% --config ./src/db/config/database.json -e %npm_config_db_env% --sql-file -m ./src/db/migrations/",
         "db-codegen": "kysely-codegen --env-file \"./src/.env\""

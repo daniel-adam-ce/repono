@@ -3,6 +3,7 @@ import { Tables } from "../db";
 export * from "./User";
 export * from "./Session";
 export * from "./House";
+export * from "./Room";
 
 
 export type FooType = Record<Tables, string>;
