@@ -3,6 +3,7 @@ import { useRoomRoutes } from '../../room';
 import { HouseProvider } from '@/providers/house';
 import { lazy } from 'react';
 import { HouseApp } from '@/routes/protected';
+import { useItemRoutesGeneric } from '@/features/item';
 
 const HouseRoutesApp = () => {
     return (
@@ -23,6 +24,7 @@ const NavigateFromHouseId = () => {
 
 export const useHouseRoutes = () => {
     const roomRoutes = useRoomRoutes()
+    const itemRoutesGeneric = useItemRoutesGeneric();
     return (
         <Route path="/house" element={<HouseRoutesApp />}>
             <Route path="" element={<Navigate to={"/"}/>} />
@@ -31,6 +33,9 @@ export const useHouseRoutes = () => {
             <Route path=":houseId/settings" element={<HouseDashboard />}/>
             {
                 roomRoutes
+            }
+            {
+                itemRoutesGeneric
             }
         </Route>
     );

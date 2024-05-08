@@ -14,7 +14,6 @@ export const useItemRoutesSingleHouse = () => {
                 <Route path="" element={<Landing />} />
                 <Route path=":itemId" element={<Dashboard />} />
             </Route>
-
         </>
     );
 };
@@ -22,14 +21,9 @@ export const useItemRoutesSingleHouse = () => {
 export const useItemRoutesGeneric = () => {
     return (
         <>
-            <Route path="/house/rooms/items">
+            <Route path="/house/:houseId/items">
                 <Route path="" element={<Landing />} />
                 <Route path=":itemId" element={<Dashboard />} />
-            </Route>
-
-            <Route path="/house/rooms/:id/items">
-                <Route path="" element={<Landing />} />
-                <Route path=":roomId" element={<Dashboard />} />
             </Route>
         </>
     )

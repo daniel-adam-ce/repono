@@ -1,5 +1,5 @@
 import { AuthContext } from "@/providers";
-import React, { ReactElement, Suspense, cloneElement, useContext, useState } from "react";
+import React, { ReactElement, Suspense, cloneElement, useContext } from "react";
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import Styles from "./index.module.scss";
 import { classCombine } from "@/@utils";
@@ -71,11 +71,11 @@ const NavbarHouse = () => {
                 text={"Rooms"}
                 to={`${houseId}/rooms`}
             />
-            {/* <NavButton
+            <NavButton
                 icon={<LuBox />}
                 text={"Items"}
-                to={"/house/items"}
-            /> */}
+                to={`${houseId}/items`}
+            />
             <NavButton
                 icon={<TbHomeStar />}
                 text={"House Settings"}
@@ -107,6 +107,7 @@ const Header = () => {
     const auth = useContext(AuthContext);
     const house = useContext(HouseContext);
     const navigate = useNavigate();
+
     return (
         <header
             className={Styles["nav-header"]}
@@ -114,8 +115,9 @@ const Header = () => {
             <div>
 
                 {house?.house && <select
-                    defaultValue={house.house?.house_name}
+                    value={house.house?.house_id}
                     onChange={(e) => {
+                        console.log(e.currentTarget.value);
                         if (e.currentTarget.value) {
                             navigate(`/house/${e.currentTarget.value}`);
                         } else {
