@@ -7,6 +7,7 @@ import { RoomRepository } from "../models";
 class RoomService {
     async getAllRooms(): Promise<Room[]> {
         try {
+            console.log("rooms");
             return await RoomRepository.findAll();
         } catch (error) {
             throw new ApiError("Could not fetch rooms.", {error});

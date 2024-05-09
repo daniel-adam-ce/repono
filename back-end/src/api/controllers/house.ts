@@ -14,7 +14,7 @@ const getHouses = async (_req: Request, res: Response, next: NextFunction) => {
 
 const getHouse = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = await HouseService.getHouse(req.params.id);
+        const data = await HouseService.getHouse(req.params.houseId);
         return res.status(StatusCodes.OK).json(data);
     } catch (error) {
         return next(error);

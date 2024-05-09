@@ -2,14 +2,14 @@ import { Router } from "express";
 import { validateToken } from "../../middleware";
 import { createRoom, getRoom, getRooms } from "../../controllers";
 
-const route = Router();
+export const roomRouter = Router({mergeParams: true});
 
 const rooms = (router: Router) => {
-    router.use("/rooms", route);
+    router.use("/rooms", roomRouter);
 
-    route.get("/", getRooms);
-    route.get("/:id", validateToken(), getRoom);
-    route.post("/", validateToken(), createRoom);
+    roomRouter.get("/", getRooms);
+    roomRouter.get("/:roomId", validateToken(), getRoom);
+    roomRouter.post("/", validateToken(), createRoom);
 }
 
 export default rooms;

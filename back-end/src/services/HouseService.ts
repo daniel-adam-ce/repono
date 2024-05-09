@@ -26,7 +26,7 @@ class HouseService {
         return user;
     }
 
-    async createHouse(house: any): Promise<House> {
+    async createHouse(house: NewHouse): Promise<House> {
         let newHouse: House;
         let newHouseUser: HouseUser;
         try {
