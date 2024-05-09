@@ -1,7 +1,7 @@
 import { session } from "./session";
 import { users } from "./users";
-import { house } from "./house";
-import { room } from "./room";
+import { houses } from "./house";
+import { rooms } from "./room";
 
 export class EndpointsClass {
     baseUrl: string;
@@ -14,6 +14,6 @@ export class EndpointsClass {
 export const Endpoints = {
     users,
     session,
-    house,
-    room
+    houses,
+    rooms
 }

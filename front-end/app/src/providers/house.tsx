@@ -22,11 +22,11 @@ const useHouse = () => {
     const auth = useContext(AuthContext);
     const params = useParams();
     const houseId = params?.houseId
-    console.log(params)
+    // console.log(params)
     const { data, error, ...queryResponse } = useQuery({
         queryKey: ['getHouse', houseId],
         queryFn: async () => {
-            const res = await Endpoints.house.fetch({ pathParams: houseId });
+            const res = await Endpoints.houses.fetch({ pathParams: {houses: houseId} });
              if (!res.ok) {
                 // console.log(res);
                 // if (res.status === 401) auth.logout();

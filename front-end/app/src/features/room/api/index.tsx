@@ -8,7 +8,7 @@ export const useRoomMutation = () => {
     const queryClient = useQueryClient();
     const query = useMutation({
         mutationFn: async (newRoom: any) => {
-            const res = await Endpoints.room.create({room: newRoom});
+            const res = await Endpoints.rooms.create({room: newRoom});
 
             if (!res.ok) {
                 throw new Error((await res.json() as any).message);
@@ -24,12 +24,11 @@ export const useRoomMutation = () => {
 
 export const useRoom = () => {
     const auth = useContext(AuthContext);
-    const params = useParams();
-    const roomId = params?.roomId
+    const { houseId, roomId } = useParams();
     const { data, error, ...queryResponse } = useQuery({
         queryKey: ['getRoom', roomId],
         queryFn: async () => {
-            const res = await Endpoints.room.fetch({ pathParams: roomId });
+            const res = await Endpoints.houses.rooms.fetch({ pathParams: {houses: houseId, room: roomId} });
              if (!res.ok) {
                 throw new Error((await res.json() as ErrorResponseJSON).message);
             }
@@ -50,10 +49,11 @@ export const useRoom = () => {
 export const useRooms = () => {
     const auth = useContext(AuthContext);
     const user = auth.user
+    const { houseId } = useParams();
     const { data, isPending, error, ...queryResponse } = useQuery({
         queryKey: ['getRooms'],
         queryFn: async () => {
-            const res = await Endpoints.room.fetchAll();
+            const res = await Endpoints.houses.rooms.fetchAll({pathParams: {houses: houseId}});
              if (!res.ok) {
                 throw new Error((await res.json() as any).message);
             }

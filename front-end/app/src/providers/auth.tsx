@@ -45,7 +45,7 @@ const useHouses = (user: any) => {
     const { data, error, ...queryResponse } = useQuery({
         queryKey: ['getHouses'],
         queryFn: async () => {
-            const res = await Endpoints.house.fetchAll();
+            const res = await Endpoints.houses.fetchAll();
              if (!res.ok) {
                 // console.log(res);
                 // if (res.status === 401) auth.logout();

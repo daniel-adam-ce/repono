@@ -32,7 +32,7 @@ export function fetchFunction(method: string) {
 
     async function generatedFetchFunction<D>({ url, options }: FetchFunctionParams): Promise<FetchResponse<D>> {
         try {
-            console.log(url);
+            // console.log(url);
             const res = fetch(
                 generateAPIBaseURL(url),
                 {
