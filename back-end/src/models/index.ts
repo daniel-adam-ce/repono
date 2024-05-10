@@ -4,6 +4,7 @@ export * from "./User";
 export * from "./Session";
 export * from "./House";
 export * from "./Room";
+export * from "./Item";
 
 
 export type FooType = Record<Tables, string>;
