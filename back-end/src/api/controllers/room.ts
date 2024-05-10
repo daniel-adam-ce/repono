@@ -24,7 +24,7 @@ const getRoom = async (req: Request, res: Response, next: NextFunction) => {
 const createRoom = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user: AppUser = res.locals.user; 
-        const data = await RoomService.createRoom({...req.body.room, created_by: user.user_id, house_id: req.params.roomId});
+        const data = await RoomService.createRoom({...req.body.room, created_by: user.user_id, house_id: req.params.houseId});
         return res.status(StatusCodes.CREATED).json(data);
     } catch (error) {
         return next(error);   

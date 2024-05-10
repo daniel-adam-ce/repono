@@ -6,9 +6,10 @@ import { useParams } from "react-router-dom";
 
 export const useRoomMutation = () => {
     const queryClient = useQueryClient();
+    const { houseId } = useParams();
     const query = useMutation({
         mutationFn: async (newRoom: any) => {
-            const res = await Endpoints.rooms.create({room: newRoom});
+            const res = await Endpoints.houses.rooms.create({room: newRoom}, {pathParams: {houses: houseId}});
 
             if (!res.ok) {
                 throw new Error((await res.json() as any).message);

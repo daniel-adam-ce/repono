@@ -7,7 +7,6 @@ import { RoomRepository } from "../models";
 class RoomService {
     async getAllRooms(): Promise<Room[]> {
         try {
-            console.log("rooms");
             return await RoomRepository.findAll();
         } catch (error) {
             throw new ApiError("Could not fetch rooms.", {error});
@@ -29,7 +28,6 @@ class RoomService {
     async createRoom(room: NewRoom): Promise<Room> {
         let newRoom: Room;
         try {
-            console.log(room);
             if (!room.room_name) throw new Error("Room name is required.");
             newRoom = await RoomRepository.createOne(room);
         } catch (error) {
