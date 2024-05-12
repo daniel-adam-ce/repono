@@ -15,8 +15,10 @@ export const useRoomMutation = () => {
                 throw new Error((await res.json() as any).message);
             }
 
-            queryClient.invalidateQueries({queryKey: ["getHouses"]})
             return res.json();
+        }, 
+        onSuccess:  async () => {
+            await queryClient.invalidateQueries({queryKey: ["getRooms"], refetchType: "all"})
         }
     })
 
@@ -48,8 +50,8 @@ export const useRoom = () => {
 }
 
 export const useRooms = () => {
-    const auth = useContext(AuthContext);
-    const user = auth.user
+    // const auth = useContext(AuthContext);
+    // const user = auth.user
     const { houseId } = useParams();
     const { data, isPending, error, ...queryResponse } = useQuery({
         queryKey: ['getRooms'],
@@ -60,7 +62,6 @@ export const useRooms = () => {
             }
             return res.json();
         },
-        enabled: !!user,
         retry: false,
         
     })

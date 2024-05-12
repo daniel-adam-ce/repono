@@ -1,5 +1,4 @@
 import Cookies from "js-cookie";
-import { useEffect, useMemo } from "react";
 
 export function generateAPIBaseURL(endpoint: string): string {
     // const url = process.env?.["REACT_APP_ENVIRONMENT"]?.toLowerCase() === "development" ? "http://localhost:5000" : "https://" + process.env["REACT_APP_API_URL"];
