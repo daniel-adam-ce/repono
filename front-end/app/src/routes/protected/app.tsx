@@ -180,7 +180,6 @@ const Content = () => {
             <Suspense
                 fallback={
                     <div>
-                        {/* <Spinner size="xl" /> */}
                         suspense 2
                     </div>
                 }
