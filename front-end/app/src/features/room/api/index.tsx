@@ -31,7 +31,7 @@ export const useRoom = () => {
     const { data, error, ...queryResponse } = useQuery({
         queryKey: ['getRoom', roomId],
         queryFn: async () => {
-            const res = await Endpoints.houses.rooms.fetch({ pathParams: {houses: houseId, room: roomId} });
+            const res = await Endpoints.houses.rooms.fetch({ pathParams: {houses: houseId, rooms: roomId} });
              if (!res.ok) {
                 throw new Error((await res.json() as ErrorResponseJSON).message);
             }

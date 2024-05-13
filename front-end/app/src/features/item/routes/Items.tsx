@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useItems } from "../api";
 
 
 export const Items = () => {
     const navigate = useNavigate();
+    const { items } = useItems();
 
     return (
         <div>
@@ -14,7 +16,11 @@ export const Items = () => {
             >
                 create
             </Button>
-            <div>items</div>
+            <div>
+                {
+                    JSON.stringify(items)
+                }
+            </div>
         </div>
     )
 }

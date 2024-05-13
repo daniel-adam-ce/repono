@@ -4,6 +4,7 @@ import health from "./health";
 import session from "./sesson";
 import houses from "./house";
 import rooms from "./room";
+import items from "./item";
 
 const v1 = Router();
 
@@ -12,5 +13,6 @@ health(v1);
 session(v1);
 houses(v1);
 rooms(v1);
+items(v1);
  
 export default v1;
