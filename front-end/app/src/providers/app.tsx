@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from './theme';
-import { HouseProvider } from './house';
 
 type AppProviderProps = {
     children: React.ReactNode;

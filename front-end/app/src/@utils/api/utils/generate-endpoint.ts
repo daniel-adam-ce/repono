@@ -17,11 +17,10 @@ const generateParamUrl = (url: string, pathParams: ParamObj | undefined): string
     if (pathParams) {
         if (Object.keys(pathParams).length > 0) {
             const endpoints = url.replace("/", "").split("/");
-            console.log(endpoints);
+            // console.log(endpoints);
             parsedUrl = endpoints.reduce(($url, endpoint) => {
                 const pathParam = pathParams?.[endpoint];
-                console.log("pathParam", $url, endpoint, pathParam)
-                // return $url + `/${endpoint}` + pathParam ? `/${pathParam}` : ""
+                // console.log("pathParam", $url, endpoint, pathParam)
                 return $url + `/${endpoint}` + (pathParam ? `/${pathParam}` : "")
             }, "") 
         }
