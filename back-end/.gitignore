@@ -11,3 +11,4 @@ dist/
 keys.json
 src/db/config
 !src/db/migrations/*.js
+!jest.config.js
