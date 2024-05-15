@@ -10,32 +10,31 @@ class HouseService {
         try {
             return await HouseRepository.findAll();
         } catch (error) {
-            throw new ApiError("Could not fetch houses.", {error});
+            throw new ApiError("Could not fetch houses.", { error });
         }
     }
 
     async getHouse(id: string): Promise<House> {
-        let user: House;
+        let house: House;
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
         try {
-            if (!id) throw new Error("ID is required.");
-            user = await HouseRepository.findById(parseInt(id));
+            house = await HouseRepository.findById(parseInt(id));
         } catch (error) {
-            throw new ApiError("Error fetching house.", {error})
+            throw new ApiError("Error fetching house.", { error })
         }
-        if (!user) throw new ApiError("House not found.", {httpStatusCode: StatusCodes.NOT_FOUND});
-        return user;
+        if (!house) throw new ApiError("House not found.", { httpStatusCode: StatusCodes.NOT_FOUND });
+        return house;
     }
 
     async createHouse(house: NewHouse): Promise<House> {
         let newHouse: House;
-        let newHouseUser: HouseUser;
+        if (!house.house_name) throw new ApiError("House name is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
+        if (!house.house_owner) throw new ApiError("Error creating house.", { httpStatusCode: StatusCodes.INTERNAL_SERVER_ERROR });
         try {
-            console.log(house);
-            if (!house.house_name) throw new Error("House name is required.");
             newHouse = await HouseRepository.createOne(house);
-            newHouseUser = await HouseUserRepository.createOne({user_id: newHouse.house_owner, house_id: newHouse.house_id});
+            await HouseUserRepository.createOne({ user_id: newHouse.house_owner, house_id: newHouse.house_id });
         } catch (error) {
-            throw new ApiError("Error creating house.", {error})
+            throw new ApiError("Error creating house.", { error })
         }
         return newHouse;
     }

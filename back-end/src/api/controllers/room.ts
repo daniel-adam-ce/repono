@@ -3,9 +3,9 @@ import { StatusCodes } from "http-status-codes";
 import { AppUser } from "../../db";
 import RoomService from "../../services/RoomService";
 
-const getRooms = async (_req: Request, res: Response, next: NextFunction) => {
+const getRooms = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = await RoomService.getAllRooms();
+        const data = await RoomService.getAllRooms(req.params.houseId);
         return res.status(StatusCodes.OK).json(data)
     } catch (error) {
         return next(error);

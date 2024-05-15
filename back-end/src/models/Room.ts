@@ -19,6 +19,13 @@ class RoomModel implements Model<Room, NewRoom, RoomUpdate> {
         return await db.selectFrom(this.table).selectAll().execute();
     }
 
+    async findAllByHouseId(houseId: string) {
+        return await db.selectFrom(this.table)
+        .selectAll()
+        .where("house_id", '=', parseInt(houseId))
+        .execute();
+    }
+
     async updateOne(id: number, updateWith: RoomUpdate){
         return await db.updateTable(this.table).set(updateWith).where('room_id', '=', id).returningAll().executeTakeFirst()
     }

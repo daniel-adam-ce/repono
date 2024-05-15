@@ -7,7 +7,7 @@ export interface ApiErrorOptions {
 
 export class ApiError extends Error {
     code: number;
-    context: any;
+    // context: any;
     date: Date;
     error: Error | unknown;
     

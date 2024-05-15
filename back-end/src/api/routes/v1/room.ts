@@ -9,7 +9,9 @@ const rooms = (router: Router) => {
     router.use("/rooms", roomRouter);
 
     roomRouter.get("/", getRooms);
-    roomRouter.get("/:roomId", validateToken(), getRoom);
+    roomRouter.get("/:roomId", 
+    // validateToken(),
+     getRoom);
     roomRouter.post("/", validateToken(), createRoom);
 
     router.use("/rooms/:roomId", itemRouter);
