@@ -5,33 +5,34 @@ import { ItemRepository } from "../models";
 
 
 class ItemService {
+    // this should be changed to onyl get items based on the hosue or houses that the item is in
     async getAllItems(): Promise<Item[]> {
         try {
             return await ItemRepository.findAll();
         } catch (error) {
-            throw new ApiError("Could not fetch items.", {error});
+            throw new ApiError("Could not fetch items.", { error });
         }
     }
 
     async getItem(id: string): Promise<Item> {
-        let user: Item;
+        let item: Item;
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
         try {
-            if (!id) throw new Error("ID is required.");
-            user = await ItemRepository.findById(parseInt(id));
+            item = await ItemRepository.findById(parseInt(id));
         } catch (error) {
-            throw new ApiError("Error fetching item.", {error})
+            throw new ApiError("Error fetching item.", { error })
         }
-        if (!user) throw new ApiError("Item not found.", {httpStatusCode: StatusCodes.NOT_FOUND});
-        return user;
+        if (!item) throw new ApiError("Item not found.", { httpStatusCode: StatusCodes.NOT_FOUND });
+        return item;
     }
 
     async createItem(item: NewItem): Promise<Item> {
         let newItem: Item;
+        if (!item.item_name) throw new ApiError("Item name is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
         try {
-            if (!item.item_name) throw new Error("Item name is required.");
             newItem = await ItemRepository.createOne(item);
         } catch (error) {
-            throw new ApiError("Error creating item.", {error})
+            throw new ApiError("Error creating item.", { error })
         }
         return newItem;
     }
