@@ -38,11 +38,13 @@ export const CreateItem = () => {
                     }}
                 />
                 <select
-                    value={item?.room_id ?? ""}
+                    value={item?.room_id}
                     onChange={(e) => {
                         setItem({...item, room_id: e.currentTarget.value})
                     }}
+                    defaultValue={""}
                 >
+                    <option value={""} disabled style={{display: "none"}}>Room</option>
                     {
                         rooms?.map((room) => {
                             return (
