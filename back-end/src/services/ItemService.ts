@@ -8,7 +8,7 @@ class ItemService {
     // this should be changed to onyl get items based on the hosue or houses that the item is in
     async getAllItems() {
         try {
-            return await ItemRepository.findAll2();
+            return await ItemRepository.findAll();
         } catch (error) {
             throw new ApiError("Could not fetch items.", { error });
         }

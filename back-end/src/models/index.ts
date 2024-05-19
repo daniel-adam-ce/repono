@@ -13,7 +13,7 @@ export interface Model<S, I, U> {
     readonly table: TableType
 
     findById(id: number): Promise<S>
-    findAll(): Promise<Array<S>> 
+    findAll(): Promise<Array<S | any>> 
 
     createOne(row: I): Promise<S> 
     // createMany(rows: Array<S>): Promise<Array<S>>

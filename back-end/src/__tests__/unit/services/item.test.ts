@@ -3,7 +3,7 @@ import { Item, NewItem } from "../../../db";
 import * as Models from "../../../models";
 import ItemService from "../../../services/ItemService";
 
-const mockItems: Item[] = [
+const mockItems: any[] = [
     {
         created_at: null,
         created_by: 1,

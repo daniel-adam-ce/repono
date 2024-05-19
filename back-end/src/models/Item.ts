@@ -4,6 +4,12 @@ import { Item, ItemUpdate, NewItem, TableType, Tables, db } from "../db";
 // this is some jank but kysely needs the table to explicity be "item", and enums break on .where sometimes
 const tableForModel: TableType = "item";
 
+export interface ItemJoin extends Omit<Item, "house_id" | "room_id" | "created_by"> {
+    room_name: string,
+    house_name: string,
+    email: never,
+}
+
 class ItemModel implements Model<Item, NewItem, ItemUpdate> {
     public readonly table: typeof tableForModel;
 
@@ -18,12 +24,12 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
             .executeTakeFirst()
     }
 
-    async findAll() {
-        return await db.selectFrom(this.table).selectAll().execute();
-    }
+    // async findAll() {
+    //     return await db.selectFrom(this.table).selectAll().execute();
+    // }
 
-    async findAll2() {
-        return await db.selectFrom(this.table)
+    async findAll(): Promise<ItemJoin[]> {
+        return await db.selectFrom("item")
         .leftJoin(Tables.room, "room.room_id", "item.room_id")
         .leftJoin(Tables.house, "house.house_id", "item.house_id")
         .leftJoin(Tables.app_users, "app_user.user_id", "item.created_by")
