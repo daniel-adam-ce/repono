@@ -3,9 +3,10 @@ import { StatusCodes } from "http-status-codes";
 import { AppUser } from "../../db";
 import ItemService from "../../services/ItemService";
 
-const getItems = async (_req: Request, res: Response, next: NextFunction) => {
+const getItems = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = await ItemService.getAllItems();
+        const { houseId } = req.params;
+        const data = houseId ? await ItemService.getAllItemsByHouseId(houseId) : await ItemService.getAllItems();
         return res.status(StatusCodes.OK).json(data)
     } catch (error) {
         return next(error);

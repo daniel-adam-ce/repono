@@ -16,8 +16,12 @@ const columns: ColumnDef<Item>[] = [
         header: "Description",
     },
     {
-        accessorKey: "room_id",
-        header: "Room Id"
+        accessorKey: "room_name",
+        header: "Room"
+    },
+    {
+        accessorKey: "email",
+        header: "Created By"
     }
 ]
 

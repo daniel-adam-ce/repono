@@ -36,7 +36,7 @@ describe("getAllRooms by houseId", () => {
     it("should return an error if no houseId is provided", async () => {
         const houseId = "";
         findAllByHouseIdSpy.mockResolvedValue(mockRooms);
-        await expect(RoomService.getAllRooms(houseId)).rejects.toMatchObject({code: StatusCodes.UNPROCESSABLE_ENTITY})
+        await expect(RoomService.getAllRooms(houseId)).rejects.toMatchObject({code: StatusCodes.BAD_REQUEST})
     })
 
     it("should return a 500 error if db fails", async () => {
@@ -57,7 +57,7 @@ describe("getRoom by roomId", () => {
     it("should return an error if no roomId is provided", async () => {
         const roomId = "";
         findByIdSpy.mockResolvedValue(mockRooms[1]);
-        await expect(RoomService.getRoom(roomId)).rejects.toMatchObject({code: StatusCodes.UNPROCESSABLE_ENTITY})
+        await expect(RoomService.getRoom(roomId)).rejects.toMatchObject({code: StatusCodes.BAD_REQUEST})
     })
 
     it("should return a 404 if invalid roomId", async () => {

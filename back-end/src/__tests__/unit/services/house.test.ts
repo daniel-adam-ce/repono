@@ -47,7 +47,7 @@ describe("getHouse by houseId", () => {
     it("should return an error if no houseId is provided", async () => {
         const houseId = "";
         findByIdSpy.mockResolvedValue(mockHouses[1]);
-        await expect(HouseService.getHouse(houseId)).rejects.toMatchObject({code: StatusCodes.UNPROCESSABLE_ENTITY})
+        await expect(HouseService.getHouse(houseId)).rejects.toMatchObject({code: StatusCodes.BAD_REQUEST})
     })
 
     it("should return a 404 if invalid houseId", async () => {

@@ -16,7 +16,7 @@ class HouseService {
 
     async getHouse(id: string): Promise<House> {
         let house: House;
-        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
         try {
             house = await HouseRepository.findById(parseInt(id));
         } catch (error) {

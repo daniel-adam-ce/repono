@@ -6,9 +6,9 @@ import { RoomRepository } from "../models";
 
 class RoomService {
     async getAllRooms(houseId: string): Promise<Room[]> {
-        if (!houseId) throw new ApiError("House is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY })
+        if (!houseId) throw new ApiError("House is required.", { httpStatusCode: StatusCodes.BAD_REQUEST })
         try {
-            return await RoomRepository.findAllByHouseId(houseId);
+            return await RoomRepository.findAllByHouseId(parseInt(houseId));
         } catch (error) {
             throw new ApiError("Could not fetch rooms.", { error });
         }
@@ -16,7 +16,7 @@ class RoomService {
 
     async getRoom(roomId: string): Promise<Room> {
         let room: Room;
-        if (!roomId) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
+        if (!roomId) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
         try {
             room = await RoomRepository.findById(parseInt(roomId));
         } catch (error) {

@@ -19,10 +19,10 @@ class RoomModel implements Model<Room, NewRoom, RoomUpdate> {
         return await db.selectFrom(this.table).selectAll().execute();
     }
 
-    async findAllByHouseId(houseId: string) {
+    async findAllByHouseId(houseId: number) {
         return await db.selectFrom(this.table)
         .selectAll()
-        .where("house_id", '=', parseInt(houseId))
+        .where("house_id", '=', houseId)
         .execute();
     }
 

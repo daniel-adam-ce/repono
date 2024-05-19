@@ -14,9 +14,18 @@ class ItemService {
         }
     }
 
+    async getAllItemsByHouseId(houseId: string) {
+        if (!houseId) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST })
+        try {
+            return await ItemRepository.findAllByHouseId(parseInt(houseId));
+        } catch (error) {
+            throw new ApiError("Could not fetch items.", { error });
+        }
+    }
+
     async getItem(id: string): Promise<Item> {
         let item: Item;
-        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
         try {
             item = await ItemRepository.findById(parseInt(id));
         } catch (error) {

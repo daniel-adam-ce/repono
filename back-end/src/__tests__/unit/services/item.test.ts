@@ -21,10 +21,41 @@ const mockItems: Item[] = [
         item_id: 2,
         item_name: "name",
         room_id: 1
+    },
+    {
+        created_at: null,
+        created_by: 1,
+        description: "description",
+        house_id: 2,
+        item_id: 2,
+        item_name: "name",
+        room_id: 1
+    }
+]
+
+const mockItemsHouseOne: any[] = [
+    {
+        created_at: null,
+        created_by: 1,
+        description: "description",
+        house_id: 1,
+        item_id: 2,
+        item_name: "name",
+        room_name: "test"
+    },
+    {
+        created_at: null,
+        created_by: 1,
+        description: "description",
+        house_id: 1,
+        item_id: 2,
+        item_name: "name",
+        room_name: "test"
     }
 ]
 
 const findAllSpy = jest.spyOn(Models.ItemRepository, 'findAll');
+const findAllByHouseIdSpy = jest.spyOn(Models.ItemRepository, 'findAllByHouseId');
 const finddByIdSpy = jest.spyOn(Models.ItemRepository, 'findById');
 const createOneSpy = jest.spyOn(Models.ItemRepository, "createOne");
 
@@ -43,15 +74,36 @@ describe("get all items", () => {
     });
 })
 
+describe("get all items by houseId", () => {
+    it("should return an array of rooms given a valid houseId", async () => {
+        const houseId = "1";
+        findAllByHouseIdSpy.mockResolvedValue(mockItemsHouseOne);
+        await expect(ItemService.getAllItemsByHouseId(houseId)).resolves.toEqual<Array<Item>>(mockItemsHouseOne);
+    })
+
+    it("should return an error if no houseId is provided", async () => {
+        const houseId = "";
+        findAllByHouseIdSpy.mockResolvedValue(mockItemsHouseOne);
+        await expect(ItemService.getAllItemsByHouseId(houseId)).rejects.toMatchObject({code: StatusCodes.BAD_REQUEST})
+    })
+
+    it("should return a 500 error if db fails", async () => {
+        const houseId = "1";
+        findAllByHouseIdSpy.mockRejectedValue(new Error("Something went wrong"));
+        await expect(ItemService.getAllItemsByHouseId(houseId)).rejects.toMatchObject({code: StatusCodes.INTERNAL_SERVER_ERROR})
+    })
+})
+
+
 describe("get Item", () => {
     it("should return an item given a valid id", async () => {
         finddByIdSpy.mockResolvedValue(mockItems[0]);
         await expect(ItemService.getItem("1")).resolves.toEqual<Item>(mockItems[0]);
     });
 
-    it("should return a 422 if no id", async () => {
+    it("should return a 400 if no id", async () => {
         finddByIdSpy.mockResolvedValue(mockItems[0]);
-        await expect(ItemService.getItem("")).rejects.toMatchObject({code: StatusCodes.UNPROCESSABLE_ENTITY});
+        await expect(ItemService.getItem("")).rejects.toMatchObject({code: StatusCodes.BAD_REQUEST});
     });
 
     it("should return a 404 if no item found", async () => {
