@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 export const useProtectedRoutes = () => {
     const dashboardRoutes = useDashboardRoutes();
     const houseRoutes = useHouseRoutes();
+
     return (
         <Route element={<ProtectedApp />}>
             {dashboardRoutes}

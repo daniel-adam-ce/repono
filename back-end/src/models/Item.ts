@@ -1,11 +1,14 @@
 import { Model } from ".";
-import { Item, ItemUpdate, NewItem, Tables, db } from "../db";
+import { Item, ItemUpdate, NewItem, TableType, Tables, db } from "../db";
+
+// this is some jank but kysely needs the table to explicity be "item", and enums break on .where sometimes
+const tableForModel: TableType = "item";
 
 class ItemModel implements Model<Item, NewItem, ItemUpdate> {
-    public readonly table: Tables.item;
+    public readonly table: typeof tableForModel;
 
     constructor() {
-        this.table = Tables.item;
+        this.table = "item";
     }
 
     async findById(id: number) {
@@ -19,8 +22,25 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
         return await db.selectFrom(this.table).selectAll().execute();
     }
 
-    async findAllByHouseId(_houseId: number) {
+    async findAll2() {
         return await db.selectFrom(this.table)
+        .leftJoin(Tables.room, "room.room_id", "item.room_id")
+        .leftJoin(Tables.house, "house.house_id", "item.house_id")
+        .leftJoin(Tables.app_users, "app_user.user_id", "item.created_by")
+        .select([
+            "item_id",
+            "item_name",
+            "item.created_at",
+            "description",
+            "room_name",
+            "house_name",
+            "app_user.email"
+        ]).execute();
+    }
+
+    async findAllByHouseId(houseId: number) {
+        return await db.selectFrom(this.table)
+            .where('item.house_id', '=', houseId)
             .leftJoin(Tables.room, "room.room_id", "item.room_id")
             .leftJoin(Tables.house, "house.house_id", "item.house_id")
             .leftJoin(Tables.app_users, "app_user.user_id", "item.created_by")
@@ -30,6 +50,7 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
                 "item.created_at",
                 "description",
                 "room_name",
+                "item.house_id",
                 "house_name",
                 "app_user.email"
             ])

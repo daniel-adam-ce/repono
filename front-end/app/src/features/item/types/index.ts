@@ -7,4 +7,6 @@ export type Item = {
     created_by: number,
     house_id: number,
     room_id: number,
+    room_name: string,
+    house_name: string,
 }

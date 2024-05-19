@@ -1,4 +1,4 @@
-import { Tables } from "../db";
+import { TableType, Tables } from "../db";
 
 export * from "./User";
 export * from "./Session";
@@ -7,10 +7,10 @@ export * from "./Room";
 export * from "./Item";
 
 
-export type FooType = Record<Tables, string>;
+// export type FooType = Record<Tables, string>;
 
 export interface Model<S, I, U> {
-    readonly table: keyof FooType
+    readonly table: TableType
 
     findById(id: number): Promise<S>
     findAll(): Promise<Array<S>> 

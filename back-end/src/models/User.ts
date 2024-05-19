@@ -1,11 +1,13 @@
 import { Model } from ".";
-import { AppUser, AppUserUpdate, NewAppUser, Tables, db } from "../db";
+import { AppUser, AppUserUpdate, NewAppUser, TableType, Tables, db } from "../db";
+
+const tableForClass: TableType = "app_user";
 
 class AppUserModel implements Model<AppUser, NewAppUser, AppUserUpdate> {
-    table: Tables.app_users
+    public readonly table: typeof tableForClass
     
     constructor() {
-        this.table = Tables.app_users;
+        this.table = "app_user";
     }
 
     async findById(id: number): Promise<AppUser> {

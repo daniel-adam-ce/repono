@@ -193,8 +193,6 @@ const Content = () => {
 export const GlobalApp = () => {
     return (
         <>
-
-        
             <Header />
             <Main>
                 <NavbarGlobal />

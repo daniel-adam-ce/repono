@@ -9,16 +9,16 @@ export const useItemMutation = () => {
     const { houseId } = useParams();
     const query = useMutation({
         mutationFn: async (newItem: any) => {
-            const res = await Endpoints.houses.items.create({item: newItem}, {pathParams: {houses: houseId}});
+            const res = await Endpoints.houses.items.create({ item: newItem }, { pathParams: { houses: houseId } });
 
             if (!res.ok) {
                 throw new Error((await res.json() as any).message);
             }
 
             return res.json();
-        }, 
-        onSuccess:  async () => {
-            await queryClient.invalidateQueries({queryKey: ["getItems"], refetchType: "all"})
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["getItems"], refetchType: "all" })
         }
     })
 
@@ -31,22 +31,22 @@ export const useItem = () => {
     const { data, error, ...queryResponse } = useQuery({
         queryKey: ['getItem', itemId],
         queryFn: async () => {
-            const res = await Endpoints.houses.items.fetch({ pathParams: {houses: houseId, rooms: roomId, items: itemId} });
-             if (!res.ok) {
+            const res = await Endpoints.houses.items.fetch({ pathParams: { houses: houseId, rooms: roomId, items: itemId } });
+            if (!res.ok) {
                 throw new Error((await res.json() as ErrorResponseJSON).message);
             }
             return res.json();
         },
         enabled: !!itemId && !!auth.user,
         retry: false,
-        
+
     })
 
     if (error && queryResponse) {
         console.log(error, queryResponse);
     }
 
-    return { item: data, error } 
+    return { item: data, error }
 }
 
 export const useItems = () => {
@@ -56,19 +56,21 @@ export const useItems = () => {
     const { data, isPending, error, ...queryResponse } = useQuery({
         queryKey: ['getItems', houseId],
         queryFn: async () => {
-            const res = await Endpoints.houses.items.fetchAll({pathParams: {houses: houseId}});
-             if (!res.ok) {
+            const res = houseId
+                ? await Endpoints.houses.items.fetchAll({ pathParams: { houses: houseId } })
+                : await Endpoints.items.fetchAll();
+            if (!res.ok) {
                 throw new Error((await res.json() as any).message);
             }
             return res.json();
         },
         retry: false,
-        
+
     })
 
     if (error && queryResponse) {
         console.log(error, queryResponse);
     }
 
-    return { items: data ?? [], isPending, error } 
+    return { items: data ?? [], isPending, error }
 }

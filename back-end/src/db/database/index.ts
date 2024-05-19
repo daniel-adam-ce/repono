@@ -1,3 +1,4 @@
+import { TableExpression } from "kysely";
 import { DB } from "kysely-codegen";
 
 export enum Tables {
@@ -7,6 +8,8 @@ export enum Tables {
     room = "room",
     item = "item"
 }
+
+export type TableType = TableExpression<DB, keyof DB>;
 
 export { type DB as Database }
 export * from "./user";

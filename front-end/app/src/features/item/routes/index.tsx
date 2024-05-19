@@ -35,4 +35,16 @@ export const useItemRoutesGeneric = () => {
     )
 }
 
+export const useItemRoutesGlobal = () => {
+    return (
+        <>
+            <Route path="/items">
+                <Route path="" element={<Items />} />
+                <Route path=":itemId" element={<Dashboard />} />
+                {/* <Route path="/house/:houseId/items/create" element={<CreateItem />} /> */}
+            </Route>
+        </>
+    )
+}
+
 // export default AuthRoutes;

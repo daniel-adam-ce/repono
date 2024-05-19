@@ -1,11 +1,13 @@
 import { Model } from ".";
-import { HouseUser, HouseUserUpdate, NewHouseUser, Tables, db } from "../db";
+import { HouseUser, HouseUserUpdate, NewHouseUser, TableType, Tables, db } from "../db";
+
+const tableForClass: TableType = "house_user";
 
 class HouseUserModel implements Model<HouseUser, NewHouseUser, HouseUserUpdate> {
-    public readonly table: Tables.house_user;
+    public readonly table: typeof tableForClass;
 
     constructor() {
-        this.table = Tables.house_user;
+        this.table = "house_user";
     }
 
     async findById(id: number) {

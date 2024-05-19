@@ -54,7 +54,7 @@ export const useRooms = () => {
     // const user = auth.user
     const { houseId } = useParams();
     const { data, isPending, error, ...queryResponse } = useQuery({
-        queryKey: ['getRooms'],
+        queryKey: ['getRooms', houseId],
         queryFn: async () => {
             const res = await Endpoints.houses.rooms.fetchAll({pathParams: {houses: houseId}});
              if (!res.ok) {
