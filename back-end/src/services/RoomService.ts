@@ -5,7 +5,7 @@ import { RoomRepository } from "../models";
 
 
 class RoomService {
-    async getAllRooms(houseId: string): Promise<Room[]> {
+    async getAllRooms(houseId: string) {
         if (!houseId) throw new ApiError("House is required.", { httpStatusCode: StatusCodes.BAD_REQUEST })
         try {
             return await RoomRepository.findAllByHouseId(parseInt(houseId));

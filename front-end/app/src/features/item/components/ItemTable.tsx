@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Item } from "../types"
 import { DataTable } from "@/components/DataTable"
-import { useMatch, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useMemo } from "react"
 
 interface ItemTableProps {

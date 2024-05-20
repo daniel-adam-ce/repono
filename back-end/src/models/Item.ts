@@ -28,11 +28,11 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
     //     return await db.selectFrom(this.table).selectAll().execute();
     // }
 
-    async findAll(): Promise<ItemJoin[]> {
+    async findAll() {
         return await db.selectFrom("item")
-        .leftJoin(Tables.room, "room.room_id", "item.room_id")
-        .leftJoin(Tables.house, "house.house_id", "item.house_id")
-        .leftJoin(Tables.app_users, "app_user.user_id", "item.created_by")
+        .leftJoin("room", "room.room_id", "item.room_id")
+        .leftJoin("house", "house.house_id", "item.house_id")
+        .leftJoin("app_user", "app_user.user_id", "item.created_by")
         .select([
             "item_id",
             "item_name",

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useRooms } from "../api";
+import { RoomTable } from "../components";
 
 export const Rooms = () => {
     const navigate = useNavigate();
@@ -16,11 +17,9 @@ export const Rooms = () => {
             </button>
             {
                 !isPending
-                    ? <div>
-                        {
-                            JSON.stringify(rooms)
-                        }
-                    </div>
+                    ? <RoomTable
+                        rooms={rooms}
+                    />
                     : <div>
                         loading...
                     </div>

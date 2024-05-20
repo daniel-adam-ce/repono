@@ -4,7 +4,7 @@ import * as Models from "../../../models";
 import RoomService from "../../../services/RoomService";
 
 
-const mockRooms: Room[] = [
+const mockRooms: any[] = [
     {
         created_at: null,
         created_by: 1,
