@@ -69,7 +69,7 @@ class FetchFunctionsAPI {
         this.get = fetchFunction("get");
         this.post = fetchFunction("post");
         this.put = fetchFunction("put");
-        this.patch = fetchFunction("patch");
+        this.patch = fetchFunction("PATCH");
         this.delete = fetchFunction("delete");
     }
 

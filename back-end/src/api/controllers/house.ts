@@ -31,8 +31,19 @@ const createHouse = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
+const updateHouse = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { houseId } = req.params;
+        const data = await HouseService.updateHouse(houseId, req.body.house);
+        return res.status(StatusCodes.OK).json(data);
+    } catch (error) {
+        return next(error);   
+    }
+}
+
 export {
     getHouses,
     getHouse,
-    createHouse
+    createHouse,
+    updateHouse
 }

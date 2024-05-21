@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateToken } from "../../middleware";
-import { createHouse, getHouse, getHouses } from "../../controllers/house";
+import { createHouse, getHouse, getHouses, updateHouse } from "../../controllers/house";
 import { roomRouter } from "./room";
 import { itemRouter } from "./item";
 
@@ -12,6 +12,7 @@ const houses = (router: Router) => {
     route.get("/", getHouses);
     route.get("/:houseId", validateToken(), getHouse);
     route.post("/", validateToken(), createHouse);
+    route.patch("/:houseId", validateToken(), updateHouse);
     
     router.use("/houses/:houseId/rooms", roomRouter);
     router.use("/houses/:houseId/items", itemRouter);

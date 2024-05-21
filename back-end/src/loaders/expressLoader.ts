@@ -10,6 +10,7 @@ export const expressLoader = (app: express.Express) => {
     app.use(cors({
         origin: process.env.APP_URL,
         credentials: true,
+        // preflightContinue: true,
     }));
 
     app.use( express.json() );
@@ -20,6 +21,7 @@ export const expressLoader = (app: express.Express) => {
     app.use(routes)
 
     app.use(errorHandler);
+    app.options('*', cors())
 }
 
 

@@ -22,15 +22,11 @@ const useHouse = () => {
     const auth = useContext(AuthContext);
     const params = useParams();
     const houseId = params?.houseId
-    // console.log(params)
     const { data, error, ...queryResponse } = useQuery({
-        queryKey: ['getHouse', houseId],
+        queryKey: ['getHouses', houseId],
         queryFn: async () => {
             const res = await Endpoints.houses.fetch({ pathParams: {houses: houseId} });
              if (!res.ok) {
-                // console.log(res);
-                // if (res.status === 401) auth.logout();
-                // console.log(`Error: ${errorMessage}`);
                 throw new Error((await res.json() as ErrorResponseJSON).message);
             }
             return res.json();
@@ -44,11 +40,10 @@ const useHouse = () => {
         console.log(error, queryResponse);
     }
 
-    return { house: data, error } // queryResponse.isLoading, queryResponse.isFetching.
+    return { house: data, error }
 }
 
 export const HouseProvider = (props: HouseProviderProps) => {
-    // const [houseId, dispatch] = useReducer(reducer, parseInt(localStorage.getItem("house") ?? ""));
     const {house} = useHouse();
     
     return (

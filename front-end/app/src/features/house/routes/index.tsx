@@ -14,6 +14,7 @@ const HouseRoutesApp = () => {
 }
 
 const HouseDashboard = lazy(() => import('./HouseDashboard'));
+const HouseSettings = lazy(() => import('./HouseSettings'));
 
 const NavigateFromHouseId = () => {
     const { houseId } = useParams();
@@ -30,7 +31,7 @@ export const useHouseRoutes = () => {
             <Route path="" element={<Navigate to={"/"}/>} />
             <Route path=":houseId" element={<NavigateFromHouseId/>} />
             <Route path=":houseId/dashboard" element={<HouseDashboard />}/>
-            <Route path=":houseId/settings" element={<HouseDashboard />}/>
+            <Route path=":houseId/settings" element={<HouseSettings />}/>
             {
                 roomRoutes
             }

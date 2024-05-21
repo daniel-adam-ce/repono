@@ -50,7 +50,26 @@ export function bodylessEndpoint<D, P extends ParamObj = {}>(url: string) {
 
 export function bodyEndpoint<D, B, P extends ParamObj = {}>(url: string,): BodyEndpoint<D, B, P> {
     return async (body: B, init?: InitWithParams<P>): Promise<FetchResponse<D>> => {
+
+
         return FetchFunctions.post(
+            {
+                url: generateParamUrl(url, init?.pathParams),
+                options: {
+                    init: {
+                        ...init,
+                        body: JSON.stringify(body)
+                    }
+                }
+            }
+        )
+    };
+}
+
+// this is bad
+export function bodyEndpointPost<D, B, P extends ParamObj = {}>(url: string,): BodyEndpoint<D, B, P> {
+    return async (body: B, init?: InitWithParams<P>): Promise<FetchResponse<D>> => {
+        return FetchFunctions.patch(
             {
                 url: generateParamUrl(url, init?.pathParams),
                 options: {
