@@ -69,6 +69,7 @@ class FetchFunctionsAPI {
         this.get = fetchFunction("get");
         this.post = fetchFunction("post");
         this.put = fetchFunction("put");
+        // for some reason this needs to be uppercase (while the others do not)
         this.patch = fetchFunction("PATCH");
         this.delete = fetchFunction("delete");
     }
