@@ -12,7 +12,7 @@ export * from "./Item";
 export interface Model<S, I, U> {
     readonly table: TableType
 
-    findById(id: number): Promise<S>
+    findById(id: number): Promise<S | any>
     findAll(): Promise<Array<S | any>> 
 
     createOne(row: I): Promise<S> 

@@ -1,7 +1,7 @@
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
 import { House, HouseUpdate, HouseUser, NewHouse } from "../db";
-import { HouseRepository } from "../models";
+import { HouseRepository, HouseWithTotals } from "../models";
 import { HouseUserRepository } from "../models/HouseUser";
 
 
@@ -14,8 +14,8 @@ class HouseService {
         }
     }
 
-    async getHouse(id: string): Promise<House> {
-        let house: House;
+    async getHouse(id: string): Promise<HouseWithTotals> {
+        let house: HouseWithTotals;
         if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
         try {
             house = await HouseRepository.findById(parseInt(id));

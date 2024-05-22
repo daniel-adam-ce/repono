@@ -4,7 +4,7 @@ import * as Models from "../../../models";
 import HouseService from "../../../services/HouseService";
 
 
-const mockHouses: House[] = [
+const mockHouses: any[] = [
     {
         created_at: null,
         house_id: 1,
