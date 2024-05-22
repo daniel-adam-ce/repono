@@ -7,7 +7,7 @@ import { ReponoLogoTitle, ToolTip } from "@/components";
 import { LuBox, LuDoorOpen } from "react-icons/lu";
 import { RiDashboard3Line } from "react-icons/ri";
 import { HouseContext } from "@/providers/house";
-import { TbHome2, TbHomeStar } from "react-icons/tb";
+import { TbHome2, TbHomeStar, TbUsers } from "react-icons/tb";
 
 interface NavButtonProps {
     icon: React.ReactNode;
@@ -75,6 +75,11 @@ const NavbarHouse = () => {
                 icon={<LuBox />}
                 text={"Items"}
                 to={`${houseId}/items`}
+            />
+            <NavButton
+                icon={<TbUsers />}
+                text={"Users"}
+                to={`${houseId}/users`}
             />
             <NavButton
                 icon={<TbHomeStar />}
