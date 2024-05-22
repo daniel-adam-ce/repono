@@ -21,7 +21,6 @@ export const expressLoader = (app: express.Express) => {
     app.use(routes)
 
     app.use(errorHandler);
-    app.options('*', cors())
 }
 
 
