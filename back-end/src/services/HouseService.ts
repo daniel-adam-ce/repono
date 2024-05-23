@@ -14,6 +14,14 @@ class HouseService {
         }
     }
 
+    async getAllHousesByUserId(userId: number) {
+        try {
+            return await HouseRepository.findAllByUserId(userId);
+        } catch (error) {
+            throw new ApiError("Could not fetch houses.", { error });
+        }
+    }
+
     async getHouse(id: string): Promise<HouseWithTotals> {
         let house: HouseWithTotals;
         if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });

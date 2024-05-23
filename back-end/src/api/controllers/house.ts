@@ -5,7 +5,8 @@ import { AppUser } from "../../db";
 
 const getHouses = async (_req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = await HouseService.getAllHouses();
+        const user: AppUser = res.locals.user;
+        const data = await HouseService.getAllHousesByUserId(user.user_id);
         return res.status(StatusCodes.OK).json(data)
     } catch (error) {
         return next(error);

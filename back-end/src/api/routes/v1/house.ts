@@ -9,7 +9,7 @@ const route = Router();
 const houses = (router: Router) => {
     router.use("/houses", route);
 
-    route.get("/", getHouses);
+    route.get("/", validateToken(), getHouses);
     route.get("/:houseId", validateToken(), getHouse);
     route.post("/", validateToken(), createHouse);
     route.patch("/:houseId", validateToken(), updateHouse);

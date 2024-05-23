@@ -84,6 +84,20 @@ class HouseModel implements Model<House, NewHouse, HouseUpdate> {
         return await db.selectFrom(this.table).selectAll().execute();
     }
 
+    // SELECT house.house_id, house.house_name FROM house 
+    // LEFT JOIN house_user ON house.house_id = house_user.house_id
+    // WHERE house_user.user_id = 3  
+    async findAllByUserId(id: number) {
+        return await db.selectFrom(this.table)
+            .leftJoin("house_user", "house_user.house_id", "house.house_id")
+            .select([
+                "house.house_id",
+                "house.house_name"
+            ])
+            .where("house_user.user_id", "=", id)
+            .execute();
+    }
+
     async updateOne(id: number, updateWith: HouseUpdate) {
         return await db.updateTable(this.table).set(updateWith).where('house_id', '=', id).returningAll().executeTakeFirst()
     }
