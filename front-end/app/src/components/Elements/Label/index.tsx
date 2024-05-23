@@ -5,7 +5,7 @@ import { ThemeContext, ThemeContextType } from "../../../providers";
 import { classCombine } from "../../../@utils";
 
 
-export const Label = (
+export const Label2 = (
     {
         ...restProps
     }: Types.LabelProps) => {
@@ -21,5 +21,5 @@ export const Label = (
 }
 
 
-export default { Label, Styles, Types }
+export default { Label2, Styles, Types }
 

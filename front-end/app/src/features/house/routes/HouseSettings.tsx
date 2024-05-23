@@ -2,12 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { HouseContext } from "@/providers"
 import { useContext, useState } from "react"
-import { useHouseMutation } from "../api";
+import { useHouseUpdateMutation } from "../api";
 
 export const HouseSettings = () => {
     const houseContext = useContext(HouseContext);
     const [house, setHouse] = useState<Partial<{house_name: string}>>({house_name: houseContext.house?.house_name})
-    const updateHouse = useHouseMutation();
+    const updateHouse = useHouseUpdateMutation();
 
     return (
         <div>

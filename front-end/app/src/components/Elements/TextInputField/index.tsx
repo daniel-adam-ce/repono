@@ -3,7 +3,7 @@ import Styles from "./index.module.scss";
 import * as Types from "./types";
 import { ThemeContext, ThemeContextType } from "../../../providers";
 import { classCombine } from "../../../@utils";
-import { Label } from "../Label";
+import { Label2 } from "../Label";
 import { TextInput } from "../TextInput";
 
 
@@ -22,13 +22,13 @@ export const TextInputField = (
         >
             {
                 label &&
-                <Label
+                <Label2
                     htmlFor={id}
                 >
                     {
                         label
                     }
-                </Label>
+                </Label2>
             }
             <TextInput
                 {

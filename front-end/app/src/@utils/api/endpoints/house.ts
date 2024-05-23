@@ -7,7 +7,7 @@ class HouseEndpoints {
     readonly baseUrl: string
     fetchAll: BodylessEndpoint<Array<any>>
     fetch: BodylessEndpoint<any, {houses: string | undefined}>
-    create: BodyEndpoint<any, {houses: any}>
+    create: BodyEndpoint<any, {house: any}>
     update: BodyEndpoint<any, {house: any}>
     rooms: typeof rooms
     items: typeof items
