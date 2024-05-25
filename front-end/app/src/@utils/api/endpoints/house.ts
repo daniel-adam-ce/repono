@@ -1,6 +1,7 @@
 import { BodyEndpoint, BodylessEndpoint, bodyEndpoint, bodyEndpointPost, bodylessEndpoint } from "../utils";
 import { ItemEndpoints, items } from "./item";
 import { RoomEndpoints, rooms } from "./room";
+import { UserEndpoints, users } from "./users";
 
 
 class HouseEndpoints {
@@ -11,6 +12,7 @@ class HouseEndpoints {
     update: BodyEndpoint<any, {house: any}>
     rooms: typeof rooms
     items: typeof items
+    users: typeof users
 
     constructor(url: string) {
         // super(url);
@@ -21,6 +23,7 @@ class HouseEndpoints {
         this.update = bodyEndpointPost(url);
         this.rooms = new RoomEndpoints(`${url}/rooms`);
         this.items = new ItemEndpoints(`${url}/items`);
+        this.users = new UserEndpoints(`${url}/users`);
     }
 }
 

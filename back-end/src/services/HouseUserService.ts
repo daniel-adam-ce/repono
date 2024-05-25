@@ -1,24 +1,32 @@
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
-import { House, HouseUser, NewHouse } from "../db";
+import { House, HouseUser, NewHouseUser } from "../db";
 import { HouseRepository } from "../models";
 import { HouseUserRepository } from "../models/HouseUser";
 
 
-class HouseService {
-    async getAllHouses(): Promise<HouseUser[]> {
+class HouserUserServiceClass {
+    async getAllUsers(): Promise<HouseUser[]> {
         try {
-            console.log('test2')
             return await HouseUserRepository.findAll();
         } catch (error) {
             throw new ApiError("Could not fetch houses.", {error});
         }
     }
 
-    async getHouse(id: string): Promise<HouseUser> {
-        let user: HouseUser;
+    async getAllUsersByHouseId(id: string) {
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
         try {
-            if (!id) throw new Error("ID is required.");
+            return await HouseUserRepository.findAllByHouseId(parseInt(id));
+        } catch (error) {
+            throw new ApiError("Could not fetch houses.", {error});
+        }
+    }
+
+    async getUser(id: string): Promise<HouseUser> {
+        let user: HouseUser;
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        try {
             user = await HouseUserRepository.findById(parseInt(id));
         } catch (error) {
             throw new ApiError("Error fetching house.", {error})
@@ -27,19 +35,18 @@ class HouseService {
         return user;
     }
 
-    async createHouse(house: any): Promise<House> {
-        let newHouse: House;
+    async createUser(user: {email: string}): Promise<House> {
+        let newUser: House;
         let newHouseUser: HouseUser;
         try {
-            if (!house.house_name) throw new Error("House name is required.");
-            newHouse = await HouseRepository.createOne(house);
-            newHouseUser = await HouseUserRepository.createOne({user_id: newHouse.house_owner, house_id: newHouse.house_id});
+            if (!user.email) throw new Error("Email is required.");
+            // newUser = await HouseUserRepository.createOne(user);
 
         } catch (error) {
             throw new ApiError("Error creating house.", {error})
         }
-        return newHouse;
+        return newUser;
     }
 }
 
-export default new HouseService;
+export const HouseUserService = new HouserUserServiceClass;

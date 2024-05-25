@@ -7,9 +7,9 @@ export const useUsers = () => {
     // const user = auth.user
     const { houseId } = useParams();
     const { data, isPending, error, ...queryResponse } = useQuery({
-        queryKey: ['getRooms', houseId],
+        queryKey: ['getUsers', houseId],
         queryFn: async () => {
-            const res = await Endpoints.houses.rooms.fetchAll({pathParams: {houses: houseId}});
+            const res = await Endpoints.houses.users.fetchAll({pathParams: {houses: houseId}});
              if (!res.ok) {
                 throw new Error((await res.json() as any).message);
             }
@@ -23,5 +23,5 @@ export const useUsers = () => {
         console.log(error, queryResponse);
     }
 
-    return { rooms: data ?? [], isPending, error } 
+    return { users: data ?? [], isPending, error } 
 }

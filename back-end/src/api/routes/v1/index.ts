@@ -5,6 +5,7 @@ import session from "./sesson";
 import houses from "./house";
 import rooms from "./room";
 import items from "./item";
+import houseUsers from "./house-user";
 
 const v1 = Router();
 
@@ -14,5 +15,6 @@ session(v1);
 houses(v1);
 rooms(v1);
 items(v1);
+houseUsers(v1);
  
 export default v1;

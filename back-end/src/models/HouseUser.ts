@@ -21,6 +21,17 @@ class HouseUserModel implements Model<HouseUser, NewHouseUser, HouseUserUpdate> 
         return await db.selectFrom(this.table).selectAll().execute();
     }
 
+    async findAllByHouseId(id: number) {
+        return await db.selectFrom(this.table)
+        .leftJoin("app_user", "house_user.user_id", "app_user.user_id")
+        .select([
+            "house_user.user_id",
+            "app_user.email"
+        ])
+        .where("house_user.house_id", "=", id)
+        .execute();
+    }
+
     async updateOne(id: number, updateWith: HouseUserUpdate){
         return await db.updateTable(this.table).set(updateWith).where('house_id', '=', id).returningAll().executeTakeFirst()
     }

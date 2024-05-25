@@ -8,17 +8,13 @@ interface UserTableProps {
 
 const columns: ColumnDef<User>[] = [
     {
-        accessorKey: "room_name",
-        header: "Room",
+        accessorKey: "user_id",
+        header: "User ID",
     },
     {
         accessorKey: "email",
-        header: "Created By"
+        header: "Email"
     },
-    {
-        accessorKey: "count",
-        header: "# of Items"
-    }
 ]
 
 export const UserTable = ({users}: UserTableProps) => {

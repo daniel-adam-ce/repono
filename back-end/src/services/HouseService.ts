@@ -5,7 +5,7 @@ import { HouseRepository, HouseWithTotals } from "../models";
 import { HouseUserRepository } from "../models/HouseUser";
 
 
-class HouseService {
+class HouseServiceClass {
     async getAllHouses(): Promise<House[]> {
         try {
             return await HouseRepository.findAll();
@@ -60,4 +60,4 @@ class HouseService {
     }
 }
 
-export default new HouseService;
+export const HouseService = new HouseServiceClass;

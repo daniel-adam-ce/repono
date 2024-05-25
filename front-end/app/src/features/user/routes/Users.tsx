@@ -4,7 +4,7 @@ import { useUsers } from "../api";
 
 export const Users = () => {
     const navigate = useNavigate();
-    const { rooms, isPending } = useUsers();
+    const { users, isPending } = useUsers();
 
     return (
         <div>
@@ -18,7 +18,7 @@ export const Users = () => {
             {
                 !isPending
                     ? <UserTable
-                        users={rooms}
+                        users={users}
                     />
                     : <div>
                         loading...
