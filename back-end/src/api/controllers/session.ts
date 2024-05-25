@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import SessionService from "../../services/SessionService";
 import { Credentials } from "google-auth-library";
+import { SessionService } from "../../services";
 
 const googleOAuth = async (_req: Request, res: Response, next: NextFunction) => {
     try {

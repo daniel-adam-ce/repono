@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import UsersService from "../../services/UserService";
+import { AppUserService } from "../../services";
 
 const getUsers = async (_req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = await UsersService.getAllUsers();
+        const data = await AppUserService.getAllUsers();
         return res.status(StatusCodes.OK).json(data)
     } catch (error) {
         return next(error);
@@ -13,7 +13,7 @@ const getUsers = async (_req: Request, res: Response, next: NextFunction) => {
 
 const getUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = await UsersService.getUser(req.params.id);
+        const data = await AppUserService.getUser(req.params.id);
         return res.status(StatusCodes.OK).json(data)
     } catch (error) {
         return next(error);

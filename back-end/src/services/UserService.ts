@@ -4,7 +4,7 @@ import { AppUser } from "../db";
 import { AppUserRepository } from "../models";
 
 
-class UsersService {
+class UsersServiceClass {
     async getAllUsers(): Promise<AppUser[]> {
         try {
             return await AppUserRepository.findAll();
@@ -26,4 +26,4 @@ class UsersService {
     }
 }
 
-export default new UsersService;
+export const AppUserService = new UsersServiceClass;

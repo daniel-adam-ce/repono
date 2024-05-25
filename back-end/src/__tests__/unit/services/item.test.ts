@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { Item, NewItem } from "../../../db";
 import * as Models from "../../../models";
-import ItemService from "../../../services/ItemService";
+import { ItemService } from "../../../services";
 
 const mockItems: any[] = [
     {

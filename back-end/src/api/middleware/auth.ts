@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import SessionService from "../../services/SessionService";
+import { SessionService } from "../../services";
 
 export const validateToken = () => {
     return async (req: Request, res: Response, next: NextFunction) => {

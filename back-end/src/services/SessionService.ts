@@ -4,7 +4,7 @@ import { SessionRepository, AppUserRepository } from "../models";
 import { StatusCodes } from "http-status-codes";
 import { AppUser } from "../db";
 
-class SessionService {
+class SessionServiceClass {
 
     getGoogleOAuthURL() {
         let authUrl: string;
@@ -55,4 +55,4 @@ class SessionService {
     }
 }
 
-export default new SessionService;
+export const SessionService = new SessionServiceClass;

@@ -4,7 +4,7 @@ import { Item, ItemUpdate, NewItem } from "../db";
 import { ItemRepository } from "../models";
 
 
-class ItemService {
+class ItemServiceClass {
     // this should be changed to onyl get items based on the hosue or houses that the item is in
     async getAllItems() {
         try {
@@ -47,4 +47,4 @@ class ItemService {
     }
 }
 
-export default new ItemService;
+export const ItemService = new ItemServiceClass;

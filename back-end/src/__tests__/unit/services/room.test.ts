@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { NewRoom, Room, db } from "../../../db";
 import * as Models from "../../../models";
-import RoomService from "../../../services/RoomService";
+import { RoomService } from "../../../services";
 
 
 const mockRooms: any[] = [
