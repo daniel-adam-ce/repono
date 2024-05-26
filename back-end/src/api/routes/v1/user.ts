@@ -8,7 +8,7 @@ const users = (router: Router) => {
     router.use("/users", route);
 
     route.get("/", getUsers);
-    route.get("/:id", validateToken(), getUser)
+    route.get("/:id", validateToken(), getUser);
 }
 
 export default users;

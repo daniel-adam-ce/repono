@@ -22,7 +22,19 @@ const getHouseUser = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
+
+const createHouseUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { houseId } = req.params;
+        const data = await HouseUserService.createUser({house_id: houseId, email: req.body.email})
+        return res.status(StatusCodes.CREATED).json(data);
+    } catch (error) {
+        return next(error);
+    }
+}
+
 export {
     getHouseUsers,
-    getHouseUser
+    getHouseUser,
+    createHouseUser
 }

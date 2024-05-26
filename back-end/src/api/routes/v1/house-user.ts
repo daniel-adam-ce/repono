@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateToken } from "../../middleware";
-import { getHouseUsers } from "../../controllers";
+import { createHouseUser, getHouseUsers } from "../../controllers";
 
 export const houseUserRouter = Router({mergeParams: true});
 
@@ -9,7 +9,7 @@ const houseUsers = (router: Router) => {
 
     houseUserRouter.get("/", validateToken(), getHouseUsers);
     houseUserRouter.get("/:userId", validateToken(), getHouseUsers);
-    // houseUserRouter.post("/", validateToken(), createItem);
+    houseUserRouter.post("/", validateToken(), createHouseUser);
 }
 
 export default houseUsers;
