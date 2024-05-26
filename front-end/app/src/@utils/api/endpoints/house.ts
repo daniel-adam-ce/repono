@@ -1,4 +1,4 @@
-import { BodyEndpoint, BodylessEndpoint, bodyEndpoint, bodyEndpointPost, bodylessEndpoint } from "../utils";
+import { BodyEndpoint, BodylessEndpoint, bodyEndpoint, bodyEndpointPatch, bodylessEndpoint } from "../utils";
 import { ItemEndpoints, items } from "./item";
 import { RoomEndpoints, rooms } from "./room";
 import { UserEndpoints, users } from "./users";
@@ -20,7 +20,7 @@ class HouseEndpoints {
         this.fetchAll = bodylessEndpoint(url);
         this.fetch = bodylessEndpoint(url);
         this.create = bodyEndpoint(url);
-        this.update = bodyEndpointPost(url);
+        this.update = bodyEndpointPatch(url);
         this.rooms = new RoomEndpoints(`${url}/rooms`);
         this.items = new ItemEndpoints(`${url}/items`);
         this.users = new UserEndpoints(`${url}/users`);

@@ -6,7 +6,7 @@ export class RoomEndpoints {
     readonly baseUrl: string
     fetchAll: BodylessEndpoint<Array<any>, {houses?: string}>
     fetch: BodylessEndpoint<any, {houses?: string | undefined, rooms: string | undefined}>
-    create: BodyEndpoint<any, {room: any}>
+    create: BodyEndpoint<any, {room: any}, {houses?: string | undefined}>
     items: typeof items
 
     constructor(url: string) {

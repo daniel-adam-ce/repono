@@ -67,7 +67,7 @@ export function bodyEndpoint<D, B, P extends ParamObj = {}>(url: string,): BodyE
 }
 
 // this is bad
-export function bodyEndpointPost<D, B, P extends ParamObj = {}>(url: string,): BodyEndpoint<D, B, P> {
+export function bodyEndpointPatch<D, B, P extends ParamObj = {}>(url: string,): BodyEndpoint<D, B, P> {
     return async (body: B, init?: InitWithParams<P>): Promise<FetchResponse<D>> => {
         return FetchFunctions.patch(
             {
