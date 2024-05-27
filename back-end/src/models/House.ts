@@ -67,7 +67,8 @@ class HouseModel implements Model<House, NewHouse, HouseUpdate> {
                 'house.house_id',
                 'house.house_name',
                 'item_count.num_items as total_items',
-                'room_count.num_rooms as total_rooms'
+                'room_count.num_rooms as total_rooms',
+                'house.house_owner'
             ])
             .where('house.house_id', '=', id)
             .executeTakeFirst()

@@ -82,3 +82,20 @@ export function bodyEndpointPatch<D, B, P extends ParamObj = {}>(url: string,): 
         )
     };
 }
+
+// this is bad
+export function bodyEndpointDelete<D, B, P extends ParamObj = {}>(url: string,): BodyEndpoint<D, B, P> {
+    return async (body: B, init?: InitWithParams<P>): Promise<FetchResponse<D>> => {
+        return FetchFunctions.delete(
+            {
+                url: generateParamUrl(url, init?.pathParams),
+                options: {
+                    init: {
+                        ...init,
+                        body: JSON.stringify(body)
+                    }
+                }
+            }
+        )
+    };
+}

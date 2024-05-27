@@ -1,6 +1,6 @@
 import { Endpoints } from "@/@utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const useHouseUpdateMutation = () => {
     const queryClient = useQueryClient();
@@ -37,6 +37,29 @@ export const useHouseCreateMutation = () => {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ["getHouses"], refetchType: "all" })
+        }
+    })
+
+    return query;
+}
+
+export const useHouseDeleteMutation = () => {
+    const queryClient = useQueryClient();
+    const { houseId } = useParams();
+    // const navigate = useNavigate();
+    const query = useMutation({
+        mutationFn: async () => {
+            const res = await Endpoints.houses.delete({}, { pathParams: { houses: houseId } });
+
+            if (!res.ok) {
+                throw new Error((await res.json() as any).message);
+            }
+
+            return res.json();
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["getHouses"], refetchType: "all" })
+            window.location.href = "/"
         }
     })
 

@@ -58,6 +58,16 @@ class HouseServiceClass {
         }
         return updatedHouse;
     }
+
+    async deleteHouse(id: string): Promise<any> {
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        try {
+            await HouseRepository.deleteOne(parseInt(id));
+            return {};
+        } catch (error) {
+            throw new ApiError("Error deleting house.", { error });
+        }
+    }
 }
 
 export const HouseService = new HouseServiceClass;

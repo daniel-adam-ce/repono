@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateToken } from "../../middleware";
-import { createHouse, getHouse, getHouses, updateHouse } from "../../controllers/house";
+import { createHouse, deleteHouse, getHouse, getHouses, updateHouse } from "../../controllers";
 import { roomRouter } from "./room";
 import { itemRouter } from "./item";
 import { houseUserRouter } from "./house-user";
@@ -14,6 +14,7 @@ const houses = (router: Router) => {
     route.get("/:houseId", validateToken(), getHouse);
     route.post("/", validateToken(), createHouse);
     route.patch("/:houseId", validateToken(), updateHouse);
+    route.delete("/:houseId", validateToken(), deleteHouse);
     
     router.use("/houses/:houseId/rooms", roomRouter);
     router.use("/houses/:houseId/items", itemRouter);

@@ -86,7 +86,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
             value={{
                 authenticated: auth.status === "success",
                 authenticating: auth.status === "pending",
-                user: auth.data,
+                user: auth.data?.user,
                 houses: houses.houses,
                 logout: logout
             }}

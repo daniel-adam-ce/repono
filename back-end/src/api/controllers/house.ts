@@ -42,9 +42,20 @@ const updateHouse = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
+const deleteHouse = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { houseId } = req.params;
+        const data = await HouseService.deleteHouse(houseId);
+        return res.status(StatusCodes.OK).json(data);
+    } catch (error) {
+        return next(error);   
+    }
+}
+
 export {
     getHouses,
     getHouse,
     createHouse,
-    updateHouse
+    updateHouse,
+    deleteHouse
 }
