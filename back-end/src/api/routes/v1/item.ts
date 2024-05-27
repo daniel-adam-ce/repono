@@ -7,7 +7,7 @@ export const itemRouter = Router({mergeParams: true});
 const items = (router: Router) => {
     router.use("/items", itemRouter);
 
-    itemRouter.get("/", getItems);
+    itemRouter.get("/", validateToken(), getItems);
     itemRouter.get("/:itemId", validateToken(), getItem);
     itemRouter.post("/", validateToken(), createItem);
 }

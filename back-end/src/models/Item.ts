@@ -24,24 +24,43 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
             .executeTakeFirst()
     }
 
-    // async findAll() {
-    //     return await db.selectFrom(this.table).selectAll().execute();
-    // }
-
     async findAll() {
+        return await db.selectFrom(this.table).selectAll().execute();
+    }
+
+    // SELECT item.item_name, house.house_name, room.room_name, house.house_id, app_user.user_id, room.room_id, app_user.email, item.created_by
+    // FROM item
+    // INNER JOIN
+    // (
+    //     SELECT * FROM house_user
+    //     WHERE house_user.user_id = 3
+    // ) as house_user_temp ON house_user_temp.house_id = house_user_temp.house_id
+    // INNER JOIN house on item.house_id = house.house_id
+    // INNER JOIN room on item.room_id = room.room_id
+    // INNER JOIN app_user on item.created_by = app_user.user_id
+    // WHERE house_user_temp.house_id = house.house_id;
+    async findAllByUserId(userId: number) {
         return await db.selectFrom("item")
-        .leftJoin("room", "room.room_id", "item.room_id")
-        .leftJoin("house", "house.house_id", "item.house_id")
-        .leftJoin("app_user", "app_user.user_id", "item.created_by")
-        .select([
-            "item_id",
-            "item_name",
-            "item.created_at",
-            "description",
-            "room_name",
-            "house_name",
-            "app_user.email"
-        ]).execute();
+            .innerJoin((eb) =>
+                eb.selectFrom("house_user")
+                    .selectAll()
+                    .where("house_user.user_id", "=", userId)
+                    .as("house_user_temp")
+                ,
+                (join) => join.onRef("house_user_temp.house_id", "=", "house_user_temp.house_id")
+            )
+            .innerJoin("house", "item.house_id", "house.house_id")
+            .innerJoin("room", "item.room_id", "room.room_id")
+            .innerJoin("app_user", "item.created_by", "app_user.user_id")
+            .select([
+                "item.item_name",
+                "item.description",
+                "house.house_name",
+                "room.room_name",
+                "app_user.email",
+            ])
+            .whereRef("house_user_temp.house_id", "=", "house.house_id")
+            .execute();
     }
 
     async findAllByHouseId(houseId: number) {

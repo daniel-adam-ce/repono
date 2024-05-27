@@ -63,14 +63,14 @@ describe("get all items", () => {
     it("should return all items", async () => {
         // const spy = jest.spyOn(Models.ItemRepository, 'findAll');
         findAllSpy.mockResolvedValue(mockItems);
-        await expect(ItemService.getAllItems()).resolves.toEqual<Array<Item>>(mockItems);
+        await expect(ItemService.getAllItems(1)).resolves.toEqual<Array<Item>>(mockItems);
     });
 
     
     it("should return a 500 given a db error", async () => {
         // const spy = jest.spyOn(Models.ItemRepository, 'findAll');
         findAllSpy.mockRejectedValue(new Error("Something went wrong"));
-        await expect(ItemService.getAllItems()).rejects.toMatchObject({code: StatusCodes.INTERNAL_SERVER_ERROR});
+        await expect(ItemService.getAllItems(1)).rejects.toMatchObject({code: StatusCodes.INTERNAL_SERVER_ERROR});
     });
 })
 

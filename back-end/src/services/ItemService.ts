@@ -6,9 +6,9 @@ import { ItemRepository } from "../models";
 
 class ItemServiceClass {
     // this should be changed to onyl get items based on the hosue or houses that the item is in
-    async getAllItems() {
+    async getAllItems(userId: number) {
         try {
-            return await ItemRepository.findAll();
+            return await ItemRepository.findAllByUserId(userId);
         } catch (error) {
             throw new ApiError("Could not fetch items.", { error });
         }

@@ -6,7 +6,8 @@ import { ItemService } from "../../services";
 const getItems = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { houseId } = req.params;
-        const data = houseId ? await ItemService.getAllItemsByHouseId(houseId) : await ItemService.getAllItems();
+        const user = res.locals.user;
+        const data = houseId ? await ItemService.getAllItemsByHouseId(houseId) : await ItemService.getAllItems(user.user_id);
         return res.status(StatusCodes.OK).json(data)
     } catch (error) {
         return next(error);
