@@ -28,13 +28,25 @@ class RoomServiceClass {
 
     async createRoom(room: NewRoom): Promise<Room> {
         let newRoom: Room;
-        if (!room.room_name) throw new ApiError("Room name is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
+        if (!room.room_name) throw new ApiError("Room name is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
         try {
             newRoom = await RoomRepository.createOne(room);
         } catch (error) {
             throw new ApiError("Error creating room.", { error })
         }
         return newRoom;
+    }
+
+    async updateRoom(id: string, room: RoomUpdate) {
+        let updatedRoom: Room;
+        if (!room.room_name) throw new ApiError("Room name is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        try {
+            updatedRoom = await RoomRepository.updateOne(parseInt(id), room)
+        } catch (error) {
+            throw new ApiError("Error editing house.", { error });
+        }
+        return updatedRoom;
     }
 }
 

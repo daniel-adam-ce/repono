@@ -4,21 +4,63 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 
-export const useRoomMutation = () => {
+export const useRoomCreateMutation = () => {
     const queryClient = useQueryClient();
     const { houseId } = useParams();
     const query = useMutation({
         mutationFn: async (newRoom: any) => {
-            const res = await Endpoints.houses.rooms.create({room: newRoom}, {pathParams: {houses: houseId}});
+            const res = await Endpoints.houses.rooms.create({ room: newRoom }, { pathParams: { houses: houseId } });
 
             if (!res.ok) {
                 throw new Error((await res.json() as any).message);
             }
 
             return res.json();
-        }, 
-        onSuccess:  async () => {
-            await queryClient.invalidateQueries({queryKey: ["getRooms"], refetchType: "all"})
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["getRooms"], refetchType: "all" })
+        }
+    })
+
+    return query;
+}
+
+export const useRoomUpdateMutation = () => {
+    const queryClient = useQueryClient();
+    const { houseId, roomId } = useParams();
+    const query = useMutation({
+        mutationFn: async (newRoom: any) => {
+            const res = await Endpoints.houses.rooms.update({ room: newRoom }, { pathParams: { houses: houseId, rooms: roomId } });
+
+            if (!res.ok) {
+                throw new Error((await res.json() as any).message);
+            }
+
+            return res.json();
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["getRooms"], refetchType: "all" })
+        }
+    })
+
+    return query;
+}
+
+export const useRoomDeleteeMutation = () => {
+    const queryClient = useQueryClient();
+    const { houseId, roomId } = useParams();
+    const query = useMutation({
+        mutationFn: async (newRoom: any) => {
+            const res = await Endpoints.houses.rooms.update({ room: newRoom }, { pathParams: { houses: houseId, rooms: roomId } });
+
+            if (!res.ok) {
+                throw new Error((await res.json() as any).message);
+            }
+
+            return res.json();
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["getRooms"], refetchType: "all" })
         }
     })
 
@@ -31,22 +73,22 @@ export const useRoom = () => {
     const { data, error, ...queryResponse } = useQuery({
         queryKey: ['getRoom', roomId],
         queryFn: async () => {
-            const res = await Endpoints.houses.rooms.fetch({ pathParams: {houses: houseId, rooms: roomId} });
-             if (!res.ok) {
+            const res = await Endpoints.houses.rooms.fetch({ pathParams: { houses: houseId, rooms: roomId } });
+            if (!res.ok) {
                 throw new Error((await res.json() as ErrorResponseJSON).message);
             }
             return res.json();
         },
         enabled: !!roomId && !!auth.user,
         retry: false,
-        
+
     })
 
     if (error && queryResponse) {
         console.log(error, queryResponse);
     }
 
-    return { room: data, error } 
+    return { room: data, isPending: queryResponse.isPending, error }
 }
 
 export const useRooms = () => {
@@ -56,19 +98,19 @@ export const useRooms = () => {
     const { data, isPending, error, ...queryResponse } = useQuery({
         queryKey: ['getRooms', houseId],
         queryFn: async () => {
-            const res = await Endpoints.houses.rooms.fetchAll({pathParams: {houses: houseId}});
-             if (!res.ok) {
+            const res = await Endpoints.houses.rooms.fetchAll({ pathParams: { houses: houseId } });
+            if (!res.ok) {
                 throw new Error((await res.json() as any).message);
             }
             return res.json();
         },
         retry: false,
-        
+
     })
 
     if (error && queryResponse) {
         console.log(error, queryResponse);
     }
 
-    return { rooms: data ?? [], isPending, error } 
+    return { rooms: data ?? [], isPending, error }
 }

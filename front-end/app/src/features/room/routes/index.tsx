@@ -4,6 +4,7 @@ import { lazy } from 'react';
 
 const Rooms = lazy(() => import('./Rooms'));
 const CreateRoom = lazy(() => import('./CreateRoom'));
+const EditRoom = lazy(() => import('./EditRoom'));
 
 export const useRoomRoutes = () => {
     const itemRoutesSingleHouse = useItemRoutesSingleHouse()
@@ -11,7 +12,7 @@ export const useRoomRoutes = () => {
         <>
             <Route path="/house/:houseId/rooms">
                 <Route path="" element={<Rooms />} />
-                <Route path=":roomId" element={<Rooms />} />
+                <Route path=":roomId" element={<EditRoom />} />
                 <Route path="/house/:houseId/rooms/create" element={<CreateRoom />} />
                 { itemRoutesSingleHouse }
             </Route>

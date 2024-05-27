@@ -1,6 +1,6 @@
 import { Endpoints } from "@/@utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export const useHouseUpdateMutation = () => {
     const queryClient = useQueryClient();

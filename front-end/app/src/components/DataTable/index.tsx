@@ -21,6 +21,7 @@ import {
 export function DataTable<TData, TValue>({
     columns,
     data,
+    onRowClick
 }: Types.DataTableProps<TData, TValue>) {
     const table = useReactTable({
         data,
@@ -55,6 +56,9 @@ export function DataTable<TData, TValue>({
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
+                                onClick={() => {
+                                    if (onRowClick) onRowClick(row)
+                                }}
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>

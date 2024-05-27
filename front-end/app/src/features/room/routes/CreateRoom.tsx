@@ -1,12 +1,12 @@
 import { TextInputField } from "@/components";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useRoomMutation } from "../api";
+import { useRoomCreateMutation } from "../api";
 
 export const CreateRoom = () => {
     const [roomName, setRoomName] = useState<string>("");
 
-    const createRoom = useRoomMutation();
+    const createRoom = useRoomCreateMutation();
 
     return (
         <div>
