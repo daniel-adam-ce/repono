@@ -2,9 +2,9 @@ import { Endpoints, ErrorResponseJSON } from "@/@utils";
 import { AuthContext } from "@/providers";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const useItemMutation = () => {
+export const useItemCreateMutation = () => {
     const queryClient = useQueryClient();
     const { houseId } = useParams();
     const query = useMutation({
@@ -19,6 +19,50 @@ export const useItemMutation = () => {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ["getItems"], refetchType: "all" })
+        }
+    })
+
+    return query;
+}
+
+export const useItemUpdateMutation = () => {
+    const queryClient = useQueryClient();
+    const { houseId, roomId, itemId } = useParams();
+    const query = useMutation({
+        mutationFn: async (newItem: any) => {
+            const res = await Endpoints.houses.items.update({ item: newItem }, { pathParams: { houses: houseId, rooms: roomId, items: itemId } });
+
+            if (!res.ok) {
+                throw new Error((await res.json() as any).message);
+            }
+
+            return res.json();
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["getItems"], refetchType: "all" })
+        }
+    })
+
+    return query;
+}
+
+export const useItemDeleteMutation = () => {
+    const queryClient = useQueryClient();
+    const { houseId, roomId, itemId } = useParams();
+    const navigate = useNavigate();
+    const query = useMutation({
+        mutationFn: async () => {
+            const res = await Endpoints.houses.items.delete({ }, { pathParams: { houses: houseId, rooms: roomId, items: itemId } });
+
+            if (!res.ok) {
+                throw new Error((await res.json() as any).message);
+            }
+
+            return res.json();
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["getItems"], refetchType: "all" })
+            navigate(`/house/${houseId}/items`)
         }
     })
 
@@ -46,7 +90,7 @@ export const useItem = () => {
         console.log(error, queryResponse);
     }
 
-    return { item: data, error }
+    return { item: data, isPending: queryResponse.isPending, error }
 }
 
 export const useItems = () => {

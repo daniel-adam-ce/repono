@@ -45,6 +45,28 @@ class ItemServiceClass {
         }
         return newItem;
     }
+
+    async updateItem(id: string, item: ItemUpdate) {
+        let updatedItem: Item;
+        if (!item.item_name) throw new ApiError("Item name is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        try {
+            updatedItem = await ItemRepository.updateOne(parseInt(id), item)
+        } catch (error) {
+            throw new ApiError("Error editing item.", { error });
+        }
+        return updatedItem;
+    }
+
+    async deleteItem(id: string): Promise<any> {
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        try {
+            await ItemRepository.deleteOne(parseInt(id));
+            return {};
+        } catch (error) {
+            throw new ApiError("Error deleting item.", { error });
+        }
+    }
 }
 
 export const ItemService = new ItemServiceClass;

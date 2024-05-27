@@ -16,7 +16,9 @@ const getItems = async (req: Request, res: Response, next: NextFunction) => {
 
 const getItem = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = await ItemService.getItem(req.params.roomId);
+        const { itemId } = req.params;
+        console.log(req.params);
+        const data = await ItemService.getItem(itemId);
         return res.status(StatusCodes.OK).json(data);
     } catch (error) {
         return next(error);
@@ -33,8 +35,30 @@ const createItem = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
+const updateItem = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { houseId, roomId, itemId } = req.params;
+        const data = await ItemService.updateItem(itemId, req.body.item);
+        return res.status(StatusCodes.OK).json(data);
+    } catch (error) {
+        return next(error);   
+    }
+}
+
+const deleteItem = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { houseId, roomId, itemId } = req.params;
+        const data = await ItemService.deleteItem(itemId);
+        return res.status(StatusCodes.OK).json(data);
+    } catch (error) {
+        return next(error);   
+    }
+}
+
 export {
     getItems,
     getItem,
-    createItem
+    createItem,
+    updateItem,
+    deleteItem
 }

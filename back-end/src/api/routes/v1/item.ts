@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateToken } from "../../middleware";
-import { createItem, getItem, getItems } from "../../controllers";
+import { createItem, deleteItem, getItem, getItems, updateItem } from "../../controllers";
 
 export const itemRouter = Router({mergeParams: true});
 
@@ -10,6 +10,8 @@ const items = (router: Router) => {
     itemRouter.get("/", validateToken(), getItems);
     itemRouter.get("/:itemId", validateToken(), getItem);
     itemRouter.post("/", validateToken(), createItem);
+    itemRouter.patch("/:itemId", validateToken(), updateItem);
+    itemRouter.delete("/:itemId", validateToken(), deleteItem);
 }
 
 export default items;

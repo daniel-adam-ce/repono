@@ -1,7 +1,7 @@
 import { TextInput } from "@/components";
 import { useRooms } from "@/features/room";
 import { useEffect, useState } from "react";
-import { useItemMutation } from "../api";
+import { useItemCreateMutation } from "../api";
 import { Button } from "@/components/ui/button";
 
 interface Item {
@@ -13,7 +13,7 @@ interface Item {
 export const CreateItem = () => {
     const { rooms } = useRooms();
     const [item, setItem] = useState<Item>({});
-    const createItem = useItemMutation();
+    const createItem = useItemCreateMutation();
 
     useEffect(() => {
         console.log(item);

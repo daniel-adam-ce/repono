@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Item } from "../types"
 import { DataTable } from "@/components/DataTable"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useMemo } from "react"
 
 interface ItemTableProps {
@@ -61,10 +61,14 @@ const useItemColumns = () => {
 }
 
 export const ItemTable = ({items}: ItemTableProps) => {
+    const navigate = useNavigate();
     return (
         <DataTable
             columns={useItemColumns()}
             data={items}
+            onRowClick={(row) => {
+                navigate(`${row.original.item_id}`)
+            }}
         />
     )
 }

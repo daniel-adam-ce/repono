@@ -19,7 +19,7 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
 
     async findById(id: number) {
         return await db.selectFrom(this.table)
-            .where('room_id', '=', id)
+            .where('item_id', '=', id)
             .selectAll()
             .executeTakeFirst()
     }
@@ -53,6 +53,7 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
             .innerJoin("room", "item.room_id", "room.room_id")
             .innerJoin("app_user", "item.created_by", "app_user.user_id")
             .select([
+                "item.item_id",
                 "item.item_name",
                 "item.description",
                 "house.house_name",
@@ -83,7 +84,7 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
     }
 
     async updateOne(id: number, updateWith: ItemUpdate) {
-        return await db.updateTable(this.table).set(updateWith).where('room_id', '=', id).returningAll().executeTakeFirst()
+        return await db.updateTable(this.table).set(updateWith).where('item_id', '=', id).returningAll().executeTakeFirst()
     }
 
     async createOne(row: NewItem) {
@@ -94,7 +95,7 @@ class ItemModel implements Model<Item, NewItem, ItemUpdate> {
     }
 
     async deleteOne(id: number) {
-        return await db.deleteFrom(this.table).where('room_id', '=', id)
+        return await db.deleteFrom(this.table).where('item_id', '=', id)
             .returningAll()
             .executeTakeFirst()
     }
