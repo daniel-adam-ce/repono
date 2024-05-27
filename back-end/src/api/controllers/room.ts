@@ -41,9 +41,20 @@ const updateRoom = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
+const deleteRoom = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { houseId, roomId } = req.params;
+        const data = await RoomService.deleteRoom(roomId);
+        return res.status(StatusCodes.OK).json(data);
+    } catch (error) {
+        return next(error);   
+    }
+}
+
 export {
     getRooms,
     getRoom,
     createRoom,
-    updateRoom
+    updateRoom,
+    deleteRoom
 }

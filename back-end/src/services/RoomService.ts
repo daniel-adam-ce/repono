@@ -44,9 +44,19 @@ class RoomServiceClass {
         try {
             updatedRoom = await RoomRepository.updateOne(parseInt(id), room)
         } catch (error) {
-            throw new ApiError("Error editing house.", { error });
+            throw new ApiError("Error editing room.", { error });
         }
         return updatedRoom;
+    }
+
+    async deleteRoom(id: string): Promise<any> {
+        if (!id) throw new ApiError("ID is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        try {
+            await RoomRepository.deleteOne(parseInt(id));
+            return {};
+        } catch (error) {
+            throw new ApiError("Error deleting room.", { error });
+        }
     }
 }
 

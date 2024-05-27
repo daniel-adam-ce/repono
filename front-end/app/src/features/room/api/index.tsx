@@ -2,7 +2,7 @@ import { Endpoints, ErrorResponseJSON } from "@/@utils";
 import { AuthContext } from "@/providers";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const useRoomCreateMutation = () => {
     const queryClient = useQueryClient();
@@ -46,12 +46,13 @@ export const useRoomUpdateMutation = () => {
     return query;
 }
 
-export const useRoomDeleteeMutation = () => {
+export const useRoomDeleteMutation = () => {
     const queryClient = useQueryClient();
     const { houseId, roomId } = useParams();
+    const navigate = useNavigate()
     const query = useMutation({
-        mutationFn: async (newRoom: any) => {
-            const res = await Endpoints.houses.rooms.update({ room: newRoom }, { pathParams: { houses: houseId, rooms: roomId } });
+        mutationFn: async () => {
+            const res = await Endpoints.houses.rooms.delete({}, { pathParams: { houses: houseId, rooms: roomId } });
 
             if (!res.ok) {
                 throw new Error((await res.json() as any).message);
@@ -61,6 +62,7 @@ export const useRoomDeleteeMutation = () => {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ["getRooms"], refetchType: "all" })
+            navigate(`/house/${houseId}/rooms`)
         }
     })
 

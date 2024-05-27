@@ -1,12 +1,13 @@
 import { TextInputField } from "@/components";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useRoom, useRoomUpdateMutation } from "../api";
+import { useRoom, useRoomDeleteMutation, useRoomUpdateMutation } from "../api";
 
 export const EditRoom = () => {
 
     const room = useRoom();
     const updateRoom = useRoomUpdateMutation();
+    const deleteRoom = useRoomDeleteMutation();
     const [roomName, setRoomName] = useState<string>();
 
     return (
@@ -30,6 +31,14 @@ export const EditRoom = () => {
                             }}
                         >
                             edit
+                        </Button>
+                        <Button
+                            variant={"destructive"}
+                            onClick={() => {
+                                deleteRoom.mutate()
+                            }}
+                        >
+                            delete
                         </Button>
                     </div>
             }
