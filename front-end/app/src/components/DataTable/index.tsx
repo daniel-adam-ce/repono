@@ -31,6 +31,19 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="rounded-md border">
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}
+            >
+                <div>
+                    Title
+                </div>
+                <div>
+                    actions
+                </div>
+            </div>
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (

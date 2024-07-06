@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useItems } from "../api";
 import { ItemTable } from "../components";
+import { Center } from "@/components";
 
 
 export const Items = () => {
@@ -9,7 +10,7 @@ export const Items = () => {
     const { items } = useItems();
 
     return (
-        <div>
+        <Center>
             <Button
                 onClick={() => {
                     navigate("create");
@@ -22,7 +23,7 @@ export const Items = () => {
                     items={items}
                 />
             </div>
-        </div>
+        </Center>
     )
 }
 
