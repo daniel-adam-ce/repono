@@ -1,7 +1,7 @@
 import Styles from "./index.module.scss";
 import * as Types from "./types";
 import { useContext } from "react";
-import { ThemeContext, ThemeContextType } from "@/providers";
+import { ThemeProviderContext, ThemeProviderState } from "@/providers";
 import { classCombine } from "@/@utils";
 
  interface ToolTipProps {
@@ -10,22 +10,22 @@ import { classCombine } from "@/@utils";
  }
 
 export const ToolTip = ({children, text}: ToolTipProps) => {
-    const themeContext = useContext<ThemeContextType>(ThemeContext);
+    const theme = useContext<ThemeProviderState>(ThemeProviderContext);
     return (
         <div
-            className={classCombine(Styles["tool-tip-wrapper"], Styles[themeContext.theme])}
+            className={classCombine(Styles["tool-tip-wrapper"], Styles[theme.theme])}
         >
             {children}
             <div
-                className={classCombine(Styles["tool-tip"], Styles[themeContext.theme])}
+                className={classCombine(Styles["tool-tip"], Styles[theme.theme])}
             >
                 <div
-                    className={classCombine(Styles["tool-tip-arrow"], Styles[themeContext.theme])}
+                    className={classCombine(Styles["tool-tip-arrow"], Styles[theme.theme])}
                 >
 
                 </div>
                 <div
-                    className={classCombine(Styles["tool-tip-text"], Styles[themeContext.theme])}
+                    className={classCombine(Styles["tool-tip-text"], Styles[theme.theme])}
                 >
                     {text}
                 </div>

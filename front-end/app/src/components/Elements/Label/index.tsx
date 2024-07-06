@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Styles from "./index.module.scss";
 import * as Types from "./types";
-import { ThemeContext, ThemeContextType } from "../../../providers";
+import { ThemeProviderContext, ThemeProviderState } from "../../../providers";
 import { classCombine } from "../../../@utils";
 
 
@@ -9,7 +9,7 @@ export const Label2 = (
     {
         ...restProps
     }: Types.LabelProps) => {
-    const theme = useContext<ThemeContextType>(ThemeContext);
+    const theme = useContext<ThemeProviderState>(ThemeProviderContext);
     return (
         <label
             {

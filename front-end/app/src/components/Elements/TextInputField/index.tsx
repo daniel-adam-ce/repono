@@ -1,7 +1,7 @@
 import { useContext, useId } from "react";
 import Styles from "./index.module.scss";
 import * as Types from "./types";
-import { ThemeContext, ThemeContextType } from "../../../providers";
+import { ThemeProviderContext, ThemeProviderState } from "../../../providers";
 import { classCombine } from "../../../@utils";
 import { Label2 } from "../Label";
 import { TextInput } from "../TextInput";
@@ -13,7 +13,7 @@ export const TextInputField = (
         label,
         ...restProps
     }: Types.TextInputField) => {
-    const theme = useContext<ThemeContextType>(ThemeContext);
+    const theme = useContext<ThemeProviderState>(ThemeProviderContext);
 
     const id = useId();
     return (

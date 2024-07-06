@@ -5,7 +5,7 @@ div.protected-shell {
 }
 
 header.nav-header {
-    background-color: var(--light-blue);
+    // background-color: var(--light-blue);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,14 +22,14 @@ nav.nav {
     width: 50px;
     height: 100%;
     border-right: 1px solid var(--nav-border);
-    background-color: var(--light-blue-2);
+    // background-color: var(--light-blue-2);
 }
 
 div.content {
     // background-color: red;
     height: calc(100vh - 50px);
     overflow: auto;
-    background-color: #ffffff;
+    // background-color: #ffffff;
 }
 
 ul.nav-list {
