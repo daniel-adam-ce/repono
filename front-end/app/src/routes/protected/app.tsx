@@ -1,9 +1,9 @@
 import { AuthContext } from "@/providers";
-import React, { ReactElement, Suspense, cloneElement, useContext } from "react";
+import React, { ReactElement, Suspense, cloneElement, useContext, useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import Styles from "./index.module.scss";
 import { classCombine } from "@/@utils";
-import { ReponoLogoTitle, ToolTip } from "@/components";
+import { ReponoLogoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, Toggle, Tooltip, ToolTip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components";
 import { LuBox, LuDoorOpen } from "react-icons/lu";
 import { RiDashboard3Line } from "react-icons/ri";
 import { HouseContext } from "@/providers/house";
@@ -16,6 +16,7 @@ interface NavButtonProps {
 }
 
 const NavButton = ({ icon, text, to }: NavButtonProps) => {
+    const navLinkRef = useRef<HTMLAnchorElement>(null);
     return (
         <li
             className={classCombine(Styles["nav-button-container"])}
@@ -25,11 +26,12 @@ const NavButton = ({ icon, text, to }: NavButtonProps) => {
             >
 
                 <NavLink
+                    ref={navLinkRef}
                     to={to}
                     className={({ isActive }) => {
                         return classCombine(Styles["nav-button"], isActive ? Styles["active"] : "")
                     }}
-                    
+
                 >
                     {
                         cloneElement(icon as ReactElement, { size: 24 })
@@ -37,6 +39,40 @@ const NavButton = ({ icon, text, to }: NavButtonProps) => {
                 </NavLink>
             </ToolTip>
         </li>
+    )
+}
+
+const NavButton2 = ({ icon, text, to }: NavButtonProps) => {
+    return (
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger
+                    asChild
+                    datatype={"instant-open"}
+                >
+                    <li
+                        className={classCombine(Styles["nav-button-container"])}
+                    >
+                        <NavLink
+                            to={to}
+                            className={({ isActive }) => {
+                                return classCombine(Styles["nav-button"], isActive ? Styles["active"] : "")
+                            }}
+
+                        >
+                            {
+                                cloneElement(icon as ReactElement, { size: 24 })
+                            }
+                        </NavLink>
+                    </li>
+                </TooltipTrigger>
+                <TooltipContent
+                    side={"bottom"}
+                >
+                    <p>{text}</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     )
 }
 
@@ -57,11 +93,28 @@ const Navbar = (props: { children: React.ReactNode }) => {
     )
 }
 
+const Navbar2 = (props: { children: React.ReactNode }) => {
+    return (
+
+        <nav
+            className={Styles["nav2"]}
+        >
+            <ul
+                className={Styles["nav-list2"]}
+            >
+                {
+                    props.children
+                }
+            </ul>
+        </nav>
+    )
+}
+
 const NavbarHouse = () => {
     const { houseId } = useParams();
     return (
         <Navbar>
-            <NavButton
+            <NavButton2
                 icon={<RiDashboard3Line />}
                 text={"Dashboard"}
                 to={`${houseId}/dashboard`}
@@ -90,6 +143,8 @@ const NavbarHouse = () => {
     )
 }
 
+
+
 const NavbarGlobal = () => {
     return (
         <Navbar>
@@ -112,14 +167,59 @@ const Header = () => {
     const auth = useContext(AuthContext);
     const house = useContext(HouseContext);
     const navigate = useNavigate();
-
     return (
         <header
             className={Styles["nav-header"]}
         >
             <div>
+                <Select
+                    value={(house.house?.house_id).toString()}
+                    onValueChange={(value) => {
+                        console.log(value)
+                        if (value !== "-1") {
+                            navigate(`/house/${value}`);
+                        } else {
+                            navigate("/")
+                        }
+                    }}
+                    
+                >
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="House" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            {/* <SelectLabel>Fruits</SelectLabel>
+                            <SelectItem value="apple">Apple</SelectItem>
+                            <SelectItem value="banana">Banana</SelectItem>
+                            <SelectItem value="blueberry">Blueberry</SelectItem>
+                            <SelectItem value="grapes">Grapes</SelectItem>
+                            <SelectItem value="pineapple">Pineapple</SelectItem> */}
 
-                {house?.house && <select
+                            {
+                                auth.houses.map((house) => {
+                                    return (
+                                        <SelectItem
+                                            value={(house.house_id).toString()}
+                                            key={house.house_id}
+                                        >
+                                            {
+                                                `${house.house_id}-${house.house_name}`
+                                            }
+                                        </SelectItem>
+                                    )
+                                })
+                            }
+                            <SelectItem
+                                value={"-1"}
+                                key={"dashboard"}
+                            >
+                                dashboard
+                            </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+                {/* {house?.house && <select
                     value={house.house?.house_id}
                     onChange={(e) => {
                         console.log(e.currentTarget.value);
@@ -150,7 +250,7 @@ const Header = () => {
                     >
                         dashboard
                     </option>
-                </select>}
+                </select>} */}
             </div>
             <ReponoLogoTitle />
             <button

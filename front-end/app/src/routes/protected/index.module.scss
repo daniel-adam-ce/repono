@@ -58,15 +58,15 @@ a.nav-button {
 
 .nav-button.active {
     color: var(--primary-blue);
-    background-color: var(--light-blue-3);
+    // background-color: var(--light-blue-3);
 }
 
 li.nav-button-container.active {
 
-    a.nav-button {
-        color: var(--primary-blue);
-    }
-    background-color: var(--light-blue-3);
+    // a.nav-button {
+    //     color: var(--primary-blue);
+    // }
+    // background-color: var(--light-blue-3);
 }
 
 li.nav-button-container:hover {

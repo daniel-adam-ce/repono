@@ -11,7 +11,7 @@ export interface HouseContextType {
 };
 
 export const HouseContext: Context<HouseContextType> = createContext<HouseContextType>({
-    house: undefined,
+    house: {house_id: -1},
 })
 
 interface HouseProviderProps {
@@ -40,7 +40,7 @@ const useHouse = () => {
         console.log(error, queryResponse);
     }
 
-    return { house: data, error }
+    return { house: data ?? {house_id: -1}, error }
 }
 
 export const HouseProvider = (props: HouseProviderProps) => {
