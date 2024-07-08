@@ -15,6 +15,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui";
 
 
 
@@ -29,67 +30,143 @@ export function DataTable<TData, TValue>({
         getCoreRowModel: getCoreRowModel(),
     })
 
+    // return (
+    //     <div className="rounded-md border">
+    // <div
+    //     style={{
+    //         display: "flex",
+    //         justifyContent: "space-between"
+    //     }}
+    // >
+    //     <div>
+    //         Title
+    //     </div>
+    //     <div>
+    //         actions
+    //     </div>
+    // </div>
+    //         <Table>
+    //             <TableHeader>
+    //                 {table.getHeaderGroups().map((headerGroup) => (
+    //                     <TableRow key={headerGroup.id}>
+    //                         {headerGroup.headers.map((header) => {
+    //                             return (
+    //                                 <TableHead key={header.id}>
+    //                                     {header.isPlaceholder
+    //                                         ? null
+    //                                         : flexRender(
+    //                                             header.column.columnDef.header,
+    //                                             header.getContext()
+    //                                         )}
+    //                                 </TableHead>
+    //                             )
+    //                         })}
+    //                     </TableRow>
+    //                 ))}
+    //             </TableHeader>
+    //             <TableBody>
+    //                 {table.getRowModel().rows?.length ? (
+    //                     table.getRowModel().rows.map((row) => (
+    //                         <TableRow
+    //                             key={row.id}
+    //                             data-state={row.getIsSelected() && "selected"}
+    //                             onClick={() => {
+    //                                 if (onRowClick) onRowClick(row)
+    //                             }}
+    //                         >
+    //                             {row.getVisibleCells().map((cell) => (
+    //                                 <TableCell key={cell.id}>
+    //                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
+    //                                 </TableCell>
+    //                             ))}
+    //                         </TableRow>
+    //                     ))
+    //                 ) : (
+    //                     <TableRow>
+    //                         <TableCell colSpan={columns.length} className="h-24 text-center">
+    //                             No results.
+    //                         </TableCell>
+    //                     </TableRow>
+    //                 )}
+    //             </TableBody>
+    //         </Table>
+    //     </div>
+    // )
+
     return (
-        <div className="rounded-md border">
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between"
-                }}
-            >
-                <div>
-                    Title
-                </div>
-                <div>
-                    actions
-                </div>
-            </div>
-            <Table>
-                <TableHeader>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => {
-                                return (
-                                    <TableHead key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
-                                    </TableHead>
-                                )
-                            })}
-                        </TableRow>
-                    ))}
-                </TableHeader>
-                <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row) => (
-                            <TableRow
-                                key={row.id}
-                                data-state={row.getIsSelected() && "selected"}
-                                onClick={() => {
-                                    if (onRowClick) onRowClick(row)
-                                }}
+        <Card>
+            <CardHeader>
+                <CardTitle>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between"
+                        }}
+                    >
+                        <div>
+                            Title
+                        </div>
+                        <div>
+                            <Button
+                                size="sm"
+                                className="h-8 gap-1"
+                                variant={"outline"}
                             >
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                ))}
+                                Logout
+                            </Button>
+                        </div>
+                    </div>
+                </CardTitle>
+                {/* <CardDescription>Table Description</CardDescription> */}
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableHeader>
+                        {table.getHeaderGroups().map((headerGroup) => (
+                            <TableRow key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => {
+                                    return (
+                                        <TableHead key={header.id}>
+                                            {header.isPlaceholder
+                                                ? null
+                                                : flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )}
+                                        </TableHead>
+                                    )
+                                })}
                             </TableRow>
-                        ))
-                    ) : (
-                        <TableRow>
-                            <TableCell colSpan={columns.length} className="h-24 text-center">
-                                No results.
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
-        </div>
+                        ))}
+                    </TableHeader>
+                    <TableBody>
+                        {table.getRowModel().rows?.length ? (
+                            table.getRowModel().rows.map((row) => (
+                                <TableRow
+                                    key={row.id}
+                                    data-state={row.getIsSelected() && "selected"}
+                                    onClick={() => {
+                                        if (onRowClick) onRowClick(row)
+                                    }}
+                                >
+                                    {row.getVisibleCells().map((cell) => (
+                                        <TableCell key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                    No results.
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
     )
 }
 

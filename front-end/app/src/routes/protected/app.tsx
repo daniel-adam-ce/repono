@@ -1,56 +1,61 @@
-import { AuthContext } from "@/providers";
-import React, { ReactElement, Suspense, cloneElement, useContext, useEffect, useRef, useState } from "react";
+import { AuthContext, useTheme } from "@/providers";
+import React, { Fragment, ReactElement, Suspense, cloneElement, useContext, useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import Styles from "./index.module.scss";
 import { classCombine } from "@/@utils";
-import { ReponoLogoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, Toggle, Tooltip, ToolTip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components";
+import { Avatar, AvatarFallback, AvatarImage, Button, Popover, PopoverContent, PopoverTrigger, ReponoLogoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, Toggle, Tooltip, ToolTip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components";
 import { LuBox, LuDoorOpen } from "react-icons/lu";
 import { RiDashboard3Line } from "react-icons/ri";
 import { HouseContext } from "@/providers/house";
 import { TbHome2, TbHomeStar, TbUsers } from "react-icons/tb";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 interface NavButtonProps {
     icon: React.ReactNode;
-    text: string;
+    tooltip: string;
     to: string;
 }
 
-const NavButton = ({ icon, text, to }: NavButtonProps) => {
-    const navLinkRef = useRef<HTMLAnchorElement>(null);
+interface NavLinkItemProps {
+    to: string,
+    icon: React.ReactNode
+    children?: React.ReactNode
+}
+
+
+
+const NavLinkItem = ({ icon, to, children }: NavLinkItemProps) => {
     return (
         <li
             className={classCombine(Styles["nav-button-container"])}
         >
-            <ToolTip
-                text={text}
+            <NavLink
+                to={to}
+                className={({ isActive }) => {
+                    return classCombine(Styles["nav-button"], isActive ? Styles["active"] : "")
+                }}
+
             >
-
-                <NavLink
-                    ref={navLinkRef}
-                    to={to}
-                    className={({ isActive }) => {
-                        return classCombine(Styles["nav-button"], isActive ? Styles["active"] : "")
-                    }}
-
-                >
-                    {
-                        cloneElement(icon as ReactElement, { size: 24 })
-                    }
-                </NavLink>
-            </ToolTip>
+                {
+                    cloneElement(icon as ReactElement, { size: 20 })
+                }
+                {
+                    children
+                }
+            </NavLink>
         </li>
     )
 }
 
-const NavButton2 = ({ icon, text, to }: NavButtonProps) => {
+const NavButton = ({ icon, tooltip, to }: NavButtonProps) => {
     return (
-        <TooltipProvider>
+        <TooltipProvider
+            delayDuration={0}
+        >
             <Tooltip>
                 <TooltipTrigger
-                    asChild
-                    datatype={"instant-open"}
                 >
-                    <li
+                    {/* <li
                         className={classCombine(Styles["nav-button-container"])}
                     >
                         <NavLink
@@ -61,82 +66,72 @@ const NavButton2 = ({ icon, text, to }: NavButtonProps) => {
 
                         >
                             {
-                                cloneElement(icon as ReactElement, { size: 24 })
+                                cloneElement(icon as ReactElement, { size: 20 })
                             }
                         </NavLink>
-                    </li>
+                    </li> */}
+                    <NavLinkItem
+                        to={to}
+                        icon={icon}
+                    />
                 </TooltipTrigger>
                 <TooltipContent
-                    side={"bottom"}
+                    side={"right"}
                 >
-                    <p>{text}</p>
+                    <p>{tooltip}</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
     )
 }
 
-const Navbar = (props: { children: React.ReactNode }) => {
+const Navbar = (props: { children: React.ReactNode, className?: string }) => {
     return (
-
-        <nav
-            className={Styles["nav"]}
-        >
-            <ul
-                className={Styles["nav-list"]}
+        <aside>
+            <nav
+                className={classCombine(Styles["nav"], props?.className)}
             >
-                {
-                    props.children
-                }
-            </ul>
-        </nav>
+                <ul
+                    className={classCombine(Styles["nav-list"], "items-start sm:items-center")}
+                >
+                    {
+                        props.children
+                    }
+                </ul>
+            </nav>
+        </aside>
     )
 }
 
-const Navbar2 = (props: { children: React.ReactNode }) => {
-    return (
-
-        <nav
-            className={Styles["nav2"]}
-        >
-            <ul
-                className={Styles["nav-list2"]}
-            >
-                {
-                    props.children
-                }
-            </ul>
-        </nav>
-    )
-}
-
-const NavbarHouse = () => {
+const NavbarHouse = (props: { className?: string }) => {
     const { houseId } = useParams();
     return (
-        <Navbar>
-            <NavButton2
+        <Navbar
+            className={props.className}
+        >
+            <NavButton
                 icon={<RiDashboard3Line />}
-                text={"Dashboard"}
+                tooltip={"Dashboard"}
                 to={`${houseId}/dashboard`}
             />
             <NavButton
                 icon={<LuDoorOpen />}
-                text={"Rooms"}
+                tooltip={"Rooms"}
                 to={`${houseId}/rooms`}
             />
             <NavButton
                 icon={<LuBox />}
-                text={"Items"}
+                tooltip={"Items"}
                 to={`${houseId}/items`}
             />
             <NavButton
                 icon={<TbUsers />}
-                text={"Users"}
+                tooltip={"Users"}
                 to={`${houseId}/users`}
             />
             <NavButton
                 icon={<TbHomeStar />}
-                text={"House Settings"}
+                tooltip={"House Settings"}
                 to={`${houseId}/settings`}
             />
         </Navbar>
@@ -145,20 +140,72 @@ const NavbarHouse = () => {
 
 
 
-const NavbarGlobal = () => {
+const NavbarGlobal = (props: { className?: string }) => {
     return (
-        <Navbar>
+        <Navbar
+            className={props.className}
+        >
             <NavButton
                 icon={<TbHome2 />}
-                text={"Houses"}
+                tooltip={"Houses"}
                 to={"/"}
             />
             <NavButton
                 icon={<LuBox />}
-                text={"Items"}
+                tooltip={"Items"}
                 to={"/items"}
             />
         </Navbar>
+    )
+}
+
+const HouseSelect = () => {
+    const auth = useContext(AuthContext);
+    const house = useContext(HouseContext);
+    const navigate = useNavigate();
+    return (
+        <Select
+            value={(house.house?.house_id).toString()}
+            onValueChange={(value) => {
+                console.log(value)
+                if (value !== "-1") {
+                    navigate(`/house/${value}`);
+                } else {
+                    navigate("/")
+                }
+            }}
+
+        >
+            <SelectTrigger className="w-[180px] ">
+                <SelectValue placeholder="House" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectGroup
+                >
+
+                    {
+                        auth.houses.map((house) => {
+                            return (
+                                <SelectItem
+                                    value={(house.house_id).toString()}
+                                    key={house.house_id}
+                                >
+                                    {
+                                        `${house.house_id}-${house.house_name}`
+                                    }
+                                </SelectItem>
+                            )
+                        })
+                    }
+                    <SelectItem
+                        value={"-1"}
+                        key={"dashboard"}
+                    >
+                        dashboard
+                    </SelectItem>
+                </SelectGroup>
+            </SelectContent>
+        </Select>
     )
 }
 
@@ -166,100 +213,129 @@ const NavbarGlobal = () => {
 const Header = () => {
     const auth = useContext(AuthContext);
     const house = useContext(HouseContext);
+    const theme = useTheme();
     const navigate = useNavigate();
+    const { houseId } = useParams();
     return (
         <header
             className={Styles["nav-header"]}
         >
-            <div>
-                <Select
-                    value={(house.house?.house_id).toString()}
-                    onValueChange={(value) => {
-                        console.log(value)
-                        if (value !== "-1") {
-                            navigate(`/house/${value}`);
-                        } else {
-                            navigate("/")
-                        }
-                    }}
-                    
-                >
-                    <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="House" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            {/* <SelectLabel>Fruits</SelectLabel>
-                            <SelectItem value="apple">Apple</SelectItem>
-                            <SelectItem value="banana">Banana</SelectItem>
-                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                            <SelectItem value="grapes">Grapes</SelectItem>
-                            <SelectItem value="pineapple">Pineapple</SelectItem> */}
-
-                            {
-                                auth.houses.map((house) => {
-                                    return (
-                                        <SelectItem
-                                            value={(house.house_id).toString()}
-                                            key={house.house_id}
-                                        >
-                                            {
-                                                `${house.house_id}-${house.house_name}`
-                                            }
-                                        </SelectItem>
-                                    )
-                                })
-                            }
-                            <SelectItem
-                                value={"-1"}
-                                key={"dashboard"}
-                            >
-                                dashboard
-                            </SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-                {/* {house?.house && <select
-                    value={house.house?.house_id}
-                    onChange={(e) => {
-                        console.log(e.currentTarget.value);
-                        if (e.currentTarget.value) {
-                            navigate(`/house/${e.currentTarget.value}`);
-                        } else {
-                            navigate("/")
-                        }
-                    }}
-                >
-                    {
-                        auth.houses.map((house) => {
-                            return (
-                                <option
-                                    value={house.house_id}
-                                    key={house.house_id}
-                                >
-                                    {
-                                        `${house.house_id}-${house.house_name}`
-                                    }
-                                </option>
-                            )
-                        })
-                    }
-                    <option
-                        value={""}
-                        key={"dashboard"}
+            <Sheet
+            >
+                <SheetTrigger asChild>
+                    <Button
+                        variant={"outline"}
+                        size={"icon"}
+                        className="sm:hidden"
                     >
-                        dashboard
-                    </option>
-                </select>} */}
+                        <GiHamburgerMenu />
+                    </Button>
+                </SheetTrigger>
+                <SheetContent
+                    side={"left"}
+                >
+                    <div
+                        className=""
+                    >
+
+                        <HouseSelect />
+                        <ul
+                            className={Styles["nav-list"]}
+                        >
+                            {
+                                house.house?.house_id !== -1
+                                    ? <Fragment
+                                        key={"house"}
+                                    >
+                                        <NavLinkItem
+                                            icon={<RiDashboard3Line />}
+                                            children={"Dashboard"}
+                                            to={`${houseId}/dashboard`}
+                                        />
+                                        <NavLinkItem
+                                            icon={<LuDoorOpen />}
+                                            children={"Rooms"}
+                                            to={`${houseId}/rooms`}
+                                        />
+                                        <NavLinkItem
+                                            icon={<LuBox />}
+                                            children={"Items"}
+                                            to={`${houseId}/items`}
+                                        />
+                                        <NavLinkItem
+                                            icon={<TbUsers />}
+                                            children={"Users"}
+                                            to={`${houseId}/users`}
+                                        />
+                                        <NavLinkItem
+                                            icon={<TbHomeStar />}
+                                            children={"House Settings"}
+                                            to={`${houseId}/settings`}
+                                        />
+                                    </Fragment>
+                                    : <Fragment
+                                        key={"global"}
+                                    >
+
+                                        <NavButton
+                                            icon={<TbHome2 />}
+                                            tooltip={"Houses"}
+                                            to={"/"}
+                                        />
+                                        <NavButton
+                                            icon={<LuBox />}
+                                            tooltip={"Items"}
+                                            to={"/items"}
+                                        />
+                                    </Fragment>
+                            }
+
+                        </ul>
+                    </div>
+
+                </SheetContent>
+            </Sheet>
+            <div className="hidden sm:flex">
+                <HouseSelect />
             </div>
             <ReponoLogoTitle />
-            <button
-                onClick={() => {
-                    auth.logout();
-                }}
-            >
-                logout
-            </button>
+            <Popover>
+                <PopoverTrigger asChild>
+                    <Avatar
+                    >
+                        <AvatarImage src="https://github.com/shadcn.dfcvpng" alt="@shadcn" />
+                        <AvatarFallback>{auth.user?.email?.charAt(0).toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                    <div>
+                        <Button
+                            onClick={() => {
+                                if (theme.theme === "dark") {
+                                    theme.setTheme("light")
+                                } else {
+                                    theme.setTheme("dark");
+                                }
+                            }}
+                            size="sm"
+                            className="h-8 gap-1 sm:hidden"
+                            variant={"secondary"}
+                        >
+                            Theme
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                auth.logout();
+                            }}
+                            size="sm"
+                            className="h-8 gap-1"
+                            variant={"secondary"}
+                        >
+                            Logout
+                        </Button>
+                    </div>
+                </PopoverContent>
+            </Popover>
         </header>
     )
 }
@@ -280,7 +356,7 @@ const Main = (props: { children: React.ReactNode }) => {
 const Content = () => {
     return (
         <div
-            className={classCombine(Styles.content)}
+            className={classCombine(Styles.content, "w-screen max-w-screen sm:w-[calc(100%-50px)]")}
         >
             <Suspense
                 fallback={
@@ -300,7 +376,9 @@ export const GlobalApp = () => {
         <>
             <Header />
             <Main>
-                <NavbarGlobal />
+                <NavbarGlobal
+                    className="sm:block hidden"
+                />
                 <Content />
             </Main>
         </>
@@ -313,7 +391,9 @@ export const HouseApp = () => {
         <>
             <Header />
             <Main>
-                <NavbarHouse />
+                <NavbarHouse
+                    className="sm:block hidden"
+                />
                 <Content />
             </Main>
         </>

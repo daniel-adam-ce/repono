@@ -23,6 +23,31 @@ export const Items = () => {
                     items={items}
                 />
             </div>
+            <div>
+                <ItemTable
+                    items={items}
+                />
+            </div>
+            <div>
+                <ItemTable
+                    items={items}
+                />
+            </div>
+            <div>
+                <ItemTable
+                    items={items}
+                />
+            </div>
+            <div>
+                <ItemTable
+                    items={items}
+                />
+            </div>
+            <div>
+                <ItemTable
+                    items={items}
+                />
+            </div>
         </Center>
     )
 }
