@@ -23,10 +23,10 @@ export const Center = (props: Types.CenterProps) => {
     }
 
     useEffect(() => {
-        window.addEventListener("resize", handleResize);
-        handleResize();
+        // window.addEventListener("resize", handleResize);
+        // handleResize();
         return () => {
-            window.removeEventListener("resize", handleResize);
+            // window.removeEventListener("resize", handleResize);
         }
     }, [])
     return (
@@ -34,8 +34,8 @@ export const Center = (props: Types.CenterProps) => {
             className={Styles["center-parent"]}
         >
             <div
-                className={Styles.center}
-                ref={centerRef}
+                className={"w-full sm:w-9/12 md:w-6/12 lg:w-4/12"}
+                // ref={centerRef}
             >
                 {
                     props.children

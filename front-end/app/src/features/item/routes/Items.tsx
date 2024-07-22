@@ -18,36 +18,9 @@ export const Items = () => {
             >
                 create
             </Button>
-            <div>
-                <ItemTable
-                    items={items}
-                />
-            </div>
-            <div>
-                <ItemTable
-                    items={items}
-                />
-            </div>
-            <div>
-                <ItemTable
-                    items={items}
-                />
-            </div>
-            <div>
-                <ItemTable
-                    items={items}
-                />
-            </div>
-            <div>
-                <ItemTable
-                    items={items}
-                />
-            </div>
-            <div>
-                <ItemTable
-                    items={items}
-                />
-            </div>
+            <ItemTable
+                items={items}
+            />
         </Center>
     )
 }

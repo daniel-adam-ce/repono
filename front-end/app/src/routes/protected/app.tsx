@@ -1,9 +1,9 @@
 import { AuthContext, useTheme } from "@/providers";
-import React, { Fragment, ReactElement, Suspense, cloneElement, useContext, useEffect, useRef, useState } from "react";
+import React, { Fragment, ReactElement, Suspense, cloneElement, useContext, } from "react";
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import Styles from "./index.module.scss";
 import { classCombine } from "@/@utils";
-import { Avatar, AvatarFallback, AvatarImage, Button, Popover, PopoverContent, PopoverTrigger, ReponoLogoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, Toggle, Tooltip, ToolTip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components";
+import { Avatar, AvatarFallback, AvatarImage, Button, Popover, PopoverContent, PopoverTrigger, ReponoLogoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Sheet, SheetContent, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components";
 import { LuBox, LuDoorOpen } from "react-icons/lu";
 import { RiDashboard3Line } from "react-icons/ri";
 import { HouseContext } from "@/providers/house";
@@ -214,7 +214,6 @@ const Header = () => {
     const auth = useContext(AuthContext);
     const house = useContext(HouseContext);
     const theme = useTheme();
-    const navigate = useNavigate();
     const { houseId } = useParams();
     return (
         <header
@@ -235,7 +234,6 @@ const Header = () => {
                     side={"left"}
                 >
                     <div
-                        className=""
                     >
 
                         <HouseSelect />
@@ -308,7 +306,9 @@ const Header = () => {
                     </Avatar>
                 </PopoverTrigger>
                 <PopoverContent className="w-80">
-                    <div>
+                    <div
+                        className="flex justify-between"
+                    >
                         <Button
                             onClick={() => {
                                 if (theme.theme === "dark") {
@@ -318,7 +318,7 @@ const Header = () => {
                                 }
                             }}
                             size="sm"
-                            className="h-8 gap-1 sm:hidden"
+                            className="h-8"
                             variant={"secondary"}
                         >
                             Theme
@@ -328,7 +328,7 @@ const Header = () => {
                                 auth.logout();
                             }}
                             size="sm"
-                            className="h-8 gap-1"
+                            className="h-8"
                             variant={"secondary"}
                         >
                             Logout
