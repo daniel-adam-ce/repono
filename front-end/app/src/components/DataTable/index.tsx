@@ -15,127 +15,22 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Button, Card, CardContent, CardHeader, CardTitle, Input, Label, Popover, PopoverContent, PopoverTrigger } from "../ui";
-import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle} from "../ui";
+import { CreateButtonTable, } from "./create";
 
-
-interface CreateFieldChildProps {
-    value: any,
-    onChange: (value: any) => void,
-    label: string
-}
-
-export const CreateInputField = ({ value, onChange, label }: CreateFieldChildProps) => {
-    return (
-        <CreateField
-            label={label}
-        >
-            <Input
-                id="width"
-                // defaultValue="100%"
-                className="col-span-2 h-8"
-                value={value}
-                onChange={(e) => {
-                    onChange(e.currentTarget.value)
-                }}
-            />
-        </CreateField>
-    )
-}
-
-interface CreateSelectFieldProps extends CreateFieldChildProps {
-
-}
-
-export const CreateSelectField = ({ value, onChange, label }: CreateSelectFieldProps) => {
-    return (
-        <CreateField
-            label={label}
-        >
-            <Input
-                id="width"
-                // defaultValue="100%"
-                className="col-span-2 h-8"
-                value={value}
-                onChange={(e) => {
-                    onChange(e.currentTarget.value)
-                }}
-            />
-        </CreateField>
-    )
-}
-
-interface b {
-    label: string
-    children: React.ReactNode
-}
-
-export const CreateField = ({ label, children }: b) => {
-    return (
-        <div className="grid grid-cols-3 items-center gap-4">
-            <Label htmlFor={`${label}`}>{label}</Label>
-            {
-                children
-            }
-        </div>
-    )
-}
-
-interface a {
-    title: string,
-    description: string,
-    children: React.ReactNode
-}
-
-export const CreateForm = ({ title, description, children }: a) => {
-    return (
-        <div className="grid gap-4">
-            <div className="space-y-2">
-                <h4 className="font-medium leading-none">{title}</h4>
-                <p className="text-sm text-muted-foreground">
-                    {description}
-                </p>
-            </div>
-            <div className="grid gap-2">
-                {
-                    children
-                }
-            </div>
-        </div>
-    )
-}
-
-export const CreateButtonTable = () => {
-    return (
-        <Popover>
-            <PopoverTrigger>
-                <Button
-                    size="sm"
-                    className="h-8"
-                // variant={"primary"}
-                >
-                    Create
-                </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80">
-            </PopoverContent>
-        </Popover>
-    )
-}
 
 export function DataTable<TData, TValue>({
+    title,
     columns,
     data,
-    onRowClick
+    onRowClick,
+    create
 }: Types.DataTableProps<TData, TValue>) {
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
-
-    const [test, setTest] = useState<string>("");
-
 
     return (
         <Card>
@@ -147,42 +42,20 @@ export function DataTable<TData, TValue>({
                             justifyContent: "space-between"
                         }}
                     >
-                        <div>
-                            Title
-                        </div>
+                        <h3
+                        >
+                            {
+                                title
+                            }
+                        </h3>
                         <div
                             className="flex gap-2"
                         >
-                            <Popover>
-                                <PopoverTrigger>
-                                    <Button
-                                        size="sm"
-                                        className="h-8"
-                                    // variant={"primary"}
-                                    >
-                                        Create
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-80">
-                                    <CreateForm
-                                        title={"Item"}
-                                        description={"Add an item."}
-                                    >
-                                        <CreateInputField
-                                            value={test}
-                                            onChange={(e) => {setTest(e);}}
-                                            label="Name"
-                                        />
-                                    </CreateForm>
-                                </PopoverContent>
-                            </Popover>
-                            <Button
-                                size="sm"
-                                className="h-8"
-                                variant={"secondary"}
-                            >
-                                Actions
-                            </Button>
+                            {create && <CreateButtonTable>
+                                {
+                                    create
+                                }
+                            </CreateButtonTable>}
                         </div>
                     </div>
                 </CardTitle>
@@ -241,6 +114,7 @@ export function DataTable<TData, TValue>({
 
 
 
-
+export * from "./action";
+export * from "./create";
 export default { DataTable, Styles, Types }
 

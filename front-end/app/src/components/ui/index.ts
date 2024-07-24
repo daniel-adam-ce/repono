@@ -11,3 +11,5 @@ export * from "./popover";
 export * from "./avatar";
 export * from "./card";
 export * from "./sheet";
+export * from "./dropdown-menu";
+export * from "./visually-hidden";

@@ -3,12 +3,13 @@ import React, { Fragment, ReactElement, Suspense, cloneElement, useContext, } fr
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import Styles from "./index.module.scss";
 import { classCombine } from "@/@utils";
-import { Avatar, AvatarFallback, AvatarImage, Button, Popover, PopoverContent, PopoverTrigger, ReponoLogoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Sheet, SheetContent, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components";
+import { Avatar, AvatarFallback, AvatarImage, Button, Popover, PopoverContent, PopoverTrigger, ReponoLogoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, VisuallyHidden } from "@/components";
 import { LuBox, LuDoorOpen } from "react-icons/lu";
 import { RiDashboard3Line } from "react-icons/ri";
 import { HouseContext } from "@/providers/house";
 import { TbHome2, TbHomeStar, TbUsers } from "react-icons/tb";
 import { GiHamburgerMenu } from "react-icons/gi";
+import * as VisuallyHiddenGlobal from '@radix-ui/react-visually-hidden';
 
 interface NavButtonProps {
     icon: React.ReactNode;
@@ -220,6 +221,7 @@ const Header = () => {
             className={Styles["nav-header"]}
         >
             <Sheet
+
             >
                 <SheetTrigger asChild>
                     <Button
@@ -233,6 +235,16 @@ const Header = () => {
                 <SheetContent
                     side={"left"}
                 >
+                    <SheetHeader>
+                        <VisuallyHidden>
+                            <SheetTitle>Mobile Navigation</SheetTitle>
+                        </VisuallyHidden>
+                        <VisuallyHidden>
+                            <SheetDescription>
+                                Navigate to pages on the site.
+                            </SheetDescription>
+                        </VisuallyHidden>
+                    </SheetHeader>
                     <div
                     >
 

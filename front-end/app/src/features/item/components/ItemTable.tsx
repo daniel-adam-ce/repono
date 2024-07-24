@@ -3,6 +3,7 @@ import { Item } from "../types"
 import { DataTable } from "@/components/DataTable"
 import { useNavigate, useParams } from "react-router-dom"
 import { useMemo } from "react"
+import { ItemCreateForm } from "./createForm"
 
 interface ItemTableProps {
     items: Array<Item>
@@ -64,11 +65,13 @@ export const ItemTable = ({items}: ItemTableProps) => {
     const navigate = useNavigate();
     return (
         <DataTable
+            title={"Items"}
             columns={useItemColumns()}
             data={items}
             onRowClick={(row) => {
                 navigate(`${row.original.item_id}`)
             }}
+            create={<ItemCreateForm/>}
         />
     )
 }
