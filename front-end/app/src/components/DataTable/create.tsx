@@ -1,4 +1,5 @@
-import { Button, ButtonProps, Input, Label, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectGroup, SelectTrigger, SelectValue } from "../ui"
+import { FormProvider, SubmitHandler, UseFormReturn } from "react-hook-form"
+import { Button, ButtonProps, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Label, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectGroup, SelectTrigger, SelectValue } from "../ui"
 
 interface CreateFieldProps {
     label?: string
@@ -89,7 +90,7 @@ export const CreateFormButton = (props: ButtonProps) => {
                 size="sm"
                 className="h-8"
                 {
-                    ...props
+                ...props
                 }
             />
         </div>
@@ -142,5 +143,63 @@ export const CreateButtonTable = ({ children }: CreateButtonTableProps) => {
                 }
             </PopoverContent>
         </Popover>
+    )
+}
+
+interface a {
+    form: UseFormReturn<any, any, undefined>,
+    onSubmit: SubmitHandler<any>
+}
+
+export const a = (props: a) => {
+    <FormProvider
+        {
+        ...props.form
+        }
+    >
+
+        <form
+            onSubmit={props.form.handleSubmit(props.onSubmit)}
+            className="space-y-8"
+        >
+
+        </form>
+    </FormProvider>
+}
+
+interface b {
+    form: UseFormReturn<any, any, undefined>
+    name: string
+    children: React.ReactNode
+}
+
+export const b = (props: b) => {
+    return (
+        <FormField
+            control={props.form.control}
+            name={props.name}
+            render={({ field }) => (
+                <FormItem
+                    className="space-y-0 flex flex-col justify-end gap-2"
+                >
+                    <div
+                        className="grid grid-cols-3 items-center gap-4"
+                    >
+                        <FormLabel>Name</FormLabel>
+                        <FormControl
+                            className="col-span-2"
+                        >
+                            <Input placeholder="Name" {...field} />
+                        </FormControl>
+                    </div>
+                    <div
+                        className="grid grid-cols-3 items-center gap-4"
+                    >
+                        <div></div>
+                        <FormMessage />
+                    </div>
+                </FormItem>
+            )}
+        />
     )
 }

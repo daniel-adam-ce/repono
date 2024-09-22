@@ -28,7 +28,7 @@ export const ItemCreateForm = () => {
                     setItem({ ...item, item_name: value })
                 }}
                 label="Name"
-                disabled={createItem.isPending }
+                disabled={createItem.isPending}
             />
             <CreateInputField
                 value={item.description}
@@ -37,7 +37,7 @@ export const ItemCreateForm = () => {
                 }
                 }
                 label="Description"
-                disabled={createItem.isPending }
+                disabled={createItem.isPending}
             />
             <CreateSelectField
                 value={item.room_id}
@@ -46,7 +46,7 @@ export const ItemCreateForm = () => {
                 }}
                 label={"Room"}
                 placeholder={"Room"}
-                disabled={createItem.isPending }
+                disabled={createItem.isPending}
             >
                 {
                     rooms.map((room) => {
