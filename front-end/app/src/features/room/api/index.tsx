@@ -93,26 +93,28 @@ export const useRoom = () => {
     return { room: data, isPending: queryResponse.isPending, error }
 }
 
-export const useRooms = () => {
-    // const auth = useContext(AuthContext);
-    // const user = auth.user
-    const { houseId } = useParams();
-    const { data, isPending, error, ...queryResponse } = useQuery({
-        queryKey: ['getRooms', houseId],
-        queryFn: async () => {
-            const res = await Endpoints.houses.rooms.fetchAll({ pathParams: { houses: houseId } });
-            if (!res.ok) {
-                throw new Error((await res.json() as any).message);
-            }
-            return res.json();
-        },
-        retry: false,
+// export const useRooms = () => {
+//     // const auth = useContext(AuthContext);
+//     // const user = auth.user
+//     const { houseId } = useParams();
+//     const { data, isPending, error, ...queryResponse } = useQuery({
+//         queryKey: ['getRooms', houseId],
+//         queryFn: async () => {
+//             const res = await Endpoints.houses.rooms.fetchAll({ pathParams: { houses: houseId } });
+//             if (!res.ok) {
+//                 throw new Error((await res.json() as any).message);
+//             }
+//             return res.json();
+//         },
+//         retry: false,
 
-    })
+//     })
 
-    if (error && queryResponse) {
-        console.log(error, queryResponse);
-    }
+//     if (error && queryResponse) {
+//         console.log(error, queryResponse);
+//     }
 
-    return { rooms: data ?? [], isPending, error }
-}
+//     return { rooms: data ?? [], isPending, error }
+// }
+
+export * from "./useRooms";

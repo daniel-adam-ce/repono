@@ -1,24 +1,13 @@
 import { Suspense } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './auth';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from './theme';
+import { TanQueryProvider } from './query';
 
 type AppProviderProps = {
     children: React.ReactNode;
 };
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            staleTime: 1 * 60 * 60 * 1000,
-            refetchOnWindowFocus: false,
-            refetchInterval: false,
-            refetchOnReconnect: false,
-            refetchOnMount: false,
-        }
-    }
-});
 
 export const AppProvider = ({ children }: AppProviderProps) => {
 
@@ -30,8 +19,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
                 </div>
             }
         >
-            <QueryClientProvider
-                client={queryClient}
+            <TanQueryProvider
             >
                 <AuthProvider>
                     <ThemeProvider>
@@ -44,7 +32,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
                         {/* </HouseProvider> */}
                     </ThemeProvider>
                 </AuthProvider>
-            </QueryClientProvider>
+            </TanQueryProvider>
         </Suspense>
     )
 }

@@ -1,5 +1,5 @@
 import { CreateForm, CreateFormButton, CreateInputField, CreateSelectField } from "@/components/DataTable";
-import { useRooms } from "@/features/room";
+import { useRooms } from "@/features";
 import { useState } from "react";
 import { useItemCreateMutation } from "../api";
 import { SelectItem } from "@/components";
