@@ -127,6 +127,9 @@ describe("ItemCreateForm", () => {
 
     const trigger = screen.getByRole('combobox', );
     expect(trigger).toBeDisabled(); 
+
+    const submitButton = screen.getByRole("button", { name: /Create2/i });
+    expect(submitButton).toBeDisabled();
   });
 
 });
