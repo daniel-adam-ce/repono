@@ -68,7 +68,7 @@ export const ItemCreateForm = ({ item, onItemChange, onSubmit, disabled, rooms }
                 disabled={disabled}
             >
                 {disabled && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Create
+                Create2
             </CreateFormButton>
         </CreateForm>
     )

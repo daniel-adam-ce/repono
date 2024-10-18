@@ -1,9 +1,8 @@
 
-import { fireEvent, render, screen, within} from "@testing-library/react";
+import { fireEvent, render, RenderResult, screen, within} from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import { ItemCreateForm } from "./createForm";
-import { useRooms } from "@/features/room";
-import { ItemCreate, useItemCreateMutation } from "@/features/item";
+import { ItemCreate, } from "@/features/item";
 import { TanQueryProvider } from "@/providers/query";
 
 const mockRooms = [
@@ -22,27 +21,6 @@ const mockRooms = [
     "house_id": 1
   },
 ]
-
-// vi.mock("@/features/room", () => ({
-//   useRooms: vi.fn()
-// }));
-
-// vi.mock("@/features/item", () => ({
-//   useItemCreateMutation: vi.fn(),
-// }));
-
-// vi.mock("@/features/room", () => ({
-//   useRooms: () => {
-//     console.log('mocked')
-//     return { rooms: mockRooms, isPending: false, error: null }
-//   }
-// }));
-// vi.mock("@/features/item", () => ({
-//   useItemCreateMutation: () => {
-//     console.log('mocked2')
-//     return { mutate: () => { }, isPending: false }
-//   }
-// }));
 class MockPointerEvent extends Event {
   button: number;
   ctrlKey: boolean;
@@ -62,13 +40,13 @@ window.HTMLElement.prototype.hasPointerCapture = vi.fn();
 
 
 describe("ItemCreateForm", () => {
-  let form;
+  let form: RenderResult;
   let onItemChange = vi.fn();
   let item: Partial<ItemCreate> = {}
+  const onSubmit = vi.fn();
+  let disabled = false;
 
   beforeEach(() => {
-    vi.mocked(useRooms).mockImplementation(() => ({ rooms: mockRooms, isPending: false, error: null }));
-    vi.mocked(useItemCreateMutation).mockImplementation(() => ({ mutate: () => { }, isPending: false }));
 
 
     form = render(
@@ -76,8 +54,8 @@ describe("ItemCreateForm", () => {
         <ItemCreateForm
           item={item}
           onItemChange={onItemChange}
-          onSubmit={() => { }}
-          disabled={false}
+          onSubmit={onSubmit}
+          disabled={disabled}
           rooms={mockRooms}
         />
       </TanQueryProvider>
@@ -117,6 +95,38 @@ describe("ItemCreateForm", () => {
     expect(onItemChange).toHaveBeenNthCalledWith(1, { item_name: "new item name"})
     expect(onItemChange).toHaveBeenNthCalledWith(2, { description: "new item description"})
     expect(onItemChange).toHaveBeenNthCalledWith(3, { room_id: 1})  
+  });
+
+  it ("calls the onSubmit function correctly", async () => {
+
+    const submitButton = screen.getByRole("button", { name: /Create2/i });
+    fireEvent.click(submitButton);
+
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+  }); 
+
+  it ("disables all fields when disabled is true", async () => {
+    disabled = true;
+    form.rerender(
+      <TanQueryProvider>
+        <ItemCreateForm
+          item={item}
+          onItemChange={onItemChange}
+          onSubmit={onSubmit}
+          disabled={disabled}
+          rooms={mockRooms}
+        />
+      </TanQueryProvider>
+    )
+
+    const nameInput = screen.getByRole("textbox", { name: /Item Name/i });
+    expect(nameInput).toBeDisabled();
+
+    const descriptionInput = screen.getByRole("textbox", { name: /Item Description/i });
+    expect(descriptionInput).toBeDisabled();
+
+    const trigger = screen.getByRole('combobox', );
+    expect(trigger).toBeDisabled(); 
   });
 
 });
