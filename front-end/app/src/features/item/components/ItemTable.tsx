@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Item } from "../types"
 import { DataTable } from "@/components/DataTable"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useMemo } from "react"
 import { ItemCreateForm } from "./createForm"
 import { useItemCreate } from "./useItemCreate"
@@ -63,7 +63,7 @@ const useItemColumns = () => {
 }
 
 export const ItemTable = ({ items }: ItemTableProps) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const itemCreate = useItemCreate();
 
     return (
@@ -71,9 +71,9 @@ export const ItemTable = ({ items }: ItemTableProps) => {
             title={"Items"}
             columns={useItemColumns()}
             data={items}
-            onRowClick={(row) => {
-                navigate(`${row.original.item_id}`)
-            }}
+            // onRowClick={(row) => {
+                // navigate(`${row.original.item_id}`)
+            // }}
             create={
                 <ItemCreateForm
                     item={itemCreate.item}
