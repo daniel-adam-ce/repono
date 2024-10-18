@@ -1,4 +1,5 @@
-import { Button, ButtonProps, Input, Label, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectGroup, SelectTrigger, SelectValue } from "../ui"
+import { SelectProps } from "@radix-ui/react-select"
+import { Button, ButtonProps, Input, InputProps, Label, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectGroup, SelectTrigger, SelectValue } from "../ui"
 
 interface CreateFieldProps {
     label?: string
@@ -16,32 +17,41 @@ export const CreateField = ({ label, children }: CreateFieldProps) => {
     )
 }
 
-interface CreateFieldChildProps {
-    value: any,
-    onChange: (value: any) => void,
-    label?: string
-    disabled?: boolean
+// interface CreateFieldChildProps {
+//     value: any,
+//     onChange: (value: any) => void,
+//     label?: string
+//     disabled?: boolean
+// }
+
+interface CreateInputFieldProps extends Omit<InputProps, 'onChange'> {
+    onChange: (value: any) => void
+    label: string
 }
 
-export const CreateInputField = ({ value, onChange, label, disabled }: CreateFieldChildProps) => {
+export const CreateInputField = (props: CreateInputFieldProps) => {
     return (
         <CreateField
-            label={label}
+            label={props.label}
         >
             <Input
+                {
+                    ...props
+                }
                 className="col-span-2 h-8"
-                value={value ?? ""}
+                value={props.value ?? ""}
                 onChange={(e) => {
-                    onChange(e.currentTarget.value)
+                    props.onChange(e.currentTarget.value)
                 }}
-                disabled={disabled}
+                disabled={props.disabled}
             />
         </CreateField>
     )
 }
 
-interface CreateSelectFieldProps extends Omit<CreateFieldChildProps, 'onChange'> {
-    onValueChange?: (value: string) => void
+interface CreateSelectFieldProps extends Omit<SelectProps, 'onChange'> {
+    label: string
+    // onValueChange?: (value: string) => void
     placeholder?: string
     children: React.ReactNode
     defaultValue?: string
