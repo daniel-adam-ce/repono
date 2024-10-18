@@ -1,52 +1,52 @@
 import { CreateForm, CreateFormButton, CreateInputField, CreateSelectField } from "@/components/DataTable";
-import { useRooms } from "@/features";
-import { useState } from "react";
-import { useItemCreateMutation } from "../api";
 import { SelectItem } from "@/components";
 import { Loader2 } from "lucide-react";
+import { ItemCreateHookType } from "./useItemCreate";
+import { ItemCreate } from "../types";
 
-
-interface Item {
-    item_name: string,
-    room_id: string,
-    description: string,
+export interface ItemCreateFormProps {
+    item: Partial<ItemCreate>
+    onItemChange: (item: Partial<ItemCreate>) => void
+    onSubmit: () => any
+    disabled: boolean
+    rooms: ItemCreateHookType["rooms"]
 }
 
-export const ItemCreateForm = () => {
-    const { rooms } = useRooms();
-    const [item, setItem] = useState<Partial<Item>>({});
-    const createItem = useItemCreateMutation();
+export const ItemCreateForm = ({ item, onItemChange, onSubmit, disabled, rooms }: ItemCreateFormProps) => {
 
     return (
         <CreateForm
+            aria-label="Create Item"
             title={"Item"}
             description={"Add an item."}
         >
             <CreateInputField
+                aria-label="Item Name"
                 value={item.item_name}
                 onChange={(value) => {
-                    setItem({ ...item, item_name: value })
+                    onItemChange({ ...item, item_name: value })
                 }}
                 label="Name"
-                disabled={createItem.isPending }
+                disabled={disabled }
             />
             <CreateInputField
+                aria-label="Item Description"
                 value={item.description}
                 onChange={(value) => {
-                    setItem({ ...item, description: value })
+                    onItemChange({ ...item, description: value })
                 }
                 }
                 label="Description"
-                disabled={createItem.isPending }
+                disabled={disabled}
             />
             <CreateSelectField
                 value={item.room_id}
                 onValueChange={(value) => {
-                    setItem({ ...item, room_id: value })
+                    onItemChange({ ...item, room_id: value })
                 }}
                 label={"Room"}
                 placeholder={"Room"}
-                disabled={createItem.isPending }
+                disabled={disabled }
             >
                 {
                     rooms.map((room) => {
@@ -64,12 +64,10 @@ export const ItemCreateForm = () => {
                 }
             </CreateSelectField>
             <CreateFormButton
-                onClick={() => {
-                    createItem.mutate(item);
-                }}
-                disabled={createItem.isPending}
+                onClick={onSubmit}
+                disabled={disabled}
             >
-                {createItem.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {disabled && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Create
             </CreateFormButton>
         </CreateForm>
