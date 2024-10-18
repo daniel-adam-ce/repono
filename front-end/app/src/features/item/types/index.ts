@@ -1,4 +1,10 @@
 
+export type ItemCreate = {
+    item_name: string,
+    room_id: string,
+    description: string,
+}
+
 export type Item = {
     item_id: number,
     item_name: string,
