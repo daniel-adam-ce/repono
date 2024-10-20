@@ -1,7 +1,7 @@
 
 import { fireEvent, render, RenderResult, screen, within} from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
-import { ItemCreateForm } from "./createForm";
+import { ItemCreateForm } from "../createForm";
 import { ItemCreate, } from "@/features/item";
 import { TanQueryProvider } from "@/providers/query";
 

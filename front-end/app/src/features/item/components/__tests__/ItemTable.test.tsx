@@ -1,8 +1,8 @@
 
 import { render, RenderResult, fireEvent } from "@testing-library/react";
-import { Item, ItemCreate } from "../types";
-import { ItemTable } from "./ItemTable";
+import { ItemTable } from "../ItemTable";
 import { RouterWrapper } from "@/lib";
+import { Item, ItemCreate } from "../../types";
 
 describe("ItemTable", () => {
     let items: Array<Item> = [];

@@ -1,7 +1,7 @@
 import { CreateForm, CreateFormButton, CreateInputField, CreateSelectField } from "@/components/DataTable";
 import { SelectItem } from "@/components";
 import { Loader2 } from "lucide-react";
-import { ItemCreateHookType } from "./useItemCreate";
+import { ItemCreateHookType } from "./hooks";
 import { ItemCreate } from "../types";
 
 export interface ItemCreateFormProps {

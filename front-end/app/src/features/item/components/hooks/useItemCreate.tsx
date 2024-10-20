@@ -1,7 +1,7 @@
 import { useRooms } from "@/features/room";
 import { useState } from "react";
-import { useItemCreateMutation } from "../api";
-import { ItemCreate } from "../types";
+import { useItemCreateMutation } from "../../api";
+import { ItemCreate } from "../../types";
 
 export interface ItemCreateHookType {
     item: Partial<ItemCreate>
