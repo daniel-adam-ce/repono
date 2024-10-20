@@ -5,7 +5,6 @@ import { ItemTable } from "./ItemTable";
 import { RouterWrapper } from "@/lib";
 
 describe("ItemTable", () => {
-    let table: RenderResult;
     let items: Array<Item> = [];
 
     beforeEach(() => {
@@ -37,39 +36,46 @@ describe("ItemTable", () => {
         ]
     })
 
-    it("renders the table correctly without a houseId", () => {
+    describe("without a houseId", () => {
+        let table: RenderResult;
+
+        it("renders the table correctly", () => {
 
 
-        table = render(
-            <RouterWrapper path={"/"} initialEntries={["/"]}>
-                <ItemTable items={items}/>
-            </RouterWrapper>
-        );
-        // columns
-        expect(table.getByText("Items")).toBeInTheDocument();
-        expect(table.getByText("Item")).toBeInTheDocument();
-        expect(table.getByText("Description")).toBeInTheDocument();
-        expect(table.getByText("Room")).toBeInTheDocument();
-        expect(table.getByText("Created By")).toBeInTheDocument();
-        expect(table.getByText("House")).toBeInTheDocument();
-        // expect(table.getByText(/house-1/i)).toBeInTheDocument();
-    });
+            table = render(
+                <RouterWrapper path={"/"} initialEntries={["/"]}>
+                    <ItemTable items={items}/>
+                </RouterWrapper>
+            );
+            // columns
+            expect(table.getByText("Items")).toBeInTheDocument();
+            expect(table.getByText("Item")).toBeInTheDocument();
+            expect(table.getByText("Description")).toBeInTheDocument();
+            expect(table.getByText("Room")).toBeInTheDocument();
+            expect(table.getByText("Created By")).toBeInTheDocument();
+            expect(table.getByText("House")).toBeInTheDocument();
+            // expect(table.getByText(/house-1/i)).toBeInTheDocument();
+        });
+    })
 
-    it("renders the table correctly with a houseId", () => {
+    describe("with a houseId", () => {
+        let table: RenderResult;
+        it("renders the table correctly", () => {
 
-        // columns
-
-        table = render(
-            <RouterWrapper path={"/house/:houseId/items"} initialEntries={["/house/1/items"]}>
-                <ItemTable items={items}/>
-            </RouterWrapper>
-        );
-        expect(table.getByText("Items")).toBeInTheDocument();
-        expect(table.getByText("Item")).toBeInTheDocument();
-        expect(table.getByText("Description")).toBeInTheDocument();
-        expect(table.getByText("Room")).toBeInTheDocument();
-        expect(table.getByText("Created By")).toBeInTheDocument();
-        expect(table.queryByText("House")).not.toBeInTheDocument();
-        // expect(table.getByText(/house-1/i)).toBeInTheDocument();
-    });
+            // columns
+    
+            table = render(
+                <RouterWrapper path={"/house/:houseId/items"} initialEntries={["/house/1/items"]}>
+                    <ItemTable items={items}/>
+                </RouterWrapper>
+            );
+            expect(table.getByText("Items")).toBeInTheDocument();
+            expect(table.getByText("Item")).toBeInTheDocument();
+            expect(table.getByText("Description")).toBeInTheDocument();
+            expect(table.getByText("Room")).toBeInTheDocument();
+            expect(table.getByText("Created By")).toBeInTheDocument();
+            expect(table.queryByText("House")).not.toBeInTheDocument();
+            // expect(table.getByText(/house-1/i)).toBeInTheDocument();
+        });
+    })
 })
