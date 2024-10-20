@@ -28,7 +28,7 @@ class RoomServiceClass {
 
     async createRoom(room: NewRoom): Promise<Room> {
         let newRoom: Room;
-        if (!room.room_name) throw new ApiError("Room name is required.", { httpStatusCode: StatusCodes.BAD_REQUEST });
+        if (!room.room_name) throw new ApiError("Room name is required.", { httpStatusCode: StatusCodes.UNPROCESSABLE_ENTITY });
         try {
             newRoom = await RoomRepository.createOne(room);
         } catch (error) {
