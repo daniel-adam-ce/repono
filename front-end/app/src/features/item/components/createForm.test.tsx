@@ -99,7 +99,7 @@ describe("ItemCreateForm", () => {
 
   it ("calls the onSubmit function correctly", async () => {
 
-    const submitButton = screen.getByRole("button", { name: /Create2/i });
+    const submitButton = screen.getByRole("button", { name: /Create/i });
     fireEvent.click(submitButton);
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
@@ -128,7 +128,7 @@ describe("ItemCreateForm", () => {
     const trigger = screen.getByRole('combobox', );
     expect(trigger).toBeDisabled(); 
 
-    const submitButton = screen.getByRole("button", { name: /Create2/i });
+    const submitButton = screen.getByRole("button", { name: /Create/i });
     expect(submitButton).toBeDisabled();
   });
 
