@@ -65,6 +65,7 @@ describe("ItemCreateForm", () => {
   it("renders the form correctly", () => {
     expect(screen.getByText(/Name/i)).toBeInTheDocument();
     expect(screen.getByText(/Description/i)).toBeInTheDocument();
+    // expect(screen.getByText(/Room/i)).toBeInTheDocument();
   });
 
   it("calls the onItemChange function correctly for all field", async () => {
@@ -74,21 +75,21 @@ describe("ItemCreateForm", () => {
     fireEvent.change(nameInput, { target: { value: "new item name" } });
     fireEvent.change(descriptionInput, { target: { value: "new item description" } });
 
-    const trigger = screen.getByRole('combobox', );
-    expect(trigger).toBeInTheDocument();
-    expect(within(trigger).getByText('Room')).toBeInTheDocument();
+    const roomSelect = screen.getByRole('combobox', );
+    expect(roomSelect).toBeInTheDocument();
+    expect(within(roomSelect).getByText('Room')).toBeInTheDocument();
     const user = userEvent.setup();
   
-    await user.click(trigger);
+    await user.click(roomSelect);
   
-    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(roomSelect).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByRole('option', { name: '1-room-1' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: '2-room-2' })).toBeInTheDocument();
   
     await user.click(screen.getByRole('option', { name: '1-room-1' }));
   
-    expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    expect(within(trigger).getByText('1-room-1')).toBeInTheDocument();
+    expect(roomSelect).toHaveAttribute('aria-expanded', 'false');
+    expect(within(roomSelect).getByText('1-room-1')).toBeInTheDocument();
 
 
     expect(onItemChange).toHaveBeenCalledTimes(3);
@@ -125,8 +126,8 @@ describe("ItemCreateForm", () => {
     const descriptionInput = screen.getByRole("textbox", { name: /Item Description/i });
     expect(descriptionInput).toBeDisabled();
 
-    const trigger = screen.getByRole('combobox', );
-    expect(trigger).toBeDisabled(); 
+    const roomSelect = screen.getByRole('combobox', );
+    expect(roomSelect).toBeDisabled(); 
 
     const submitButton = screen.getByRole("button", { name: /Create/i });
     expect(submitButton).toBeDisabled();

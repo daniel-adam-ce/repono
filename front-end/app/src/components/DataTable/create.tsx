@@ -57,7 +57,7 @@ interface CreateSelectFieldProps extends Omit<SelectProps, 'onChange'> {
     defaultValue?: string
 }
 
-export const CreateSelectField = ({ value, onValueChange, label, placeholder, children, defaultValue, disabled }: CreateSelectFieldProps) => {
+export const CreateSelectField = ({ value, onValueChange, label, placeholder, children, defaultValue, disabled, ...props }: CreateSelectFieldProps) => {
     return (
         <CreateField
             label={label}
@@ -65,10 +65,15 @@ export const CreateSelectField = ({ value, onValueChange, label, placeholder, ch
             <Select
                 value={value}
                 onValueChange={onValueChange}
+                {
+                    ...props
+                }
+                aria-label="test"
             >
                 <SelectTrigger
                     className="col-span-2 h-8"
                     disabled={disabled}
+                    aria-label="test2"
                 >
                     <SelectValue
                         placeholder={placeholder}
@@ -77,6 +82,7 @@ export const CreateSelectField = ({ value, onValueChange, label, placeholder, ch
                 </SelectTrigger>
                 <SelectContent
 
+                    aria-label="test3"
                 >
                     <SelectGroup
                     >

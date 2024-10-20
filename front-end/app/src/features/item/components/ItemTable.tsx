@@ -3,10 +3,10 @@ import { Item } from "../types"
 import { DataTable } from "@/components/DataTable"
 import { useParams } from "react-router-dom"
 import { useMemo } from "react"
-import { ItemCreateForm } from "./createForm"
+import { ItemCreateForm, ItemCreateFormProps } from "./createForm"
 import { useItemCreate } from "./useItemCreate"
 
-interface ItemTableProps {
+interface ItemTableProps extends ItemCreateFormProps {
     items: Array<Item>
 }
 
@@ -62,9 +62,7 @@ const useItemColumns = () => {
     return columns;
 }
 
-export const ItemTable = ({ items }: ItemTableProps) => {
-    // const navigate = useNavigate();
-    const itemCreate = useItemCreate();
+export const ItemTable = ({ items, ...props }: ItemTableProps) => {
 
     return (
         <DataTable
@@ -72,15 +70,13 @@ export const ItemTable = ({ items }: ItemTableProps) => {
             columns={useItemColumns()}
             data={items}
             // onRowClick={(row) => {
-                // navigate(`${row.original.item_id}`)
+            // navigate(`${row.original.item_id}`)
             // }}
             create={
                 <ItemCreateForm
-                    item={itemCreate.item}
-                    onItemChange={(item) => { itemCreate.setItem(item) }}
-                    onSubmit={() => {itemCreate.createItem.mutate(itemCreate.item)}}
-                    disabled={itemCreate.createItem.isPending}
-                    rooms={itemCreate.rooms}
+                    {
+                    ...props
+                    }
                 />
             }
         />

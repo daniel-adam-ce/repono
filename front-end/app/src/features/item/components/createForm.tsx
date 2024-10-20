@@ -40,6 +40,7 @@ export const ItemCreateForm = ({ item, onItemChange, onSubmit, disabled, rooms }
                 disabled={disabled}
             />
             <CreateSelectField
+                aria-label="Item Room"
                 value={item.room_id}
                 onValueChange={(value) => {
                     onItemChange({ ...item, room_id: value })
