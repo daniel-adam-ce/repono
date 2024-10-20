@@ -4,7 +4,6 @@ import { DataTable } from "@/components/DataTable"
 import { useParams } from "react-router-dom"
 import { useMemo } from "react"
 import { ItemCreateForm, ItemCreateFormProps } from "./createForm"
-import { useItemCreate } from "./useItemCreate"
 
 interface ItemTableProps extends ItemCreateFormProps {
     items: Array<Item>
