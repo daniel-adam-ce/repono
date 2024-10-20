@@ -55,6 +55,7 @@ const mockItemsHouseOne: any[] = [
 ]
 
 const findAllSpy = jest.spyOn(Models.ItemRepository, 'findAll');
+const findAllByUserIdSpy = jest.spyOn(Models.ItemRepository, 'findAllByUserId');
 const findAllByHouseIdSpy = jest.spyOn(Models.ItemRepository, 'findAllByHouseId');
 const finddByIdSpy = jest.spyOn(Models.ItemRepository, 'findById');
 const createOneSpy = jest.spyOn(Models.ItemRepository, "createOne");
@@ -62,14 +63,14 @@ const createOneSpy = jest.spyOn(Models.ItemRepository, "createOne");
 describe("get all items", () => {
     it("should return all items", async () => {
         // const spy = jest.spyOn(Models.ItemRepository, 'findAll');
-        findAllSpy.mockResolvedValue(mockItems);
+        findAllByUserIdSpy.mockResolvedValue(mockItems);
         await expect(ItemService.getAllItems(1)).resolves.toEqual<Array<Item>>(mockItems);
     });
 
     
     it("should return a 500 given a db error", async () => {
         // const spy = jest.spyOn(Models.ItemRepository, 'findAll');
-        findAllSpy.mockRejectedValue(new Error("Something went wrong"));
+        findAllByUserIdSpy.mockRejectedValue(new Error("Something went wrong"));
         await expect(ItemService.getAllItems(1)).rejects.toMatchObject({code: StatusCodes.INTERNAL_SERVER_ERROR});
     });
 })
