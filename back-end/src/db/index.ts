@@ -19,9 +19,10 @@ const dialect = new PostgresDialect({
         user: user,
         password: password,
         port: port,
-        ssl: {
-            rejectUnauthorized: false
-        },
+        // needed for aws rds
+        // ssl: {
+        //     rejectUnauthorized: false
+        // },
         max: 10,
     })
 })
