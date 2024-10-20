@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { NewRoom, Room, db } from "../../../db";
+import { NewRoom, Room } from "../../../db";
 import * as Models from "../../../models";
 import { RoomService } from "../../../services";
 
@@ -20,6 +20,14 @@ const mockRooms: any[] = [
         room_name: "test2"
     }
 ]
+
+jest.mock("../../../models", () => ({
+    RoomRepository: {
+        findAllByHouseId: jest.fn(),
+        findById: jest.fn(),
+        createOne: jest.fn(),
+    },
+}));
 
 const findAllByHouseIdSpy = jest.spyOn(Models.RoomRepository, 'findAllByHouseId');
 const findByIdSpy = jest.spyOn(Models.RoomRepository, 'findById');
@@ -97,8 +105,4 @@ describe("createRoom", () => {
         createOneSpy.mockRejectedValue(new Error("Something went wrong"));
         await expect(RoomService.createRoom(room)).rejects.toMatchObject({code: StatusCodes.INTERNAL_SERVER_ERROR});
     })
-})
-
-afterAll(() => {
-    db.destroy();
 })
