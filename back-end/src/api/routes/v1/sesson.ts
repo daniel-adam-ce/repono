@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { checkSession, establishSession, googleOAuth } from "../../controllers";
-import { validateToken } from "../../middleware";
+import { checkSession, establishSession, googleOAuth } from "@/api/controllers";
+import { validateToken } from "@/api/middleware";
 
 const route = Router();
 

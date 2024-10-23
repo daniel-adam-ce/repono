@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
-import { NewHouse, House, db } from "../../../db";
-import * as Models from "../../../models";
-import { HouseService } from "../../../services";
+import { NewHouse, House, db } from "@/db";
+import * as Models from "@/models";
+import { HouseService } from "@/services";
 
 
 const mockHouses: any[] = [

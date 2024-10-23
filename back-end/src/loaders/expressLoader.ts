@@ -1,5 +1,5 @@
 import express from "express"
-import { errorHandler, validateToken, routes, logging } from "../api";
+import { errorHandler, routes, logging } from "@/api";
 import cookieParser from "cookie-parser"
 import bodyParser from "body-parser";
 import cors from "cors";

@@ -1,6 +1,6 @@
+import { db } from "@/db";
+import { createApp } from "@/utils";
 import request from "supertest";
-import { db } from "db";
-import { createApp } from "utils";
 
 const api = request(createApp())
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { validateToken } from "../../middleware";
-import { createHouse, deleteHouse, getHouse, getHouses, updateHouse } from "../../controllers";
+import { validateToken } from "@/api/middleware";
+import { createHouse, deleteHouse, getHouse, getHouses, updateHouse } from "@/api/controllers";
 import { roomRouter } from "./room";
 import { itemRouter } from "./item";
 import { houseUserRouter } from "./house-user";

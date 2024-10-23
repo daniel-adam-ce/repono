@@ -1,4 +1,4 @@
-import { TableType, Tables } from "../db";
+import { TableType, Tables } from "@/db";
 
 export * from "./User";
 export * from "./Session";

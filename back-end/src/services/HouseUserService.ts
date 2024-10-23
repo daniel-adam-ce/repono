@@ -1,8 +1,8 @@
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
-import { House, HouseUser, NewHouseUser } from "../db";
-import { AppUserRepository, HouseRepository } from "../models";
-import { HouseUserRepository } from "../models/HouseUser";
+import { House, HouseUser, NewHouseUser } from "@/db";
+import { AppUserRepository, HouseRepository } from "@/models";
+import { HouseUserRepository } from "@/models/HouseUser";
 
 
 class HouserUserServiceClass {

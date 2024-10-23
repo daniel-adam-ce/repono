@@ -1,5 +1,5 @@
 import { Model } from ".";
-import { AppUser, AppUserUpdate, NewAppUser, TableType, Tables, db } from "../db";
+import { AppUser, AppUserUpdate, NewAppUser, TableType, Tables, db } from "@/db";
 
 const tableForClass: TableType = "app_user";
 

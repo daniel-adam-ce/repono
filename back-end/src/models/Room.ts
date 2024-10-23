@@ -1,5 +1,5 @@
 import { Model } from ".";
-import { Room, RoomUpdate, NewRoom, Tables, db, TableType } from "../db";
+import { Room, RoomUpdate, NewRoom, Tables, db, TableType } from "@/db";
 
 const roomTable: TableType = "room";
 

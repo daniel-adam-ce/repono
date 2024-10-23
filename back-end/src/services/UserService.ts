@@ -1,7 +1,7 @@
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
-import { AppUser } from "../db";
-import { AppUserRepository } from "../models";
+import { AppUser } from "@/db";
+import { AppUserRepository } from "@/models";
 
 
 class UsersServiceClass {

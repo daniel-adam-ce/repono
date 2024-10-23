@@ -1,8 +1,8 @@
 import request from "supertest";
-import { createApp } from "../../utils";
-import { db } from "../../db";
-import * as Models from "../../models";
-import * as Services from "../../services";
+import { createApp } from "@/utils";
+import { db } from "@/db";
+import * as Models from "@/models";
+import * as Services from "@/services";
 
 const validateGoogleToken = jest.spyOn(Models.SessionRepository, "validateGoogleToken");
 const validateSession = jest.spyOn(Services.SessionService, "validateSession");

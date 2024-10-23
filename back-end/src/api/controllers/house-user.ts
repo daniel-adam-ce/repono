@@ -1,6 +1,6 @@
+import { HouseUserService } from "@/services";
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { HouseUserService } from "../../services";
 
 const getHouseUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {

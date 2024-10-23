@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { validateToken } from "../../middleware";
-import { createItem, deleteItem, getItem, getItems, updateItem } from "../../controllers";
+import { validateToken } from "@/api/middleware";
+import { createItem, deleteItem, getItem, getItems, updateItem } from "@/api/controllers";
 
 export const itemRouter = Router({mergeParams: true});
 

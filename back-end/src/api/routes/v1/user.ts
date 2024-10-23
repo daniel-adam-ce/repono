@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { getUser, getUsers } from "../../controllers";
-import { validateToken } from "../../middleware";
+import { getUser, getUsers } from "@/api/controllers";
+import { validateToken } from "@/api/middleware";
 
 const route = Router();
 

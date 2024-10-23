@@ -1,8 +1,8 @@
 import { ApiError } from "../error";
 import {Credentials} from "google-auth-library";
-import { SessionRepository, AppUserRepository } from "../models";
+import { SessionRepository, AppUserRepository } from "@/models";
 import { StatusCodes } from "http-status-codes";
-import { AppUser } from "../db";
+import { AppUser } from "@/db";
 
 class SessionServiceClass {
 

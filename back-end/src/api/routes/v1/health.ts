@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUsers, healthCheck } from "../../controllers";
+import { getUsers, healthCheck } from "@/api/controllers";
 
 const route = Router();
 

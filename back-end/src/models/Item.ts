@@ -1,5 +1,5 @@
 import { Model } from ".";
-import { Item, ItemUpdate, NewItem, TableType, Tables, db } from "../db";
+import { Item, ItemUpdate, NewItem, TableType, Tables, db } from "@/db";
 
 // this is some jank but kysely needs the table to explicity be "item", and enums break on .where sometimes
 const tableForModel: TableType = "item";

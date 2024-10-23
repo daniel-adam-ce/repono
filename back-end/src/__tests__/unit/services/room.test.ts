@@ -1,7 +1,7 @@
+import { NewRoom, Room } from "@/db";
 import { StatusCodes } from "http-status-codes";
-import { NewRoom, Room } from "../../../db";
-import * as Models from "../../../models";
-import { RoomService } from "../../../services";
+import * as Models from "@/models";
+import { RoomService } from "@/services";
 
 
 const mockRooms: any[] = [
@@ -21,7 +21,7 @@ const mockRooms: any[] = [
     }
 ]
 
-jest.mock("../../../models", () => ({
+jest.mock("@/models", () => ({
     RoomRepository: {
         findAllByHouseId: jest.fn(),
         findById: jest.fn(),

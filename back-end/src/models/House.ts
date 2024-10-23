@@ -1,5 +1,5 @@
 import { Model } from ".";
-import { House, HouseUpdate, NewHouse, TableType, Tables, db } from "../db";
+import { House, HouseUpdate, NewHouse, TableType, Tables, db } from "@/db";
 
 const tableForClass: TableType = "house";
 

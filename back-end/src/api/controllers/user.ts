@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { AppUserService } from "../../services";
+import { AppUserService } from "@/services";
 
 const getUsers = async (_req: Request, res: Response, next: NextFunction) => {
     try {

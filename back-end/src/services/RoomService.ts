@@ -1,7 +1,7 @@
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
-import { Room, RoomUpdate, NewRoom } from "../db";
-import { RoomRepository } from "../models";
+import { Room, RoomUpdate, NewRoom } from "@/db";
+import { RoomRepository } from "@/models";
 
 
 class RoomServiceClass {

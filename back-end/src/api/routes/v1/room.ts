@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { validateToken } from "../../middleware";
-import { createRoom, deleteRoom, getRoom, getRooms, updateRoom } from "../../controllers";
+import { validateToken } from "@/api/middleware";
+import { createRoom, deleteRoom, getRoom, getRooms, updateRoom } from "@/api/controllers";
 import { itemRouter } from "./item";
 
 export const roomRouter = Router({mergeParams: true});

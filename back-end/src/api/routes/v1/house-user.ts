@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { validateToken } from "../../middleware";
-import { createHouseUser, getHouseUsers } from "../../controllers";
+import { validateToken } from "@/api/middleware";
+import { createHouseUser, getHouseUsers } from "@/api/controllers";
 
 export const houseUserRouter = Router({mergeParams: true});
 

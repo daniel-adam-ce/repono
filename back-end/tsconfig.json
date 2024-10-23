@@ -21,7 +21,10 @@
       "resolveJsonModule": true,
       "declarationMap": true,
       "strictFunctionTypes": true,
-      "baseUrl": "./src",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      },
     //   "rootDir": "./src",
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
@@ -57,10 +60,11 @@
       "outDir": "./dist",
   },
   "ts-node": {
-      "swc": true,
-      "transpileOnly": true,
-      "preferTsExts": true,
-      "files": true
+      // "swc": true,
+      // "transpileOnly": true,
+      // "preferTsExts": true,
+      // "files": true,
+      "require": ["tsconfig-paths/register"]
   },
   "exclude": [
       "**/*.js",

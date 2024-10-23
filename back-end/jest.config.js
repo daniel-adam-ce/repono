@@ -7,5 +7,8 @@ module.exports = {
     "js"
   ],
   modulePathIgnorePatterns: ["<rootDir>/dist/"],
-  moduleDirectories: ["node_modules", "src"],
+  moduleDirectories: ["node_modules", "<rootDir>/src"],
+  moduleNameMapper: {
+    "@/(.*)": "<rootDir>/src/$1",
+}
 };

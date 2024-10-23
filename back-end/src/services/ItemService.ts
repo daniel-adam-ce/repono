@@ -1,7 +1,7 @@
 import { ApiError } from "../error";
 import { StatusCodes } from "http-status-codes";
-import { Item, ItemUpdate, NewItem } from "../db";
-import { ItemRepository } from "../models";
+import { Item, ItemUpdate, NewItem } from "@/db";
+import { ItemRepository } from "@/models";
 
 
 class ItemServiceClass {

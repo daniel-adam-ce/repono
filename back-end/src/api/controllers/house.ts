@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { AppUser } from "../../db";
-import { HouseService } from "../../services";
+import { AppUser } from "@/db";
+import { HouseService } from "@/services";
 
 const getHouses = async (_req: Request, res: Response, next: NextFunction) => {
     try {

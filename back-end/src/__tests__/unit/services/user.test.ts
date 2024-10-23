@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
-import { AppUser, db } from "../../../db";
-import * as Models from "../../../models";
-import { AppUserService } from "../../../services";
+import { AppUser, db } from "@/db";
+import * as Models from "@/models";
+import { AppUserService } from "@/services";
 
 const mockUsers: AppUser[] = [
     {user_id: 1, email: "test@gmail.com", created_at: null},
