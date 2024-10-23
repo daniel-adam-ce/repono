@@ -6,5 +6,6 @@ module.exports = {
     "ts",
     "js"
   ],
-  modulePathIgnorePatterns: ["<rootDir>/dist/"]
+  modulePathIgnorePatterns: ["<rootDir>/dist/"],
+  moduleDirectories: ["node_modules", "src"],
 };

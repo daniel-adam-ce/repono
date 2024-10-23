@@ -21,7 +21,7 @@
       "resolveJsonModule": true,
       "declarationMap": true,
       "strictFunctionTypes": true,
-    //   "baseUrl": "./src",
+      "baseUrl": "./src",
     //   "rootDir": "./src",
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,

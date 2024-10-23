@@ -1,6 +1,6 @@
 import request from "supertest";
-import { createApp } from "../../utils";
-import { db } from "../../db";
+import { db } from "db";
+import { createApp } from "utils";
 
 const api = request(createApp())
 
