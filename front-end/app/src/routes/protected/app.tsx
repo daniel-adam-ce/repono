@@ -3,13 +3,12 @@ import React, { Fragment, ReactElement, Suspense, cloneElement, useContext, } fr
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import Styles from "./index.module.scss";
 import { classCombine } from "@/@utils";
-import { Avatar, AvatarFallback, AvatarImage, Button, Popover, PopoverContent, PopoverTrigger, ReponoLogoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, VisuallyHidden } from "@/components";
+import { Avatar, AvatarFallback, AvatarImage, Button, Popover, PopoverContent, PopoverTrigger, ReponoTitle, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, VisuallyHidden } from "@/components";
 import { LuBox, LuDoorOpen } from "react-icons/lu";
 import { RiDashboard3Line } from "react-icons/ri";
 import { HouseContext } from "@/providers/house";
 import { TbHome2, TbHomeStar, TbUsers } from "react-icons/tb";
 import { GiHamburgerMenu } from "react-icons/gi";
-import * as VisuallyHiddenGlobal from '@radix-ui/react-visually-hidden';
 
 interface NavButtonProps {
     icon: React.ReactNode;
@@ -308,7 +307,7 @@ const Header = () => {
             <div className="hidden sm:flex">
                 <HouseSelect />
             </div>
-            <ReponoLogoTitle />
+            <ReponoTitle logo />
             <Popover>
                 <PopoverTrigger asChild>
                     <Avatar

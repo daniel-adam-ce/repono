@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, CardHeader, CardTitle, ReponoLogoTitle } from "@/components";
+import { Button, Card, CardContent, CardHeader, CardTitle, ReponoTitle } from "@/components";
 
 export const Login = () => {
 
@@ -17,7 +17,7 @@ export const Login = () => {
         >
             <Card className="mx-auto max-w-sm">
                 <CardHeader>
-                    <CardTitle className="text-2xl"><ReponoLogoTitle style={{marginLeft: "0"}}/></CardTitle>
+                    <CardTitle className="text-2xl"><ReponoTitle logo style={{marginLeft: "0"}}/></CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid gap-4">

@@ -13,7 +13,7 @@ export const ReponoLogo = () => {
     )
 }
 
-export const ReponoTitle = () => {
+export const ReponoTitleBase = () => {
     return (
         <div
             className={Styles.title}
@@ -25,7 +25,7 @@ export const ReponoTitle = () => {
 }
 
 // todo: refactor into just "ReponoTitle", make logo a prop
-export const ReponoLogoTitle = ({style}: {style?: React.CSSProperties}) => {
+export const ReponoTitle = ({style, logo}: {style?: React.CSSProperties, logo?: boolean}) => {
     const navigate = useNavigate();
     return (
         <div
@@ -38,12 +38,12 @@ export const ReponoLogoTitle = ({style}: {style?: React.CSSProperties}) => {
                 ...(style ?? {})
             }}
         >
-            <ReponoLogo/>
-            <ReponoTitle/>
+            {logo && <ReponoLogo/>}
+            <ReponoTitleBase/>
         </div>
     )
 }
 
 
-export default { ReponoLogo, ReponoTitle, ReponoLogoTitle, Styles, Types }
+export default { ReponoLogo, ReponoTitle, ReponoTitleBase, Styles, Types }
 
