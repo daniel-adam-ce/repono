@@ -10,7 +10,7 @@
         "compile": "tsc --watch",
         "clean": "tsc --build --clean",
         "start-deprecated": "nodemon.cmd ./dist/src/index.js",
-        "start": "tsc-watch --onSuccess \"node ./dist/src/index.js\"",
+        "start": "nodemon -e ts,js --exec ts-node -r tsconfig-paths/register ./src/index.ts",
         "migrate-dev-up": "db-migrate up --config ./src/db/config/database.json -e dev -m ./src/db/migrations/",
         "migrate-dev-down": "db-migrate down --config ./src/db/config/database.json -e dev -m ./src/db/migrations/",
         "migrate-test-up": "db-migrate up --config ./src/db/config/database.json -e test -m ./src/db/migrations/",
