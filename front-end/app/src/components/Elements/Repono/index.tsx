@@ -24,7 +24,8 @@ export const ReponoTitle = () => {
     )
 }
 
-export const ReponoLogoTitle = () => {
+// todo: refactor into just "ReponoTitle", make logo a prop
+export const ReponoLogoTitle = ({style}: {style?: React.CSSProperties}) => {
     const navigate = useNavigate();
     return (
         <div
@@ -34,6 +35,7 @@ export const ReponoLogoTitle = () => {
             }}
             style={{
                 cursor: "pointer",
+                ...(style ?? {})
             }}
         >
             <ReponoLogo/>
