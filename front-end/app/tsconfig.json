@@ -30,7 +30,8 @@
     "types": ["@testing-library/jest-dom", "vitest/globals"]
   },
   "include": [
-    "src"
+    "src",
+    "cypress"
   ],
   "references": [
     {
