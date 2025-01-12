@@ -55,21 +55,6 @@ const NavButton = ({ icon, tooltip, to }: NavButtonProps) => {
             <Tooltip>
                 <TooltipTrigger
                 >
-                    {/* <li
-                        className={classCombine(Styles["nav-button-container"])}
-                    >
-                        <NavLink
-                            to={to}
-                            className={({ isActive }) => {
-                                return classCombine(Styles["nav-button"], isActive ? Styles["active"] : "")
-                            }}
-
-                        >
-                            {
-                                cloneElement(icon as ReactElement, { size: 20 })
-                            }
-                        </NavLink>
-                    </li> */}
                     <NavLinkItem
                         to={to}
                         icon={icon}

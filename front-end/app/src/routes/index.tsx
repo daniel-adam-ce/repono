@@ -8,8 +8,7 @@ export const AppRoutes = () => {
     const auth = useContext<AuthContextType>(AuthContext);
     const protectedRoutes = useProtectedRoutes();
     const publicRoutes = usePublicRoutes();
-    // const element = useRoutes([...routes,]);
-
+    
     return (
         <Routes>
             {
