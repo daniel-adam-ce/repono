@@ -35,7 +35,7 @@ func (h *HouseServer) Start(address string) error {
 func (h *HouseServer) Register() {
 	router := gin.Default()
 	router.GET("/", h.health)
-	g := router.Group("/house")
+	g := router.Group("/house2")
 	g.GET("/", h.getAll)
 
 	h.router = router

@@ -37,3 +37,6 @@ yarn-error.log*
 **/coverage
 
 depr/
+
+**/bin
+**/tmp

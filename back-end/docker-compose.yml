@@ -1,0 +1,13 @@
+name: repono-api
+services:
+  house:
+    build:
+      context: .
+      # Correct the path to your Dockerfile
+      dockerfile: ./build/house/Dockerfile
+    # command: go run ./cmd/house/main.go
+    ports:
+      - 3000:3000
+    # Important to bind/mount your codebase dir to /app dir for live reload
+    volumes:
+      - ./:/app
