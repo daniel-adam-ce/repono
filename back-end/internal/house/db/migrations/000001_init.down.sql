@@ -1,0 +1,4 @@
+
+DROP TABLE IF EXISTS "house_users";
+DROP TABLE IF EXISTS "houses_users_map" CASCADE;
+DROP TABLE IF EXISTS "houses" CASCADE;
