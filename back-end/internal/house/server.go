@@ -3,6 +3,7 @@ package house
 import (
 	"net/http"
 
+	db "github.com/daniel-adam-ce/repono/back-end/internal/house/db/sqlc"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,11 +18,14 @@ type HouseGetAllResponse interface {
 // }
 
 type HouseServer struct {
+	store  db.Store
 	router *gin.Engine
 }
 
-func NewHouseServer() (*HouseServer, error) {
-	server := &HouseServer{}
+func NewHouseServer(store db.Store) (*HouseServer, error) {
+	server := &HouseServer{
+		store: store,
+	}
 
 	server.Register()
 
@@ -35,7 +39,7 @@ func (h *HouseServer) Start(address string) error {
 func (h *HouseServer) Register() {
 	router := gin.Default()
 	router.GET("/", h.health)
-	g := router.Group("/house2")
+	g := router.Group("/house")
 	g.GET("/", h.getAll)
 
 	h.router = router
